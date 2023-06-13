@@ -1,0 +1,22 @@
+<div class="CarouselFrame">
+  <p-carousel [value]="Blogs" [numVisible]="2" [numScroll]="2" [autoplayInterval]="5000">
+    <ng-template let-Blog pTemplate="item">
+      <div class="product-item" >
+        <div class="product-item-content">
+          <div class="Frame">
+            <div class="mb-3">
+              <img src="{{ Blog.image }}" [alt]="Blog.title" class="product-image" width="462" height="306"/>
+            </div>
+            <div>
+              <h4 class="mb-1" style="text-align: center;">
+                <a href="{{Blog.link}}" style="text-decoration: none">
+                  {{ Blog.title }}
+                </a>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
