@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { CustomCarouselModule } from './custom-carousel/custom-carousel.module';
 import {CustomCarouselComponent} from "./custom-carousel/custom-carousel.component";
 import {CarouselModule} from "primeng/carousel";
 import {TagModule} from "primeng/tag";
 import {ButtonModule} from "primeng/button";
+
+import { CustomCarouselModule } from './custom-carousel/custom-carousel.module';
+import { EditViewModule } from "./edit-view/edit-view.module";
 
 @NgModule({
   declarations: [
@@ -17,11 +20,13 @@ import {ButtonModule} from "primeng/button";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     CustomCarouselModule,
     CarouselModule,
     TagModule,
-    ButtonModule
+    ButtonModule,
+    EditViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]

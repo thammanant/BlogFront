@@ -1,1 +1,36 @@
-<p>edit-view works!</p>
+<p-splitter [panelSizes]="[75, 25]" [style]="{ height: 'auto', width: '1280px' }" styleClass="mb-5">
+  <ng-template pTemplate>
+    <p-splitter [style]="{ height: 'auto', width: '1280px' }" styleClass="mb-5" layout="vertical">
+      <ng-template pTemplate>
+        <div style="margin-left: 315px">
+          <h3>
+            EDIT
+          </h3>
+          <div style="line-height: 2">
+            Title
+          </div>
+          <div style="line-height: 5">
+            Date
+          </div>
+        </div>
+        <div style="margin-top: 60px">
+          <input pInputText type="text" class="p-inputtext-sm" placeholder="Title" [(ngModel)]="value" style="width: 500px; height: 30px"/>
+          <div style="margin-top: 3%">
+            <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="Month" [editable]="true" optionLabel="name" ></p-dropdown>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template pTemplate>
+        <p-editor [(ngModel)]="text" [style]="{ height: '702.4px', width: '654px'}" class="editorMiddle"></p-editor>
+      </ng-template>
+    </p-splitter>
+  </ng-template>
+  <ng-template pTemplate>
+    Panel 2
+  </ng-template>
+</p-splitter>
+<div style="margin-left: 350px; margin-top: 50px;">
+  <p-button label="Update"></p-button>
+  <p-button label="Cancel" styleClass="p-button-outlined"></p-button>
+</div>
