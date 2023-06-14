@@ -8,6 +8,7 @@ import {EditorModule} from "primeng/editor";
 import {ButtonModule} from "primeng/button";
 import {ListboxModule} from "primeng/listbox";
 import {DropdownModule} from "primeng/dropdown";
+import {CheckboxModule} from "primeng/checkbox";
 
 
 
@@ -18,16 +19,17 @@ import {DropdownModule} from "primeng/dropdown";
   exports: [
     EditViewComponent
   ],
-  imports: [
-    CommonModule,
-    SplitterModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    EditorModule,
-    FormsModule,
-    ButtonModule,
-    ListboxModule,
-    DropdownModule
-  ]
+    imports: [
+        CommonModule,
+        SplitterModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        EditorModule,
+        FormsModule,
+        ButtonModule,
+        ListboxModule,
+        DropdownModule,
+        CheckboxModule
+    ]
 })
 export class EditViewModule { }

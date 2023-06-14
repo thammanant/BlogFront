@@ -11,13 +11,24 @@ interface Month {
   styleUrls: ['./edit-view.component.scss']
 })
 export class EditViewComponent implements OnInit{
-  title = 'edit-view';
+  // title = 'edit-view';
   text: string = '';
-  value: string = '';
+  title: string = '';
+  day: string = '';
+  year: string = '';
+  hour: string = '';
+  minute: string = '';
   // @ts-ignore
   months: Month[];
   // @ts-ignore
   selectedMonth:Month;
+
+  selectedCategories: any[] = [];
+
+  categories: any[] = [
+    { name: ' Uncategorized', key: 'Un' },
+  ];
+
   ngOnInit() {
       this.months = [
       { name: '01-Jan', code: 'Jan' },
