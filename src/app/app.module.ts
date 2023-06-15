@@ -12,6 +12,7 @@ import {ButtonModule} from "primeng/button";
 
 import { CustomCarouselModule } from './custom-carousel/custom-carousel.module';
 import { EditViewModule } from "./edit-view/edit-view.module";
+import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
 
 @NgModule({
@@ -28,6 +29,7 @@ import {CreateViewModule} from "./create-view/create-view.module";
     TagModule,
     ButtonModule,
     EditViewModule,
+    CreateCategoryModule,
     CreateViewModule
   ],
   providers: [],
