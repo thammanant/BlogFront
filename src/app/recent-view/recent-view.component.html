@@ -1,0 +1,49 @@
+<p-splitter [panelSizes]="[75, 25]" [style]="{ height: 'auto', width: '1280px' }" styleClass="mb-5">
+  <ng-template pTemplate>
+    <p-splitter [style]="{ height: 'auto', width: 'auto' }" styleClass="mb-5" layout="vertical">
+      <ng-template pTemplate>
+        <div style="margin-left: 20px">
+          <h3>
+            POSTS
+          </h3>
+          <div style="line-height: 2">
+            All(0)
+          </div>
+          <div style="margin-top: 10%">
+            <p-dropdown [options]="actions" [(ngModel)]="selectedAction" placeholder= "Bulk action" optionLabel="name" ></p-dropdown>
+          </div>
+        </div>
+        <div style="margin-left: 30px">
+          <div style = "margin-top: 107px">
+            <p-button label="Apply" styleClass="p-button-outlined"  ></p-button>
+          </div>
+        </div>
+        <div style="margin-left: 30px">
+          <div style = "margin-top: 107px">
+            <p-dropdown [options]="dates" [(ngModel)]="selectedDate" placeholder= "All dates" optionLabel="name" ></p-dropdown>
+          </div>
+        </div>
+        <div style="margin-left: 30px">
+          <div style = "margin-top: 107px">
+            <p-dropdown [options] = "categories" [(ngModel)]="selectedCategory" placeholder= "All categories" optionLabel="name" ></p-dropdown>
+          </div>
+        </div>
+        <div style="margin-left: 30px">
+          <div style = "margin-top: 107px">
+            <p-button label="Filter" styleClass="p-button-outlined"  ></p-button>
+          </div>
+        </div>
+        <div style="margin-left: 100px">
+          <div style = "margin-top: 30px">
+            <input pInputText type="text" class="p-inputted-sm" placeholder="Title" [(ngModel)]="search" style="width: 180px; height: 30px"/>
+          </div>
+        </div>
+        <div style="margin-left: 30px">
+          <div style = "margin-top: 30px">
+            <p-button label="Search Posts" styleClass="p-button-outlined" [style]="{height: '30px', width: '150px'}"></p-button>
+          </div>
+        </div>
+      </ng-template>
+    </p-splitter>
+   </ng-template>
+</p-splitter>

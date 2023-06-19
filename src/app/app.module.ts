@@ -14,6 +14,7 @@ import { CustomCarouselModule } from './custom-carousel/custom-carousel.module';
 import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
+import {RecentViewModule} from "./recent-view/recent-view.module";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {CreateViewModule} from "./create-view/create-view.module";
     ButtonModule,
     EditViewModule,
     CreateCategoryModule,
-    CreateViewModule
+    CreateViewModule,
+    RecentViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]
