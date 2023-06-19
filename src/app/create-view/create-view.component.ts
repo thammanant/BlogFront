@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../services/category.service';
 
 interface Month {
   name: string;
@@ -10,25 +11,23 @@ interface Month {
   templateUrl: './create-view.component.html',
   styleUrls: ['./create-view.component.scss']
 })
-export class CreateViewComponent {
+export class CreateViewComponent implements OnInit {
   text: string = '';
   title: string = '';
   day: string = '';
   year: string = '';
   hour: string = '';
   minute: string = '';
-  // @ts-ignore
-  months: Month[];
-  // @ts-ignore
-  selectedMonth:Month;
+  months: Month[] = [];
+  selectedMonth: Month | undefined;
 
   selectedCategories: any[] = [];
 
-  categories: any[] = [
-    { name: ' Uncategorized', key: 'Un' },
-  ];
+  categories: any[] = [];
 
-  ngOnInit() {
+  constructor(private categoryService: CategoryService) {}
+
+  ngOnInit(): void {
     this.months = [
       { name: '01-Jan', code: 'Jan' },
       { name: '02-Feb', code: 'Feb' },
@@ -43,6 +42,11 @@ export class CreateViewComponent {
       { name: '11-Nov', code: 'Nov' },
       { name: '12-Dec', code: 'Dec' }
     ];
-  }
+    this.categories = this.categoryService.getCategories();
 
+    // Retrieve the categories from the CategoryService
+    this.categoryService.categories$.subscribe((categories: any[]) => {
+      this.categories = categories;
+    });
+  }
 }

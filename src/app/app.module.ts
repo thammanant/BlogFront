@@ -14,6 +14,8 @@ import { CustomCarouselModule } from './custom-carousel/custom-carousel.module';
 import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import {CreateViewModule} from "./create-view/create-view.module";
     ButtonModule,
     EditViewModule,
     CreateCategoryModule,
-    CreateViewModule
+    CreateViewModule,
+    CheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
