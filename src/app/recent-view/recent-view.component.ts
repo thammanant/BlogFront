@@ -37,8 +37,9 @@ export class RecentViewComponent {
   selectedCategory: Category;
 
   recents: any[] = [
-    { title: ' Title', author: 'Author', categories:'categories', tags: 'tag', date: 'date', key: 'recent1' },
-    { title: ' Title2', author: 'Author2', categories:'categories2', tags: 'tag2', date: 'date2', key: 'recent2' },
+    { title: ' dog with the dragon', author: 'Author1', categories:'categories1', tags: 'tag1', date: 'date', key: 'recent1' },
+    { title: ' elephant eat crocodile', author: 'Author2', categories:'categories2', tags: 'tag2', date: 'date2', key: 'recent2' },
+    { title: ' tfst', author: 'Author3', categories:'categories3', tags: 'tag3', date: 'date3', key: 'recent3' },
   ];
   selectedRecent: any[] = [];
 
@@ -58,5 +59,6 @@ export class RecentViewComponent {
     ]
   }
 }
+
 
 
