@@ -1,48 +1,57 @@
 openapi: 3.0.0
 info:
-  title: JSON Placeholder OpenAPI
-  description: Example spec of the well known JSON Placeholder website
-  version: 0.1.9
+  title: Get Items in Custom Carousel
+  version: 1.0.0
 servers:
-  - url: https://jsonplaceholder.typicode.com
+  - url: /api
 paths:
-  /posts:
+  /blogs:
     get:
-      summary: Returns a list of Posts.
-      description: Optional extended description in CommonMark or HTML.
-      operationId: GetPosts
+      summary: Return a list of blogs for the carousel
       responses:
         '200':
-          description: A JSON array of Posts
+          description: A list of blogs
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Post'
+                $ref: '#/components/schemas/BlogList'
+  /categories:
+    post:
+      summary: Create a new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '201':
+          description: Category created successfully
+        '400':
+          description: Invalid request payload
 components:
   schemas:
-    Post:
-      required:
-        - id
-        - userId
-        - title
-        - body
+    Blog:
       type: object
       properties:
-        id:
-          type: number
-          description: record id
-          example: 1
-        userId:
-          type: string
-          description: unique user identifier
-          example: 2
         title:
           type: string
-          description: title of this Post
-          example: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
-        body:
+          description: The title of the blog
+        image:
           type: string
-          description: description of this post
-          example: quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto
+          format: url
+          description: The URL of the blog image
+        link:
+          type: string
+          format: url
+          description: The URL of the blog link
+    BlogList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Blog'
+    Category:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the category
