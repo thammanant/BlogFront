@@ -47,3 +47,15 @@
     </p-splitter>
    </ng-template>
 </p-splitter>
+<div style="margin-top: 20px;">
+  <div *ngFor="let recent of recents" class="field-checkbox">
+    <div style="margin-top: 7px; margin-left: 1px" class="Rcorners">
+      <p-checkbox name="group" [value]="recent" [(ngModel)]="selectedRecent" [inputId]="recent.key"></p-checkbox>
+      <label [for]="recent.key">{{recent.title}}</label>
+      <label [for]="recent.key">{{recent.author}}</label>
+      <label [for]="recent.key">{{recent.categories}}</label>
+      <label [for]="recent.key">{{recent.tags}}</label>
+      <label [for]="recent.key">{{recent.date}}</label>
+    </div>
+  </div>
+</div>

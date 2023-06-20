@@ -36,6 +36,12 @@ export class RecentViewComponent {
   // @ts-ignore
   selectedCategory: Category;
 
+  recents: any[] = [
+    { title: ' Title', author: 'Author', categories:'categories', tags: 'tag', date: 'date', key: 'recent1' },
+    { title: ' Title2', author: 'Author2', categories:'categories2', tags: 'tag2', date: 'date2', key: 'recent2' },
+  ];
+  selectedRecent: any[] = [];
+
   ngOnInit()
   {
     this.actions = [

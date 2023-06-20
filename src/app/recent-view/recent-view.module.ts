@@ -7,6 +7,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
 import {PanelModule} from "primeng/panel";
+import {CheckboxModule} from "primeng/checkbox";
 
 
 
@@ -17,15 +18,16 @@ import {PanelModule} from "primeng/panel";
   exports: [
     RecentViewComponent
   ],
-  imports: [
-    CommonModule,
-    SplitterModule,
-    DropdownModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    FormsModule,
-    ButtonModule,
-    PanelModule
-  ]
+    imports: [
+        CommonModule,
+        SplitterModule,
+        DropdownModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        FormsModule,
+        ButtonModule,
+        PanelModule,
+        CheckboxModule
+    ]
 })
 export class RecentViewModule { }
