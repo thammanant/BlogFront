@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 
+
 interface Month {
   name: string;
   code: string;
@@ -25,6 +26,7 @@ export class CreateViewComponent implements OnInit {
 
   categories: any[] = [];
 
+  // @ts-ignore
   constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
@@ -48,5 +50,9 @@ export class CreateViewComponent implements OnInit {
     this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
     });
+
   }
+
+
+
 }

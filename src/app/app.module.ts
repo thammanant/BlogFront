@@ -15,8 +15,13 @@ import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
 import { CheckboxModule } from 'primeng/checkbox';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 
+
+// @ts-ignore
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,9 +38,10 @@ import { CheckboxModule } from 'primeng/checkbox';
     EditViewModule,
     CreateCategoryModule,
     CreateViewModule,
-    CheckboxModule
+    CheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

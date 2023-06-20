@@ -17,7 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["quill"],
+            "allowedCommonJsDependencies": [
+              "quill"
+            ],
             "outputPath": "dist/blog-front",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -38,7 +40,9 @@
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css"
             ],
-            "scripts": ["node_modules/quill/dist/quill.js"]
+            "scripts": [
+              "node_modules/quill/dist/quill.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -103,8 +107,18 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "BlogFront:build:production"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "984296aa-d119-4142-ac0d-b0dc666bc661"
   }
 }

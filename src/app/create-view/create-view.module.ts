@@ -8,9 +8,6 @@ import {EditorModule} from "primeng/editor";
 import {CheckboxModule} from "primeng/checkbox";
 import {ButtonModule} from "primeng/button";
 import {FormsModule} from "@angular/forms";
-
-
-
 @NgModule({
   declarations: [
     CreateViewComponent
