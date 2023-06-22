@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate:api": "openapi-generator-cli generate -i ./openapi.yaml -g java -o /Users/mark/Desktop/lol/src"
+    "generate:api": "openapi-generator-cli generate -i ./openapi.yaml -g spring  -o /Users/mark/Internship/BlogFront/hello"
   },
   "private": true,
   "dependencies": {
