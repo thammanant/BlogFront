@@ -1,13 +1,67 @@
-<div style="margin-left: 30%; margin-top: 10%">
-  <h3>
-    Categories
-  </h3>
-  <div style="line-height: 0.5">
-    Title
-    <input pInputText type="text" class="p-inputtext-sm" placeholder="Title" [(ngModel)]="title" style="width: 388px; height: 26px; margin-left: 5px"/>
+<!--Main content-->
+<div class="container" style="border: 3px solid red">
+  <div class="row align-self-center" style="border: 3px solid blue">
+    <!--Categories Header-->
+    <div>
+      <h4>Categories</h4>
+    </div>
   </div>
+  <!--Search Categories-->
+  <div class="d-flex flex-row-reverse" style="border: 3px solid green">
+    <div>
+      <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" ></p-button>
+    </div>
+    <div class="align-self-center col-3" style="margin-right: 2%; border: 3px solid brown">
+      <input pInputText type="text" class="p-inputtext-sm" placeholder="" [(ngModel)]="searchCat" style="width: 100%">
+    </div>
+  </div>
+  <!--Name input row-->
+  <div class="row" style="border: 3px solid cyan">
+    <!--Name input-->
+    <div class="col-6 align-self-center" style="border: 3px solid pink">
+      Name
+      <input pInputText type="text" class="p-inputtext-sm" placeholder="Name" [(ngModel)]="name" style="margin-left: 2%; width: 80%">
+    </div>
+    <!--dropdown menu and button-->
+    <div class="col-6 d-flex flex-row" style="border: 3px solid purple">
+      <div class="col-4" style="border: 3px solid limegreen">
+        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
+      </div>
+      <div class="align-self-center" style="border: 3px solid orange">
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
+      </div>
+    </div>
+    <div class="col-6" style="border: 3px solid peru"></div>
+    <div class="col-6" style="border: 3px solid forestgreen">
+      <!--Normal checkbox-->
+      <div class="row" style="border: 3px solid darkmagenta">
+        check1
+      </div>
+      <!--Dynamic checkbox-->
+      <div class="row" style="border: 3px solid fuchsia">
+        <div class="flex flex-column gap-2">
+          <div *ngFor="let category of categories" class="field-checkbox">
+            <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
+            <label [for]="category.key">{{ category.name }}</label>
+          </div>
+        </div>
+      </div>
+      <!--Normal checkbox-->
+      <div class="row" style="border: 3px solid darkcyan">
+        check2
+      </div>
+    </div>
+    <div class="col-6 align-self-center" style="border: 3px solid pink"></div>
+    <!--dropdown menu and button-->
+    <div class="col-6 d-flex flex-row" style="border: 3px solid purple">
+      <div class="col-4" style="border: 3px solid limegreen">
+        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
+      </div>
+      <div class="align-self-center" style="border: 3px solid orange">
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
+      </div>
+    </div>
+  </div>
+  <p-button label="Add new category"></p-button>
 </div>
-<div style="margin-left: 30%; margin-top: 5%;">
-  <p-button label="Create"></p-button>
-  <p-button label="Cancel" styleClass="p-button-outlined" [style]="{margin: '0 0 0 40px'}"></p-button>
-</div>
+

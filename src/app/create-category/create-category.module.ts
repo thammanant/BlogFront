@@ -4,6 +4,8 @@ import { CreateCategoryComponent } from './create-category.component';
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
+import {DropdownModule} from "primeng/dropdown";
+import {CheckboxModule} from "primeng/checkbox";
 
 
 
@@ -19,7 +21,9 @@ import {ButtonModule} from "primeng/button";
     InputTextModule,
     ReactiveFormsModule,
     FormsModule,
-    ButtonModule
+    ButtonModule,
+    DropdownModule,
+    CheckboxModule
   ]
 })
 export class CreateCategoryModule { }
