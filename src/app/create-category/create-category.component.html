@@ -1,63 +1,87 @@
 <!--Main content-->
-<div class="container" style="border: 3px solid red">
-  <div class="row align-self-center" style="border: 3px solid blue">
+<div class="container" style="margin-top: 3%">
+  <div class="row align-self-center">
     <!--Categories Header-->
     <div>
       <h4>Categories</h4>
     </div>
   </div>
   <!--Search Categories-->
-  <div class="d-flex flex-row-reverse" style="border: 3px solid green">
+  <div class="d-flex flex-row-reverse" style="margin-bottom: 3%">
     <div>
       <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" ></p-button>
     </div>
-    <div class="align-self-center col-3" style="margin-right: 2%; border: 3px solid brown">
+    <div class="align-self-center col-3" style="margin-right: 2%;">
       <input pInputText type="text" class="p-inputtext-sm" placeholder="" [(ngModel)]="searchCat" style="width: 100%">
     </div>
   </div>
   <!--Name input row-->
-  <div class="row" style="border: 3px solid cyan">
+  <div class="row">
     <!--Name input-->
-    <div class="col-6 align-self-center" style="border: 3px solid pink">
+    <div class="col-6 align-self-center">
       Name
       <input pInputText type="text" class="p-inputtext-sm" placeholder="Name" [(ngModel)]="name" style="margin-left: 2%; width: 80%">
     </div>
     <!--dropdown menu and button-->
-    <div class="col-6 d-flex flex-row" style="border: 3px solid purple">
-      <div class="col-4" style="border: 3px solid limegreen">
+    <div class="col-6 d-flex flex-row">
+      <div class="col-4">
         <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
       </div>
-      <div class="align-self-center" style="border: 3px solid orange">
+      <div class="align-self-center">
         <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
       </div>
     </div>
-    <div class="col-6" style="border: 3px solid peru"></div>
-    <div class="col-6" style="border: 3px solid forestgreen">
+    <div class="col-6"></div>
+    <div class="col-6">
       <!--Normal checkbox-->
-      <div class="row" style="border: 3px solid darkmagenta">
-        check1
+      <div class="row" style="border: 1px solid black; margin-top: 5%">
+        <div class="col-3">
+          <form class="flex align-items-center gap-1" [formGroup]="formGroup">
+            <p-checkbox formControlName="city" value="check1" id="check1"></p-checkbox>
+            <label for="check1">Name</label>
+          </form>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3">
+          Count
+        </div>
       </div>
       <!--Dynamic checkbox-->
-      <div class="row" style="border: 3px solid fuchsia">
-        <div class="flex flex-column gap-2">
-          <div *ngFor="let category of categories" class="field-checkbox">
-            <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-            <label [for]="category.key">{{ category.name }}</label>
+      <div class="row" style="border: 1px solid black">
+        <div class="col-3 align-self-center">
+          <div class="flex flex-column gap-2">
+            <div *ngFor="let category of categories" class="field-checkbox">
+              <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
+              <label [for]="category.key">{{ category.name }}</label>
+            </div>
           </div>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3">
+          <input pInputText pKeyFilter="int" placeholder="0" [disabled]="true" style="width: 30%"/>
         </div>
       </div>
       <!--Normal checkbox-->
-      <div class="row" style="border: 3px solid darkcyan">
-        check2
+      <div class="row" style="border: 1px solid black; margin-bottom: 5%">
+        <div class="col-3">
+          <form class="flex align-items-center gap-1" [formGroup]="formGroup">
+            <p-checkbox formControlName="city" value="check2" id="check2"></p-checkbox>
+            <label for="check2">Name</label>
+          </form>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3">
+          Count
+        </div>
       </div>
     </div>
-    <div class="col-6 align-self-center" style="border: 3px solid pink"></div>
+    <div class="col-6 align-self-center"></div>
     <!--dropdown menu and button-->
-    <div class="col-6 d-flex flex-row" style="border: 3px solid purple">
-      <div class="col-4" style="border: 3px solid limegreen">
+    <div class="col-6 d-flex flex-row" style="margin-bottom: 3%">
+      <div class="col-4">
         <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
       </div>
-      <div class="align-self-center" style="border: 3px solid orange">
+      <div class="align-self-center">
         <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
       </div>
     </div>
