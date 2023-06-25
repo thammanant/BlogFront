@@ -49,4 +49,13 @@ export class CustomCarouselComponent {
     }
   ];
 
+  addBlog(name: string, image: string, link: string) {
+    const newBlog = {
+      title: name,
+      image: image,
+      link: link
+    };
+    this.Blogs.push(newBlog);
+  }
+
 }

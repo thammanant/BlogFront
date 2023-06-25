@@ -7,7 +7,7 @@ servers:
 paths:
   /blogs:
     get:
-      summary: Return a list of blogs for the carousel
+      summary: Return a list of blogs for the carousel(all)
       responses:
         '200':
           description: A list of blogs
@@ -152,7 +152,7 @@ paths:
 
   /create-view:
     get:
-      summary: Return Create View Component Data
+      summary: Return Create View Data
       responses:
         '200':
           description: Data retrieved successfully
@@ -241,12 +241,17 @@ components:
           $ref: '#/components/schemas/Month'
         selectedCategories:
           type: array
+          description: keep the checked category
           items:
-            type: any
+            type: string
         categories:
           type: array
           items:
-            type: any
+            type: string
+        categoryCount:
+          type: integer
+        isDraft:
+          type: boolean
 
     EditViewData:
       type: object

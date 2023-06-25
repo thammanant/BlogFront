@@ -21,4 +21,8 @@ export class CategoryService {
   getCategories(): any[] {
     return this.categories;
   }
+
+  getCategoryCount(): number {
+    return this.categories.length;
+  }
 }

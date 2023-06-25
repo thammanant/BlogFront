@@ -18,11 +18,12 @@ export class CreateViewComponent implements OnInit {
   year: string = '';
   hour: string = '';
   minute: string = '';
+  isDraft: boolean = false;
   months: Month[] = [];
   selectedMonth: Month | undefined;
 
   selectedCategories: any[] = [];
-
+  categoryCount: number = 0;
   categories: any[] = [];
 
   constructor(private categoryService: CategoryService) {}
@@ -43,10 +44,36 @@ export class CreateViewComponent implements OnInit {
       { name: '12-Dec', code: 'Dec' }
     ];
     this.categories = this.categoryService.getCategories();
+    this.updateCategoryCount();
 
     // Retrieve the categories from the CategoryService
     this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
     });
   }
+  updateCategoryCount(): void {
+    this.categoryCount = this.categoryService.getCategoryCount();
+  }
+  onCheckboxChange(event: any, category: any): void {
+    if (event.target.checked) {
+      this.selectedCategories.push(category);
+    } else {
+      const index = this.selectedCategories.findIndex((item) => item.name === category.name);
+      if (index !== -1) {
+        this.selectedCategories.splice(index, 1);
+      }
+    }
+  }
+
+  removeSelectedCategories(): void {
+    this.selectedCategories.forEach((category) => {
+      const index = this.categoryService.getCategories().findIndex((item) => item.name === category.name);
+      if (index !== -1) {
+        this.categoryService.getCategories().splice(index, 1);
+      }
+    });
+    this.selectedCategories = [];
+    this.updateCategoryCount();
+  }
+
 }
