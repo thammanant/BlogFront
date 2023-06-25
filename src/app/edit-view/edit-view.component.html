@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-12" style="padding-bottom: 2%">
             Date
-            <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="Month" optionLabel="name" ></p-dropdown>
+            <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="Month" optionLabel="name" (onChange)="func1()"></p-dropdown>
             <input pInputText type="text" class="p-inputtext-sm" placeholder="DD" [(ngModel)]="day" style="width: 8%; height: auto; margin-left: 2%"/>
             ,
             <input pInputText type="text" class="p-inputtext-sm" placeholder="YYYY" [(ngModel)]="year" style="width: 9%; height: auto; margin-left: 2%"/>
@@ -29,12 +29,12 @@
             :
             <input pInputText type="text" class="p-inputtext-sm" placeholder="MM" [(ngModel)]="minute" style="width: 8%; height: auto"/>
             Status
-            <p-dropdown [options]="status" [(ngModel)]="selectedStatus"  optionLabel="status" ></p-dropdown>
+            <p-dropdown [options]="status" [(ngModel)]="selectedStatus"  optionLabel="status" (onChange)="func2()"></p-dropdown>
           </div>
         </div>
         <!--Editor-->
         <div class="row">
-          <p-editor [(ngModel)]="text" [style]="{height:'50vh'}" ></p-editor>
+          <p-editor [(ngModel)]="text" [style]="{height:'50vh'}" (onTextChange)="func3()"></p-editor>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
             <div class="card flex justify-content-center Rcorners">
               <div class="flex flex-column gap-2">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                  <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
+                  <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key" (onChange)="func4()"></p-checkbox>
                   <label [for]="category.key">{{ category.name }}</label>
                 </div>
               </div>
@@ -57,7 +57,7 @@
           </div>
           <!--Remove button-->
           <div style="margin-left: 35%">
-            <p-button label="Remove" styleClass="p-button-outlined p-button-danger"></p-button>
+            <p-button label="Remove" styleClass="p-button-outlined p-button-danger" (onClick)="func5()"></p-button>
           </div>
         </div>
       </div>
@@ -66,6 +66,6 @@
 
 <!--Update and Cancel buttons-->
 <footer class="container" style="margin-top: 2%;">
-  <p-button label="Update"></p-button>
-  <p-button label="Cancel" styleClass="p-button-outlined" [style]="{margin: '0 0 0 2%'}"></p-button>
+  <p-button label="Update" (onClick)="func6()"></p-button>
+  <p-button label="Cancel" styleClass="p-button-outlined" [style]="{margin: '0 0 0 2%'}" (onClick)="func7()"></p-button>
 </footer>

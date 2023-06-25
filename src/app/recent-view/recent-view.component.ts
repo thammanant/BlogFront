@@ -29,6 +29,49 @@ export class RecentViewComponent implements OnInit{
       checkbox1: new FormControl<string | null>(null)
     });
   }
+  //Button function
+  func1() {
+    //TODO
+  }
+  func2() {
+    //TODO
+  }
+  func3() {
+    //TODO
+  }
+  func4() {
+    //TODO
+  }
+  func6() {
+    //TODO
+  }
+  func13() {
+    //TODO
+  }
+  //Dropdown function
+  func5() {
+    //TODO
+  }
+  func7() {
+    //TODO
+  }
+  func8() {
+    //TODO
+  }
+  func12() {
+    //TODO
+  }
+  //Checkbox function
+  func9() {
+    //TODO
+  }
+  func10() {
+    //TODO
+  }
+  func11() {
+    //TODO
+  }
+
 }
 
 

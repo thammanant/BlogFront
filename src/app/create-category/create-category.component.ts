@@ -9,10 +9,19 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 export class CreateCategoryComponent implements OnInit{
   title: string = "";
-  bulkAction: any;
-  selectedAction: any;
+
+  bulkAction: any[] = [
+    { name: 'Delete', key: 'delete' },
+  ];
+  selectedAction: any[] = [];
+  bulkAction2: any[] = [
+    { name: 'Delete', key: 'delete' },
+  ];
+  selectedAction2: any[] = [];
+
   searchCat: string = "";
   name: string = "";
+
   selectedCategories: any[] = [];
   categories: any[] = [
     { name: ' Uncategorized', key: 'Un' },
@@ -23,4 +32,35 @@ export class CreateCategoryComponent implements OnInit{
       checkbox1: new FormControl<string | null>(null)
     });
   }
+  // button function
+  func1() {
+    //TODO
+  }
+  func2() {
+    //TODO
+  }
+  func3() {
+    //TODO
+  }
+  func4() {
+    //TODO
+  }
+  // checkbox function
+  func5() {
+    //TODO
+  }
+  func6() {
+    //TODO
+  }
+  func7() {
+    //TODO
+  }
+  // Dropdown function
+  func8() {
+    //TODO
+  }
+  func9() {
+    //TODO
+  }
 }
+

@@ -9,7 +9,7 @@
   <!--Search Categories-->
   <div class="d-flex flex-row-reverse" style="margin-bottom: 3%">
     <div>
-      <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" ></p-button>
+      <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" (onClick)="func1()"></p-button>
     </div>
     <div class="align-self-center col-3" style="margin-right: 2%;">
       <input pInputText type="text" class="p-inputtext-sm" placeholder="" [(ngModel)]="searchCat" style="width: 100%">
@@ -25,10 +25,10 @@
     <!--dropdown menu and button-->
     <div class="col-6 d-flex flex-row">
       <div class="col-4">
-        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name" (onChange)="func8()"></p-dropdown>
       </div>
       <div class="align-self-center">
-        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info" (onClick)="func2()"></p-button>
       </div>
     </div>
     <div class="col-6"></div>
@@ -37,7 +37,7 @@
       <div class="row" style="border: 1px solid black; margin-top: 5%">
         <div class="col-3">
           <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-            <p-checkbox formControlName="city" value="check1" id="check1"></p-checkbox>
+            <p-checkbox formControlName="city" value="check1" id="check1" (onChange)="func5()"></p-checkbox>
             <label for="check1">Name</label>
           </form>
         </div>
@@ -51,7 +51,7 @@
         <div class="col-3 align-self-center">
           <div class="flex flex-column gap-2">
             <div *ngFor="let category of categories" class="field-checkbox">
-              <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
+              <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key" (onChange)="func6()"></p-checkbox>
               <label [for]="category.key">{{ category.name }}</label>
             </div>
           </div>
@@ -65,7 +65,7 @@
       <div class="row" style="border: 1px solid black; margin-bottom: 5%">
         <div class="col-3">
           <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-            <p-checkbox formControlName="city" value="check2" id="check2"></p-checkbox>
+            <p-checkbox formControlName="city" value="check2" id="check2" (onChange)="func7()"></p-checkbox>
             <label for="check2">Name</label>
           </form>
         </div>
@@ -79,13 +79,13 @@
     <!--dropdown menu and button-->
     <div class="col-6 d-flex flex-row" style="margin-bottom: 3%">
       <div class="col-4">
-        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name" (onChange)="func9()"></p-dropdown>
       </div>
       <div class="align-self-center">
-        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info" (onClick)="func3()"></p-button>
       </div>
     </div>
   </div>
-  <p-button label="Add new category"></p-button>
+  <p-button label="Add new category" (onClick)="func4()"></p-button>
 </div>
 

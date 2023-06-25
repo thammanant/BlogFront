@@ -44,5 +44,23 @@ export class CreateViewComponent {
       { name: '12-Dec', code: 'Dec' }
     ];
   }
-
+  // Dropdown functions
+  func0() {
+    //TODO
+  }
+  // Editor functions
+  func1() {
+    //TODO
+  }
+  // Checkbox functions
+  func2() {
+    //TODO
+  }
+  //Button functions
+  func3() {
+    //TODO
+  }
+  func4() {
+    //TODO
+  }
 }
