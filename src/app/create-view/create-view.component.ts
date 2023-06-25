@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
+import {BlogDataService} from "../services/blog-data.service";
+import {Blog} from "../model/blog";
 
 
 interface Month {
@@ -13,6 +15,7 @@ interface Month {
   styleUrls: ['./create-view.component.scss']
 })
 export class CreateViewComponent implements OnInit {
+
   text: string = '';
   title: string = '';
   day: string = '';
@@ -27,7 +30,7 @@ export class CreateViewComponent implements OnInit {
   categories: any[] = [];
 
   // @ts-ignore
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private blogService: BlogDataService) {}
 
   ngOnInit(): void {
     this.months = [
@@ -50,6 +53,20 @@ export class CreateViewComponent implements OnInit {
     this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
     });
+
+  }
+
+  //create blog
+  createBlog(): void {
+      this.blogService.writeTest({
+        id: 'Blog3',
+        title:'Title1',
+        content: 'Content1',
+        date: 'Date1',
+        year: 'Year1',
+        status: 'Status1'
+      }
+      );
 
   }
 
