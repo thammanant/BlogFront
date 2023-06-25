@@ -10,7 +10,6 @@ import {ButtonModule} from "primeng/button";
 import {FormsModule} from "@angular/forms";
 
 
-
 @NgModule({
   declarations: [
     CreateViewComponent

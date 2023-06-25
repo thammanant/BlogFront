@@ -20,7 +20,7 @@
     <!--Name input-->
     <div class="col-6 align-self-center">
       Name
-      <input pInputText type="text" class="p-inputtext-sm" placeholder="Name" [(ngModel)]="name" style="margin-left: 2%; width: 80%">
+      <input pInputText type="text" class="p-inputtext-sm" placeholder="Name" [(ngModel)]="title" style="margin-left: 2%; width: 80%">
     </div>
     <!--dropdown menu and button-->
     <div class="col-6 d-flex flex-row">
@@ -86,6 +86,6 @@
       </div>
     </div>
   </div>
-  <p-button label="Add new category"></p-button>
+  <p-button class="btn btn-primary" (onClick)="createItem()">Add new category</p-button>
 </div>
 
