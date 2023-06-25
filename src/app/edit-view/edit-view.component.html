@@ -28,6 +28,8 @@
             <input pInputText type="text" class="p-inputtext-sm" placeholder="HH" [(ngModel)]="hour" style="width: 8%; height: auto"/>
             :
             <input pInputText type="text" class="p-inputtext-sm" placeholder="MM" [(ngModel)]="minute" style="width: 8%; height: auto"/>
+            Status
+            <p-dropdown [options]="status" [(ngModel)]="selectedStatus"  optionLabel="status" ></p-dropdown>
           </div>
         </div>
         <!--Editor-->
