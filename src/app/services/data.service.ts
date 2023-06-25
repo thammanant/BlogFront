@@ -55,5 +55,37 @@ export class DataService {
     set(PostRef, Blog).then(r => console.log('success'));
   }
 
+  getAllBlogsDB() {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `blog`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        return snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  getAllCategoriesDB() {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `categories`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        return snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+  }
+
+
+
 
 }
