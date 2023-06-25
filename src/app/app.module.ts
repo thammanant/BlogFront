@@ -16,11 +16,13 @@ import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
 import { CheckboxModule } from 'primeng/checkbox';
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getDatabase } from "firebase/database";
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// Initialize Realtime Database and get a reference to the service
+const database = getDatabase(app);
 
-
-// @ts-ignore
 // @ts-ignore
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { getAnalytics } from "firebase/analytics";
   ],
   providers: [],
   bootstrap: [AppComponent]
+
 })
 
 export class AppModule { }
