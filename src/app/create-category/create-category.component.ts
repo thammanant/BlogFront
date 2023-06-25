@@ -10,8 +10,16 @@ import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
 export class CreateCategoryComponent implements OnInit{
   title: string = "";
-  bulkAction: any;
-  selectedAction: any;
+
+  bulkAction: any[] = [
+    { name: 'Delete', key: 'delete' },
+  ];
+  selectedAction: any[] = [];
+  bulkAction2: any[] = [
+    { name: 'Delete', key: 'delete' },
+  ];
+  selectedAction2: any[] = [];
+
   searchCat: string = "";
   name: string = "";
   selectedCategories: any[] = [];

@@ -18,7 +18,7 @@ export class CreateViewComponent implements OnInit {
   year: string = '';
   hour: string = '';
   minute: string = '';
-  isDraft: boolean = false;
+  isDraft: string = 'false';
   months: Month[] = [];
   selectedMonth: Month | undefined;
 
@@ -26,7 +26,7 @@ export class CreateViewComponent implements OnInit {
   categoryCount: number = 0;
   categories: any[] = [];
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private blogService: BlogDataService) {}
 
   ngOnInit(): void {
     this.months = [

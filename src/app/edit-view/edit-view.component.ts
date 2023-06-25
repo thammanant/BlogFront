@@ -57,5 +57,30 @@ export class EditViewComponent implements OnInit{
         {status: 'Draft', code: 'Draft'},
       ]
   }
+  //Dropdown functions
+  func1() {
+    //TODO
+  }
+  func2() {
+    //TODO
+  }
+  //Editor functions
+  func3() {
+    //TODO
+  }
+  //Checkbox functions
+  func4() {
+    //TODO
+  }
+  //Button functions
+  func5() {
+    //TODO
+  }
+  func6() {
+    //TODO
+  }
+  func7() {
+    //TODO
+  }
 }
 
