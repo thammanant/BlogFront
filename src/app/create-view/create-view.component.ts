@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../services/category.service';
 
 interface Month {
   name: string;

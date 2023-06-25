@@ -4,6 +4,10 @@ interface Month {
   name: string;
   code: string;
 }
+interface Status {
+  status: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-edit-view',
@@ -22,6 +26,10 @@ export class EditViewComponent implements OnInit{
   months: Month[];
   // @ts-ignore
   selectedMonth:Month;
+  // @ts-ignore
+  status: Status[];
+  // @ts-ignore
+  selectedStatus:Status
 
   selectedCategories: any[] = [];
 
@@ -44,6 +52,10 @@ export class EditViewComponent implements OnInit{
       { name: '11-Nov', code: 'Nov' },
       { name: '12-Dec', code: 'Dec' }
     ];
+      this.status = [
+        {status: 'Published', code: 'Pub'},
+        {status: 'Draft', code: 'Draft'},
+      ]
   }
 }
 

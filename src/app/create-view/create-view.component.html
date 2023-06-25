@@ -1,55 +1,65 @@
-<p-splitter [panelSizes]="[75, 25]" [style]="{ height: 'auto', width: '1280px' }" styleClass="mb-5">
-  <ng-template pTemplate>
-    <p-splitter [style]="{ height: 'auto', width: 'auto' }" styleClass="mb-5" layout="vertical">
-      <ng-template pTemplate>
-        <div style="margin-left: 150px">
-          <h3>
-            CREATE
-          </h3>
-          <div style="line-height: 2">
+<!--Main content-->
+<div class="container" style="padding-top: 3%">
+  <!--Edit header-->
+  <div class="row">
+    <div class="col">
+      <h3>CREATE</h3>
+    </div>
+  </div>
+  <div class="row">
+    <!--Edit panel-->
+    <div class="col-md-8 col-sm-12">
+      <div class="container">
+        <!--Edit information-->
+        <div class="row">
+          <div class="col-6" style="padding-bottom: 2%; padding-top: 2%">
             Title
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="Title" [(ngModel)]="title" style="width: 89%; height: auto">
           </div>
-          <div style="line-height: 5">
+        </div>
+        <div class="row">
+          <div class="col-12" style="padding-bottom: 2%">
             Date
-          </div>
-        </div>
-        <div style="margin-top: 60px">
-          <input pInputText type="text" class="p-inputtext-sm" placeholder="Title" [(ngModel)]="title" style="width: 500px; height: 30px"/>
-          <div style="margin-top: 3%">
             <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="Month" optionLabel="name" ></p-dropdown>
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="DD" [(ngModel)]="day" style="width: 50px; height: 30px; margin-left: 15px"/>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="DD" [(ngModel)]="day" style="width: 8%; height: auto; margin-left: 2%"/>
             ,
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="YYYY" [(ngModel)]="year" style="width: 60px; height: 30px; margin-left: 5px"/>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="YYYY" [(ngModel)]="year" style="width: 9%; height: auto; margin-left: 2%"/>
             at
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="HH" [(ngModel)]="hour" style="width: 50px; height: 30px; margin-left: 5px"/>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="HH" [(ngModel)]="hour" style="width: 8%; height: auto"/>
             :
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="MM" [(ngModel)]="minute" style="width: 50px; height: 30px; margin-left: 5px"/>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="MM" [(ngModel)]="minute" style="width: 8%; height: auto"/>
           </div>
         </div>
-
-      </ng-template>
-      <ng-template pTemplate>
-        <p-editor [(ngModel)]="text" [style]="{ height: '702.4px', width: '654px'}" class="Middle"></p-editor>
-      </ng-template>
-    </p-splitter>
-  </ng-template>
-  <ng-template pTemplate>
-    <div class="Middle" style="margin-top: 50px">
-      Categories
-      <div class="Rcorners" style="margin-top: 10px">
-        <div class="card flex justify-content-center">
-          <div class="flex flex-column gap-2">
-            <div *ngFor="let category of categories" class="field-checkbox">
-              <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-              <label [for]="category.key">{{ category.name }}</label>
+        <!--Editor-->
+        <div class="row">
+          <p-editor [(ngModel)]="text" [style]="{height:'50vh'}" ></p-editor>
+        </div>
+      </div>
+    </div>
+    <!--Category panel-->
+    <div class="col-4">
+      <div id="cat" class="container">
+        <div class="row" style="padding-top: 2%">
+          <h5>Categories</h5>
+        </div>
+        <!--Categories checkbox-->
+        <div class="row" style="padding-top: 2%; padding-bottom: 5%">
+          <div class="card flex justify-content-center Rcorners">
+            <div class="flex flex-column gap-2">
+              <div *ngFor="let category of categories" class="field-checkbox">
+                <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
+                <label [for]="category.key">{{ category.name }}</label>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </ng-template>
-</p-splitter>
-<div style="margin-left: 150px; margin-top: 50px;">
-  <p-button label="Create"></p-button>
-  <p-button label="Cancel" styleClass="p-button-outlined" [style]="{margin: '0 0 0 40px'}"></p-button>
+  </div>
 </div>
+
+<!--Update and Cancel buttons-->
+<footer class="container" style="margin-top: 2%;">
+  <p-button label="Save draft"></p-button>
+  <p-button label="Publish" styleClass="p-button-outlined" [style]="{margin: '0 0 0 2%'}"></p-button>
+</footer>

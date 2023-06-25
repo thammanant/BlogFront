@@ -15,7 +15,7 @@ import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
 import { CheckboxModule } from 'primeng/checkbox';
-
+import {RecentViewModule} from "./recent-view/recent-view.module";
 
 @NgModule({
   declarations: [
@@ -33,7 +33,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     EditViewModule,
     CreateCategoryModule,
     CreateViewModule,
-    CheckboxModule
+    CheckboxModule,
+    CreateViewModule,
+    RecentViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]
