@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getDatabase, ref, onValue, DataSnapshot } from '@firebase/database';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -6,23 +7,30 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CategoryService {
   private categories: any[] = [];
-  private categoriesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  public categories$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-  public categories$ = this.categoriesSubject.asObservable();
-
-  constructor() { }
-
-  addCategory(title: string): void {
-    const category = { name: title, key: title.toLowerCase().replace(/\s/g, '-') };
-    this.categories.push(category);
-    this.categoriesSubject.next(this.categories);
+  constructor() {
+    this.fetchCategoriesFromDatabase();
   }
 
-  getCategories(): any[] {
+  public getCategories(): any[] {
     return this.categories;
   }
 
-  getCategoryCount(): number {
-    return this.categories.length;
+  fetchCategoriesFromDatabase(): void {
+    const dbRef = ref(getDatabase(), 'categories');
+    onValue(dbRef, (snapshot: DataSnapshot) => {
+      const categories: any[] = [];
+      snapshot.forEach((childSnapshot: DataSnapshot) => {
+        const category = childSnapshot.val();
+        categories.push(category);
+      });
+      this.updateCategories(categories);
+    });
+  }
+
+  private updateCategories(categories: any[]): void {
+    this.categories = categories;
+    this.categories$.next(this.categories);
   }
 }

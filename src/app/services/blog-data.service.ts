@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
-import { getDatabase, ref, child, get, set} from "@firebase/database";
-import {Blog} from "../model/blog";
+import { getDatabase, ref, child, get, set } from '@firebase/database';
+import { Blog } from '../model/blog';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogDataService {
-
-  constructor() {
-  }
+  constructor() {}
 
   createBlogDB(title: string, id: string) {
-    const Blog = { title: title, id: id };
+    const blog = { title: title, id: id };
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `blog/${Blog.id}`)).then((snapshot) => {
+
+    get(child(dbRef, `blog/${blog.id}`)).then((snapshot) => {
       if (snapshot.exists()) {
         const db = getDatabase();
-        const PostRef = ref(db, 'blog/' + Blog.id);
-        set(PostRef, Blog).then(r => console.log('success'));
+        const postRef = ref(db, 'blog/' + blog.id);
+        set(postRef, blog).then(r => console.log('success'));
       } else {
-        console.log("No data available");
+        console.log('No data available');
       }
     }).catch((error) => {
-        console.error(error);
-      }
-    );
+      console.error(error);
+    });
   }
 
   createCategoryDB(category: any) {
@@ -35,6 +33,5 @@ export class BlogDataService {
       key: category.key
     }).then(r => console.log('success'));
   }
-
 
 }

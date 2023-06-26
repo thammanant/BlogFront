@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
-import {BlogDataService} from "../services/blog-data.service";
+import { BlogDataService } from '../services/blog-data.service';
 
 interface Month {
   name: string;
@@ -44,18 +44,20 @@ export class CreateViewComponent implements OnInit {
       { name: '11-Nov', code: 'Nov' },
       { name: '12-Dec', code: 'Dec' }
     ];
-    this.categories = this.categoryService.getCategories();
-    this.updateCategoryCount();
 
-    // Retrieve the categories from the CategoryService
     this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
+      this.updateCategoryCount();
     });
+
+    this.categoryService.fetchCategoriesFromDatabase();
   }
+
   updateCategoryCount(): void {
-    this.categoryCount = this.categoryService.getCategoryCount();
+    this.categoryCount = this.categories.length;
   }
-  onCheckboxChange(event: any, category: any): void {       //no use still
+
+  onCheckboxChange(event: any, category: any): void {
     if (event.target.checked) {
       this.selectedCategories.push(category);
     } else {
@@ -66,19 +68,14 @@ export class CreateViewComponent implements OnInit {
     }
   }
 
-
-
-  removeSelectedCategories(): void {                        //no use still
-    this.selectedCategories.forEach((category) => {
-      const index = this.categoryService.getCategories().findIndex((item) => item.name === category.name);
-      if (index !== -1) {
-        this.categoryService.getCategories().splice(index, 1);
-      }
-    });
-    this.selectedCategories = [];
-    this.updateCategoryCount();
-  }
-
-
-
+  // removeSelectedCategories(): void {
+  //   this.selectedCategories.forEach((category) => {
+  //     const index = this.categories.findIndex((item) => item.name === category.name);
+  //     if (index !== -1) {
+  //       this.categories.splice(index, 1);
+  //     }
+  //   });
+  //   this.selectedCategories = [];
+  //   this.updateCategoryCount();
+  // }
 }
