@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-12" style="padding-bottom: 2%">
             Date
-            <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="Month" optionLabel="name" (onChange)="func0()"></p-dropdown>
+            <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="Month" optionLabel="name"></p-dropdown>
             <input pInputText type="text" class="p-inputtext-sm" placeholder="DD" [(ngModel)]="day" style="width: 8%; height: auto; margin-left: 2%"/>
             ,
             <input pInputText type="text" class="p-inputtext-sm" placeholder="YYYY" [(ngModel)]="year" style="width: 9%; height: auto; margin-left: 2%"/>
@@ -32,7 +32,7 @@
         </div>
         <!--Editor-->
         <div class="row">
-          <p-editor [(ngModel)]="text" [style]="{height:'50vh'}" (onTextChange)="func1()"></p-editor>
+          <p-editor [(ngModel)]="text" [style]="{height:'50vh'}"></p-editor>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
           <div class="card flex justify-content-center Rcorners">
             <div class="flex flex-column gap-2">
               <div *ngFor="let category of categories" class="field-checkbox">
-                <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key" (onChange)="func2()"></p-checkbox>
+                <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
                 <label [for]="category.key">{{ category.name }}</label>
               </div>
             </div>
@@ -60,6 +60,6 @@
 
 <!--Update and Cancel buttons-->
 <footer class="container" style="margin-top: 2%;">
-  <p-button label="Save draft" (onClick)="func3()"></p-button>
-  <p-button label="Publish" styleClass="p-button-outlined" [style]="{margin: '0 0 0 2%'}" (onClick)="func4()"></p-button>
+  <p-button label="Save draft"></p-button>
+  <p-button label="Publish" styleClass="p-button-outlined" [style]="{margin: '0 0 0 2%'}"></p-button>
 </footer>

@@ -182,6 +182,29 @@ paths:
           description: Edit view data updated successfully
         '400':
           description: Invalid request payload
+  /recent-view:
+    get:
+      summary: Get the recent view data
+      responses:
+        '200':
+          description: Recent view data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecentViewData'
+    put:
+      summary: Update the recent view data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecentViewData'
+      responses:
+        '200':
+          description: Recent view data updated successfully
+        '400':
+          description: Invalid request payload
 
 components:
   schemas:
@@ -251,7 +274,7 @@ components:
         categoryCount:
           type: integer
         isDraft:
-          type: boolean
+          type: string
 
     EditViewData:
       type: object
@@ -285,3 +308,93 @@ components:
           type: array
           items:
             type: string
+        isDraft:
+          type: string
+
+    RecentViewData:
+      type: object
+      properties:
+        bulkAction:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedAction:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        allDates:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedDate:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        allCategories:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedCat:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedBlog:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              author:
+                type: string
+              categories:
+                type: string
+              date:
+                type: string
+              key:
+                type: string
+        blogs:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              author:
+                type: string
+              categories:
+                type: string
+              date:
+                type: string
+              key:
+                type: string

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getDatabase, ref, child, get, set} from "firebase/database";
+import { getDatabase, ref, child, get, set} from "@firebase/database";
 import {Blog} from "../model/blog";
 
 @Injectable({
@@ -10,7 +10,8 @@ export class BlogDataService {
   constructor() {
   }
 
-  writeTest(Blog: Blog) {
+  createBlogDB(title: string, id: string) {
+    const Blog = { title: title, id: id };
     const dbRef = ref(getDatabase());
     get(child(dbRef, `blog/${Blog.id}`)).then((snapshot) => {
       if (snapshot.exists()) {
@@ -26,15 +27,14 @@ export class BlogDataService {
     );
   }
 
-  createCategoryDB(title: string) {
+  createCategoryDB(category: any) {
     const db = getDatabase();
-    const categoryRef = ref(db, 'categories/' + title.toLowerCase().replace(/\s/g, '-'));
+    const categoryRef = ref(db, 'categories/' + category.key);
     set(categoryRef, {
-      name: title,
-      key: title.toLowerCase().replace(/\s/g, '-')
+      name: category.title,
+      key: category.key
     }).then(r => console.log('success'));
   }
-
 
 
 }

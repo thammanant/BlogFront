@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
+import {BlogDataService} from "../services/blog-data.service";
 
 interface Month {
   name: string;
@@ -54,7 +55,7 @@ export class CreateViewComponent implements OnInit {
   updateCategoryCount(): void {
     this.categoryCount = this.categoryService.getCategoryCount();
   }
-  onCheckboxChange(event: any, category: any): void {
+  onCheckboxChange(event: any, category: any): void {       //no use still
     if (event.target.checked) {
       this.selectedCategories.push(category);
     } else {
@@ -65,7 +66,9 @@ export class CreateViewComponent implements OnInit {
     }
   }
 
-  removeSelectedCategories(): void {
+
+
+  removeSelectedCategories(): void {                        //no use still
     this.selectedCategories.forEach((category) => {
       const index = this.categoryService.getCategories().findIndex((item) => item.name === category.name);
       if (index !== -1) {
@@ -75,5 +78,7 @@ export class CreateViewComponent implements OnInit {
     this.selectedCategories = [];
     this.updateCategoryCount();
   }
+
+
 
 }
