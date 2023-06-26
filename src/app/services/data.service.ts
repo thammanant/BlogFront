@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { getDatabase, ref, child, get, set} from "firebase/database";
 import {Blog} from "../model/blog";
+import {remove, update} from "@angular/fire/database";
 
 @Injectable({
   providedIn: 'root'
@@ -49,10 +50,10 @@ export class DataService {
     );
   }
 
-  updateBlogDB(Blog: Blog) {
+  updateBlogDB(id:string,Blog: Blog) {
     const db = getDatabase();
-    const PostRef = ref(db, 'blog/' + Blog.id);
-    set(PostRef, Blog).then(r => console.log('success'));
+    const PostRef = ref(db, 'blog/' + id);
+    update(PostRef, Blog).then(r => console.log('success'));
   }
 
   getAllBlogsDB() {
@@ -84,6 +85,47 @@ export class DataService {
       }
     );
   }
+
+  getBlogFromID(id: string) {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `blog/${id}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+  }
+  deleteBlogDB(id: string) {
+    const db = getDatabase();
+    const PostRef = ref(db, 'blog/' + id);
+    remove(PostRef).then(r => console.log('success'));
+  }
+
+  getBlogCategoryDB(blogID: string) {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `blog/${blogID}/category`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+  }
+
+
+
+
+
+
+
+
 
 
 
