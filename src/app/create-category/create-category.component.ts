@@ -62,5 +62,8 @@ export class CreateCategoryComponent implements OnInit{
   func9() {
     //TODO
   }
+  func10() {
+    //TODO
+  }
 }
 
