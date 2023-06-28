@@ -17,7 +17,6 @@ import {CreateViewModule} from "./create-view/create-view.module";
 import { CheckboxModule } from 'primeng/checkbox';
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-
 import {environment} from "src/environments/environment";
 
 // Initialize Firebase
@@ -42,11 +41,10 @@ const database = getDatabase(app);
     EditViewModule,
     CreateCategoryModule,
     CreateViewModule,
+    // RecentViewModule,
     CheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
-
 })
-
 export class AppModule { }
