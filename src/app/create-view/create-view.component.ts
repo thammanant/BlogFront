@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface Month {
   name: string;
@@ -10,25 +10,25 @@ interface Month {
   templateUrl: './create-view.component.html',
   styleUrls: ['./create-view.component.scss']
 })
-export class CreateViewComponent {
+export class CreateViewComponent implements OnInit {
+
   text: string = '';
   title: string = '';
   day: string = '';
   year: string = '';
   hour: string = '';
   minute: string = '';
-  // @ts-ignore
-  months: Month[];
-  // @ts-ignore
-  selectedMonth:Month;
+  months: Month[] = [];
+  selectedMonth: Month | undefined;
 
   selectedCategories: any[] = [];
 
-  categories: any[] = [
-    { name: ' Uncategorized', key: 'Un' },
-  ];
+  categories: any[] = [];
 
-  ngOnInit() {
+  // @ts-ignore
+  constructor(private categoryService: CategoryService, private blogService: BlogDataService) {}
+
+  ngOnInit(): void {
     this.months = [
       { name: '01-Jan', code: 'Jan' },
       { name: '02-Feb', code: 'Feb' },
@@ -43,24 +43,29 @@ export class CreateViewComponent {
       { name: '11-Nov', code: 'Nov' },
       { name: '12-Dec', code: 'Dec' }
     ];
+    this.categories = this.categoryService.getCategories();
+
+    // Retrieve the categories from the CategoryService
+    this.categoryService.categories$.subscribe((categories: any[]) => {
+      this.categories = categories;
+    });
+
   }
-  // Dropdown functions
-  func0() {
-    //TODO
+
+  //create blog
+  createBlog(): void {
+      this.blogService.writeTest({
+        id: 'Blog3',
+        title:'Title1',
+        content: 'Content1',
+        date: 'Date1',
+        year: 'Year1',
+        status: 'Status1'
+      }
+      );
+
   }
-  // Editor functions
-  func1() {
-    //TODO
-  }
-  // Checkbox functions
-  func2() {
-    //TODO
-  }
-  //Button functions
-  func3() {
-    //TODO
-  }
-  func4() {
-    //TODO
-  }
+
+
+
 }

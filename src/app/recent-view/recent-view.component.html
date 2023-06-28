@@ -2,56 +2,63 @@
 <div class="container" style="padding-top: 3%">
   <!--Post header-->
   <div class="row">
-    <h3 class="col-1 align-self-center">
+    <h3 class="col-2 col-sm-2 col-lg-1 align-self-center">
       Posts
     </h3>
     <!--Add new Button-->
-    <div class="col-2">
+    <div class="col-3 col-sm-4 col-lg-2">
       <p-button label="Add New" styleClass="p-button-outlined p-button-info" (onClick)="func1()"></p-button>
     </div>
   </div>
   <!--All, Published label and Search posts Button-->
   <div class="row" style="margin-top: 3%">
     <!--Label-->
-    <div class="col-6">
+    <div class="col-5 col-sm-6 col-md-5">
       <p-button label="All" styleClass="p-button-link" (onClick)="func2()"></p-button>
-      <input pInputText pKeyFilter="int" placeholder="0" [disabled]="true" style="width: 7%"/>
-      |
+      <label style="padding-bottom: 2%">
+        <span id="all">0</span>
+        |
+      </label>
       <p-button label="Published" styleClass="p-button-link" (onClick)="func3()"></p-button>
-      <input pInputText pKeyFilter="int" placeholder="0" [disabled]="true" style="width: 7%"/>
+      <span id="pub">0</span>
     </div>
-    <div class="col-4">
+    <!--Search Posts textfield-->
+    <div class="col-8 col-sm-8 col-lg-4 col-xl-5">
       <input pInputText pKeyFilter="int" placeholder="" style="width: 100%"/>
     </div>
     <!--Search Posts Button-->
-    <div class="col-2">
-      <p-button label="Search Posts" styleClass="p-button-outlined p-button-info" (onClick)="func4()"></p-button>
+    <div class="col-4 col-sm-4 col-lg-3 col-xl-2">
+      <p-button id="sPost" label="Search Posts" styleClass="p-button-outlined p-button-info" (onClick)="func4()"></p-button>
     </div>
   </div>
   <!--Dropdown and Button-->
   <div class="row" style="margin-top: 3%">
     <!--Dropdown 1-->
-    <div class="col-2 align-self-center">
+    <div id="drop1" class="col-4 col-sm-4 col-lg-2 p-fluid">
       <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name" (onChange)="func5()"></p-dropdown>
     </div>
     <!--Button 1-->
-    <div class="col-1 align-self-center">
+    <div id="but1" class="col-3 col-sm-2 col-lg-2 col-xl-1">
       <p-button label="Apply" styleClass="p-button-outlined p-button-info" (onClick)="func6()"></p-button>
     </div>
     <!--Dropdown 2-->
-    <div class="col-2 align-self-center">
+    <div id="drop2" class="col-4 col-sm-4 col-lg-2 text-center p-fluid">
       <p-dropdown [options]="allDates" [(ngModel)]="selectedDate" optionLabel="name" (onChange)="func7()"></p-dropdown>
     </div>
     <!--Dropdown 3-->
-    <div class="col-2 align-self-center">
+    <div id="drop3" class="col-7 col-sm-7 col-lg-3 p-fluid">
       <p-dropdown [options]="allCategories" [(ngModel)]="selectedCat" optionLabel="name" (onChange)="func8()"></p-dropdown>
+    </div>
+    <!--Button 2-->
+    <div id="but2" class="col-5 col-sm-5 col-lg-3">
+      <p-button label="Add category" styleClass="p-button-outlined p-button-info" (onClick)="func14()"></p-button>
     </div>
   </div>
   <!--Normal checkbox-->
   <div class="row" style="border: 1px solid black; margin-top: 3%">
     <div class="col-5">
       <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-        <p-checkbox formControlName="city" value="check1" id="check1" (onChange)="func9()"></p-checkbox>
+        <p-checkbox value="check1" id="check1" (onChange)="func9()"></p-checkbox>
         <label for="check1">Title</label>
       </form>
     </div>
@@ -89,7 +96,7 @@
   <div class="row" style="border: 1px solid black">
     <div class="col-5">
       <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-        <p-checkbox formControlName="city" value="check2" id="check2" (onChange)="func11()"></p-checkbox>
+        <p-checkbox value="check2" id="check2" (onChange)="func11()"></p-checkbox>
         <label for="check2">Title</label>
       </form>
     </div>
@@ -97,18 +104,17 @@
     <div class="col-3">Categories</div>
     <div class="col-2">Date</div>
   </div>
-  <!--Dropdown and button-->
-  <div class="row" style="margin-top: 3%">
-    <!--Dropdown 1-->
-    <div class="col-2 align-self-center">
-      <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name" (onChange)="func12()"></p-dropdown>
-    </div>
-    <!--Button 1-->
-    <div class="col-1 align-self-center">
-      <p-button label="Apply" styleClass="p-button-outlined p-button-info" (onClick)="func13()"></p-button>
+  <div>
+    <!--Dropdown and button-->
+    <div class="row" style="margin-top: 3%">
+      <!--Dropdown 4-->
+      <div id="drop4" class="col-4 col-sm-4 col-lg-2 p-fluid">
+        <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name" (onChange)="func12()"></p-dropdown>
+      </div>
+      <!--Button 3-->
+      <div id="but3" class="col-2 col-sm-3 col-lg-1">
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info" (onClick)="func13()"></p-button>
+      </div>
     </div>
   </div>
 </div>
-
-
-

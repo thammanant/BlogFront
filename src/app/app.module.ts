@@ -14,8 +14,17 @@ import { CustomCarouselModule } from './custom-carousel/custom-carousel.module';
 import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
-import {RecentViewModule} from "./recent-view/recent-view.module";
+import { CheckboxModule } from 'primeng/checkbox';
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
+import {environment} from "src/environments/environment";
 
+// Initialize Firebase
+const app = initializeApp(environment.firebaseConfig);
+// Initialize Realtime Database and get a reference to the service
+const database = getDatabase(app);
+
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +41,8 @@ import {RecentViewModule} from "./recent-view/recent-view.module";
     EditViewModule,
     CreateCategoryModule,
     CreateViewModule,
-    RecentViewModule
+    // RecentViewModule,
+    CheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
