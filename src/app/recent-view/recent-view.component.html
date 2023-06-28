@@ -15,11 +15,14 @@
     <!--Label-->
     <div class="col-6">
       <p-button label="All" styleClass="p-button-link" (onClick)="func2()"></p-button>
-      <input pInputText pKeyFilter="int" placeholder="0" [disabled]="true" style="width: 7%"/>
-      |
+      <label style="padding-bottom: 2%">
+        <span id="all">0</span>
+        |
+      </label>
       <p-button label="Published" styleClass="p-button-link" (onClick)="func3()"></p-button>
-      <input pInputText pKeyFilter="int" placeholder="0" [disabled]="true" style="width: 7%"/>
+      <span id="pub">0</span>
     </div>
+
     <div class="col-4">
       <input pInputText pKeyFilter="int" placeholder="" style="width: 100%"/>
     </div>
@@ -29,7 +32,7 @@
     </div>
   </div>
   <!--Dropdown and Button-->
-  <div class="row" style="margin-top: 3%">
+  <div class="row text-center" style="margin-top: 3%">
     <!--Dropdown 1-->
     <div class="col-2 align-self-center">
       <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name" (onChange)="func5()"></p-dropdown>
@@ -45,6 +48,10 @@
     <!--Dropdown 3-->
     <div class="col-2 align-self-center">
       <p-dropdown [options]="allCategories" [(ngModel)]="selectedCat" optionLabel="name" (onChange)="func8()"></p-dropdown>
+    </div>
+    <!--Button 2-->
+    <div class="col-2 align-self-center">
+      <p-button label="Add category" styleClass="p-button-outlined p-button-info" (onClick)="func14()"></p-button>
     </div>
   </div>
   <!--Normal checkbox-->
