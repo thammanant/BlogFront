@@ -7,3 +7,54 @@
   background: #EEEEEE;
 }
 
+@media (min-width: 576px) and (max-width: 768px){
+  #sPost {
+    float: right;
+    margin-top: 2%;
+  }
+  #drop1 {
+    margin-top: 2%;
+  }
+  #drop2{
+    margin-top: 2%;
+  }
+  #drop3 {
+    margin-top: 2%;
+  }
+  #drop4 {
+    margin-top: 2%;
+  }
+  #but1 {
+    margin-top: 2%;
+  }
+  #but2 {
+    margin-top: 2%;
+  }
+  #but3 {
+    margin-top: 2%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px){
+  #sPost{
+    margin-top: 2%;
+  }
+  #drop3 {
+    margin-top: 2%;
+  }
+  #but2 {
+    margin-top: 2%;
+  }
+}
+
+@media (max-width: 576px) {
+  #sPost{
+    margin-top: 2%;
+  }
+  #drop3 {
+    margin-top: 2%;
+  }
+  #but2 {
+    margin-top: 2%;
+  }
+}
