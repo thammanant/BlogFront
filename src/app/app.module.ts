@@ -15,6 +15,7 @@ import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
 import { CheckboxModule } from 'primeng/checkbox';
+import {environment} from "src/environments/environment";
 import { initializeApp } from "@firebase/app";
 import { getDatabase } from "@firebase/database";
 
@@ -31,7 +32,7 @@ const firebaseConfig = {
 import {RecentViewModule} from "./recent-view/recent-view.module";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(environment.firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 

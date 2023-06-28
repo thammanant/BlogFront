@@ -62,6 +62,9 @@ export class RecentViewComponent implements OnInit{
   func13() {
     //TODO
   }
+  func14() {
+    //TODO
+  }
   //Dropdown function
   func5() {
     //TODO
