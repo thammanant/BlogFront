@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { getDatabase, ref, child, get, set} from "firebase/database";
+import { getDatabase, ref, child, get, set, query, orderByChild} from "firebase/database";
+import {getAuth} from "@angular/fire/auth";
 import {Blog} from "../model/blog";
 import {remove, update} from "@angular/fire/database";
 
@@ -29,9 +30,8 @@ export class DataService {
 
   createCategoryDB(title: string) {
     const db = getDatabase();
-    const categoryRef = ref(db, 'categories/' + title.toLowerCase());
+    const categoryRef = ref(db, 'categories/' + title);
     set(categoryRef, {
-      name: title,
       key: title.toLowerCase()
     }).then(r => console.log('success'));
   }
@@ -119,15 +119,78 @@ export class DataService {
     );
   }
 
+  getAllCategoriesName() {
+    let listName:string[] = [];
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `categories`)).then((snapshot) => {
+      if(snapshot.exists()){
+        snapshot.forEach((childSnapshot) => {
+          if (childSnapshot.key != null){
+            listName.push(childSnapshot.key);
+          }
+        }
+        );
+      }
+      else{
+        console.log("No data available");
+      }
+      console.log(listName)
+      return listName;
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+  }
 
-
-
-
-
-
-
-
-
-
+  getAllNameBlog() {
+    let listName:string[] = [];
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `blog`)).then((snapshot) => {
+      if(snapshot.exists()){
+        snapshot.forEach((childSnapshot) => {
+          if (childSnapshot.key != null){
+            listName.push(childSnapshot.key);
+          }
+        }
+        );
+      }
+      else{
+        console.log("No data available");
+      }
+      console.log(listName)
+      return listName;
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+  }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
