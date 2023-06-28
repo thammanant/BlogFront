@@ -30,6 +30,27 @@ export class CreateCategoryComponent implements OnInit{
   ];
   constructor(private categoryService: CategoryService, private BlogDataService:BlogDataService) {}
 
+  applySearch(): void {
+    this.categoryService.fetchCategoriesFromDatabase();
+    this.categoryService.categories$.subscribe((categories: any[]) => {
+      this.categories = categories;});
+
+    // Perform the search based on the searchCat value
+    const searchQuery = this.searchCat.toLowerCase().trim();
+
+    // Filter the categories based on the search query
+    const filteredCategories = this.categories.filter(category =>
+      category.title.toLowerCase().includes(searchQuery)
+    );
+
+    // Update the categories array with the filtered results
+    this.updateCategories(filteredCategories);
+  }
+
+  updateCategories(categories: any[]): void {
+    this.categories = categories;
+  }
+
   createCategory(): void {
     const newCategory = {
       title: this.title,
@@ -38,7 +59,7 @@ export class CreateCategoryComponent implements OnInit{
 
     // Check if the category already exists
     const existingCategory = this.categories.find(category =>
-      category.key !== 'Un' && category.title && category.title.localeCompare(newCategory.title) === 0
+      category.key !== 'Un' && category.title && category.key.localeCompare(newCategory.key) === 0
     );
 
     if (existingCategory) {
@@ -77,20 +98,18 @@ export class CreateCategoryComponent implements OnInit{
     this.formGroup = new FormGroup({
       checkbox1: new FormControl<string | null>(null)
     });
-
+    this.categoryService.fetchCategoriesFromDatabase();
     this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
-      console.log('Categories Length:', this.categories.length);
+    });
 
       // Check if the categories array is empty or not after get the data from the database
       if (this.categories.length === 0) {
         this.createUncategorizedCategory();
       } else {
-        console.log('Categories:', this.categories);
+        console.log('Categories Length:', this.categories.length)
+        console.log('Categories:', this.categories)
       }
-    });
-
-    this.categoryService.fetchCategoriesFromDatabase();
   }
 
   createUncategorizedCategory(): void {

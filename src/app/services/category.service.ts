@@ -13,10 +13,6 @@ export class CategoryService {
     this.fetchCategoriesFromDatabase();
   }
 
-  public getCategories(): any[] {
-    return this.categories;
-  }
-
   fetchCategoriesFromDatabase(): void {
     const dbRef = ref(getDatabase(), 'categories');
     onValue(dbRef, (snapshot: DataSnapshot) => {
