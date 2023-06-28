@@ -8,14 +8,14 @@
   </div>
   <div class="row">
     <!--Edit panel-->
-    <div class="col-md-8 col-sm-12">
+    <div class="col-sm-12 col-md-9 col-lg-8">
       <div class="container">
         <!--Edit information-->
         <div class="row">
-          <div class="col-6" style="padding-bottom: 2%; padding-top: 2%">
+          <div class="col-9 col-sm-9 col-md-9 col-lg-8 p-fluid" style="padding-bottom: 2%; padding-top: 2%">
             Title
             <input pInputText type="text" class="p-inputtext-sm" placeholder="Title" [(ngModel)]="title" style="width: 89%; height: auto">
-            </div>
+          </div>
         </div>
         <div class="row">
           <div class="col-12" style="padding-bottom: 2%">
@@ -29,7 +29,7 @@
             :
             <input pInputText type="text" class="p-inputtext-sm" placeholder="MM" [(ngModel)]="minute" style="width: 8%; height: auto"/>
             Status
-            <p-dropdown [options]="status" [(ngModel)]="selectedStatus"  optionLabel="status" (onChange)="func2()"></p-dropdown>
+            <p-dropdown id="status" [options]="status" [(ngModel)]="selectedStatus"  optionLabel="status" (onChange)="func2()"></p-dropdown>
           </div>
         </div>
         <!--Editor-->
@@ -56,7 +56,7 @@
             </div>
           </div>
           <!--Remove button-->
-          <div style="margin-left: 35%">
+          <div class="p-fluid">
             <p-button label="Remove" styleClass="p-button-outlined p-button-danger" (onClick)="func5()"></p-button>
           </div>
         </div>
