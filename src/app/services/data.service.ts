@@ -60,7 +60,6 @@ export class DataService {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `blog`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         return snapshot.val();
       } else {
         console.log("No data available");
@@ -75,7 +74,6 @@ export class DataService {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `categories`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         return snapshot.val();
       } else {
         console.log("No data available");
