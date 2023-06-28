@@ -10,3 +10,14 @@
   background: #EEEEEE;
 }
 
+#cat{
+  display: block;
+}
+
+@media (max-width: 640px)
+{
+  #cat
+  {
+    display: none;
+  }
+}
