@@ -29,7 +29,7 @@ export class BlogDataService {
     const db = getDatabase();
     const categoryRef = ref(db, 'categories/' + category.key);
     set(categoryRef, {
-      name: category.title,
+      title: category.title,
       key: category.key
     }).then(r => console.log('success'));
   }

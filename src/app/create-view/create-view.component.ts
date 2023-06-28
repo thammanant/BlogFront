@@ -47,14 +47,9 @@ export class CreateViewComponent implements OnInit {
 
     this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
-      this.updateCategoryCount();
     });
 
     this.categoryService.fetchCategoriesFromDatabase();
-  }
-
-  updateCategoryCount(): void {
-    this.categoryCount = this.categories.length;
   }
 
   onCheckboxChange(event: any, category: any): void {
