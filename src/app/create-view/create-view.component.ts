@@ -1,4 +1,6 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../services/category.service';
+import { BlogDataService } from '../services/blog-data.service';
 
 interface Month {
   name: string;
@@ -10,25 +12,24 @@ interface Month {
   templateUrl: './create-view.component.html',
   styleUrls: ['./create-view.component.scss']
 })
-export class CreateViewComponent {
+export class CreateViewComponent implements OnInit {
   text: string = '';
   title: string = '';
   day: string = '';
   year: string = '';
   hour: string = '';
   minute: string = '';
-  // @ts-ignore
-  months: Month[];
-  // @ts-ignore
-  selectedMonth:Month;
+  isDraft: string = 'false';
+  months: Month[] = [];
+  selectedMonth: Month | undefined;
 
   selectedCategories: any[] = [];
+  categoryCount: number = 0;
+  categories: any[] = [];
 
-  categories: any[] = [
-    { name: ' Uncategorized', key: 'Un' },
-  ];
+  constructor(private categoryService: CategoryService, private blogService: BlogDataService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.months = [
       { name: '01-Jan', code: 'Jan' },
       { name: '02-Feb', code: 'Feb' },
@@ -43,24 +44,33 @@ export class CreateViewComponent {
       { name: '11-Nov', code: 'Nov' },
       { name: '12-Dec', code: 'Dec' }
     ];
+
+    this.categoryService.categories$.subscribe((categories: any[]) => {
+      this.categories = categories;
+    });
+
+    this.categoryService.fetchCategoriesFromDatabase();
   }
-  // Dropdown functions
-  func0() {
-    //TODO
+
+  onCheckboxChange(event: any, category: any): void {
+    if (event.target.checked) {
+      this.selectedCategories.push(category);
+    } else {
+      const index = this.selectedCategories.findIndex((item) => item.name === category.name);
+      if (index !== -1) {
+        this.selectedCategories.splice(index, 1);
+      }
+    }
   }
-  // Editor functions
-  func1() {
-    //TODO
-  }
-  // Checkbox functions
-  func2() {
-    //TODO
-  }
-  //Button functions
-  func3() {
-    //TODO
-  }
-  func4() {
-    //TODO
-  }
+
+  // removeSelectedCategories(): void {
+  //   this.selectedCategories.forEach((category) => {
+  //     const index = this.categories.findIndex((item) => item.name === category.name);
+  //     if (index !== -1) {
+  //       this.categories.splice(index, 1);
+  //     }
+  //   });
+  //   this.selectedCategories = [];
+  //   this.updateCategoryCount();
+  // }
 }

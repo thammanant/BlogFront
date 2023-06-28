@@ -1,0 +1,400 @@
+openapi: 3.0.0
+info:
+  title: Get Items in Custom Carousel
+  version: 1.0.0
+servers:
+  - url: /api
+paths:
+  /blogs:
+    get:
+      summary: Return a list of blogs for the carousel(all)
+      responses:
+        '200':
+          description: A list of blogs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogList'
+  /blogs/{id}:
+    get:
+      summary: Retrieve a specific blog by its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the blog
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+        '404':
+          description: Blog not found
+    put:
+      summary: Update a specific blog by its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the blog
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Blog'
+      responses:
+        '200':
+          description: Blog updated successfully
+        '400':
+          description: Invalid request payload
+    delete:
+      summary: Delete a specific blog by its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the blog
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog deleted successfully
+        '400':
+          description: Invalid request
+
+  /categories:
+    get:
+      summary: Retrieve all categories
+      responses:
+        '200':
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryList'
+    post:
+      summary: Create a new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '201':
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          description: Invalid request payload
+  /categories/{id}:
+    get:
+      summary: Retrieve a specific category by its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the category
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '404':
+          description: Category not found
+    put:
+      summary: Update a specific category by its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the category
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: Category updated successfully
+        '400':
+          description: Invalid request payload
+    delete:
+      summary: Delete a specific category by its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the category
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category deleted successfully
+        '400':
+          description: Invalid request
+
+  /create-view:
+    get:
+      summary: Return Create View Data
+      responses:
+        '200':
+          description: Data retrieved successfully
+        '400':
+          description: Invalid request
+
+  /edit-view:
+    get:
+      summary: Return the edit view data
+      responses:
+        '200':
+          description: Edit view data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditViewData'
+    put:
+      summary: Update the edit view data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditViewData'
+      responses:
+        '200':
+          description: Edit view data updated successfully
+        '400':
+          description: Invalid request payload
+  /recent-view:
+    get:
+      summary: Get the recent view data
+      responses:
+        '200':
+          description: Recent view data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecentViewData'
+    put:
+      summary: Update the recent view data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecentViewData'
+      responses:
+        '200':
+          description: Recent view data updated successfully
+        '400':
+          description: Invalid request payload
+
+components:
+  schemas:
+    Blog:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the blog
+        image:
+          type: string
+          format: url
+          description: The URL of the blog image
+        link:
+          type: string
+          format: url
+          description: The URL of the blog link
+    BlogList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Blog'
+    Category:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the category
+    CategoryList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Category'
+    Month:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+    CreateViewComponent:
+      type: object
+      properties:
+        title:
+          type: string
+        day:
+          type: string
+        year:
+          type: string
+        hour:
+          type: string
+        minute:
+          type: string
+        months:
+          type: array
+          items:
+            $ref: '#/components/schemas/Month'
+        selectedMonth:
+          $ref: '#/components/schemas/Month'
+        selectedCategories:
+          type: array
+          description: keep the checked category
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        categoryCount:
+          type: integer
+        isDraft:
+          type: string
+
+    EditViewData:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the edit view
+        day:
+          type: string
+          description: The day value
+        year:
+          type: string
+          description: The year value
+        hour:
+          type: string
+          description: The hour value
+        minute:
+          type: string
+          description: The minute value
+        months:
+          type: array
+          items:
+            $ref: '#/components/schemas/Month'
+        selectedMonth:
+          $ref: '#/components/schemas/Month'
+        selectedCategories:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        isDraft:
+          type: string
+
+    RecentViewData:
+      type: object
+      properties:
+        bulkAction:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedAction:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        allDates:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedDate:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        allCategories:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedCat:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+        selectedBlog:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              author:
+                type: string
+              categories:
+                type: string
+              date:
+                type: string
+              key:
+                type: string
+        blogs:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              author:
+                type: string
+              categories:
+                type: string
+              date:
+                type: string
+              key:
+                type: string

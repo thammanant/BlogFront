@@ -9,7 +9,7 @@
   <!--Search Categories-->
   <div class="d-flex flex-row-reverse" style="margin-bottom: 3%">
     <div>
-      <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" (onClick)="func1()"></p-button>
+      <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" (click)="applySearch()"></p-button>
     </div>
     <div class="align-self-center col-4" style="margin-right: 2%;">
       <input pInputText type="text" class="p-inputtext-sm" placeholder="" [(ngModel)]="searchCat" style="width: 100%">
@@ -20,15 +20,15 @@
     <!--Name input-->
     <div class="col-6 align-self-center">
       Name
-      <input pInputText type="text" class="p-inputtext-sm" placeholder="Name" [(ngModel)]="name" style="margin-left: 2%; width: 80%">
+      <input pInputText type="text" class="p-inputtext-sm" placeholder="Name" [(ngModel)]="title" style="margin-left: 2%; width: 80%">
     </div>
     <!--dropdown menu and button-->
     <div class="col-6 d-flex flex-row">
-      <div class="col-sm-12 col-md-6 col-lg-4">
-        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name" (onChange)="func8()"></p-dropdown>
+      <div class="col-4">
+        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
       </div>
       <div class="align-self-center">
-        <p-button label="Apply" styleClass="p-button-outlined p-button-info" (onClick)="func2()"></p-button>
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
       </div>
     </div>
     <div class="col-6"></div>
@@ -36,8 +36,8 @@
       <!--Normal checkbox-->
       <div class="row" style="border: 1px solid black; margin-top: 5%">
         <div class="col-3">
-          <form class="d-flex align-items-center gap-1" [formGroup]="formGroup">
-            <p-checkbox value="check1" id="check1" (onChange)="func5()"></p-checkbox>
+          <form class="flex align-items-center gap-1" [formGroup]="formGroup">
+            <p-checkbox id="check1" ></p-checkbox>
             <label for="check1">Name</label>
           </form>
         </div>
@@ -51,8 +51,8 @@
         <div class="col-xs-12 col-sm-12 col-md-10 align-self-center">
           <div class="flex flex-column gap-2">
             <div *ngFor="let category of categories" class="field-checkbox">
-              <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key" (onChange)="func6()"></p-checkbox>
-              <label [for]="category.key">{{ category.name }}</label>
+              <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
+              <label [for]="category.key">{{ category.title }}</label>
               <span id="count" style="float: right;">0</span>
             </div>
           </div>
@@ -61,8 +61,8 @@
       <!--Normal checkbox-->
       <div class="row" style="border: 1px solid black; margin-bottom: 5%">
         <div class="col-3">
-          <form class="d-flex align-items-center gap-1" [formGroup]="formGroup">
-            <p-checkbox value="check2" id="check2" (onChange)="func7()"></p-checkbox>
+          <form class="flex align-items-center gap-1" [formGroup]="formGroup">
+            <p-checkbox id="check2" ></p-checkbox>
             <label for="check2">Name</label>
           </form>
         </div>
@@ -75,20 +75,20 @@
     <div class="col-6 align-self-center"></div>
     <!--dropdown menu and button-->
     <div class="col-6 d-flex flex-row" style="margin-bottom: 3%">
-      <div class="col-sm-12 col-md-6 col-lg-4">
-        <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name" (onChange)="func9()"></p-dropdown>
+      <div class="col-4">
+        <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
       </div>
-      <div class="col-xs-12 col-2 align-self-center">
-        <p-button label="Apply" styleClass="p-button-outlined p-button-info" (onClick)="func3()"></p-button>
+      <div class="align-self-center">
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
       </div>
     </div>
   </div>
   <div class="col-6 d-flex flex-row">
-    <div class="col-sm-12 col-md-7 col-lg-4">
-      <p-button label="Add new category" (onClick)="func4()"></p-button>
+    <div class="col-4">
+      <p-button class="btn btn-primary" (onClick)="createCategory()">Add new category</p-button>
     </div>
     <div class="align-self-center" style="padding-left: 3%">
-      <p-button label="Back" styleClass="p-button-outlined p-button-info" (onClick)="func10()"></p-button>
+      <p-button label="Back" styleClass="p-button-outlined p-button-info"></p-button>
     </div>
   </div>
 </div>
