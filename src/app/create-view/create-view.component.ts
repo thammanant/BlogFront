@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
-import { BlogDataService } from '../services/blog-data.service';
+import { DataService } from '../services/data.service';
 
 interface Month {
   name: string;
@@ -27,22 +27,23 @@ export class CreateViewComponent implements OnInit {
   categoryCount: number = 0;
   categories: any[] = [];
 
-  constructor(private categoryService: CategoryService, private blogService: BlogDataService) {}
+  constructor(private categoryService: CategoryService, private DataService: DataService) {
+  }
 
   ngOnInit(): void {
     this.months = [
-      { name: '01-Jan', code: 'Jan' },
-      { name: '02-Feb', code: 'Feb' },
-      { name: '03-Mar', code: 'Mar' },
-      { name: '04-Apr', code: 'Apr' },
-      { name: '05-May', code: 'May' },
-      { name: '06-Jun', code: 'Jun' },
-      { name: '07-Jul', code: 'Jul' },
-      { name: '08-Aug', code: 'Aug' },
-      { name: '09-Sep', code: 'Sep' },
-      { name: '10-Oct', code: 'Oct' },
-      { name: '11-Nov', code: 'Nov' },
-      { name: '12-Dec', code: 'Dec' }
+      {name: '01-Jan', code: 'Jan'},
+      {name: '02-Feb', code: 'Feb'},
+      {name: '03-Mar', code: 'Mar'},
+      {name: '04-Apr', code: 'Apr'},
+      {name: '05-May', code: 'May'},
+      {name: '06-Jun', code: 'Jun'},
+      {name: '07-Jul', code: 'Jul'},
+      {name: '08-Aug', code: 'Aug'},
+      {name: '09-Sep', code: 'Sep'},
+      {name: '10-Oct', code: 'Oct'},
+      {name: '11-Nov', code: 'Nov'},
+      {name: '12-Dec', code: 'Dec'}
     ];
 
     this.categoryService.categories$.subscribe((categories: any[]) => {
@@ -51,26 +52,8 @@ export class CreateViewComponent implements OnInit {
 
     this.categoryService.fetchCategoriesFromDatabase();
   }
-
-  onCheckboxChange(event: any, category: any): void {
-    if (event.target.checked) {
-      this.selectedCategories.push(category);
-    } else {
-      const index = this.selectedCategories.findIndex((item) => item.name === category.name);
-      if (index !== -1) {
-        this.selectedCategories.splice(index, 1);
-      }
-    }
+  getCategoryNameByKey(categoryKey: string) {
+    return this.DataService.getBlogCategoryDB(categoryKey);
   }
 
-  // removeSelectedCategories(): void {
-  //   this.selectedCategories.forEach((category) => {
-  //     const index = this.categories.findIndex((item) => item.name === category.name);
-  //     if (index !== -1) {
-  //       this.categories.splice(index, 1);
-  //     }
-  //   });
-  //   this.selectedCategories = [];
-  //   this.updateCategoryCount();
-  // }
 }

@@ -1,6 +1,6 @@
 import { CategoryService } from '../services/category.service';
 // @ts-ignore
-import {BlogDataService} from "../services/blog-data.service";
+import {DataService} from "../services/data.service";
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -28,7 +28,7 @@ export class CreateCategoryComponent implements OnInit{
   categories: any[] = [
     { title: ' Uncategorized', key: 'Un' },
   ];
-  constructor(private categoryService: CategoryService, private BlogDataService:BlogDataService) {}
+  constructor(private categoryService: CategoryService, private DataService:DataService) {}
 
   applySearch(): void {
     this.categoryService.fetchCategoriesFromDatabase();
@@ -88,7 +88,7 @@ export class CreateCategoryComponent implements OnInit{
     // Insert the new category at the determined index
     this.categories.splice(indexToInsert, 0, newCategory);
 
-    this.BlogDataService.createCategoryDB(newCategory);
+    this.DataService.createCategoryDB(newCategory.title);
     console.log('New category created:', newCategory);
     this.title = ''; // Reset the title property
   }
@@ -115,8 +115,8 @@ export class CreateCategoryComponent implements OnInit{
   createUncategorizedCategory(): void {
     const existingUncategorized = this.categories.find(category => category.key === 'Un');
     if (!existingUncategorized) {
-      const uncategorized = { title: 'Uncategorized', key: 'Un' };
-      this.BlogDataService.createCategoryDB(uncategorized);
+      const uncategorized = { title: 'Uncategorized'};
+      this.DataService.createCategoryDB(uncategorized.title);
       console.log('New category created:', uncategorized);
     }
     this.title = ''; // Reset the title property
