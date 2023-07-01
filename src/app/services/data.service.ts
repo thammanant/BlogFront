@@ -179,7 +179,7 @@ const dbRef = ref(getDatabase());
       if(snapshot.exists()){
         snapshot.forEach((childSnapshot) => {
           if (childSnapshot.val() != null){
-            rel = childSnapshot.val().key;
+            rel = childSnapshot.val();
           }
         }
         );
