@@ -7,6 +7,8 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./recent-view.component.scss']
 })
 export class RecentViewComponent implements OnInit{
+  Allcount: number = 0;
+  Publishedcount: number = 0;
   bulkAction: any[] = [
     { name: 'Edit', key: 'edit' },
     { name: 'Move to Trash', key: 'trash' },
