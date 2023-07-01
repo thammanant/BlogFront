@@ -171,7 +171,32 @@ export class DataService {
     );
   }
 
-}
+  //get categories from key
+  getCategoriesFromKey(key: string) {
+const dbRef = ref(getDatabase());
+    let rel:string;
+    get(child(dbRef, `categories`)).then((snapshot) => {
+      if(snapshot.exists()){
+        snapshot.forEach((childSnapshot) => {
+          if (childSnapshot.val() != null){
+            rel = childSnapshot.val().key;
+          }
+        }
+        );
+      }
+      else{
+        console.log("No data available");
+      }
+      return rel;
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+    }
+
+  }
+
+
 
 
 
