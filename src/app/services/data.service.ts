@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getDatabase, ref, child, get, set, query, orderByChild} from "firebase/database";
-import {getAuth} from "@angular/fire/auth";
+import { getDatabase, ref, child, get, set} from "firebase/database";
 import {Blog} from "../model/blog";
 import {remove, update} from "@angular/fire/database";
 
@@ -50,16 +49,11 @@ export class DataService {
     );
   }
 
-  updateBlogDB(id:string,Blog: Blog) {
-    const db = getDatabase();
-    const PostRef = ref(db, 'blog/' + id);
-    update(PostRef, Blog).then(r => console.log('success'));
-  }
-
   getAllBlogsDB() {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `blog`)).then((snapshot) => {
       if (snapshot.exists()) {
+        console.log(snapshot.val());
         return snapshot.val();
       } else {
         console.log("No data available");
@@ -74,6 +68,7 @@ export class DataService {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `categories`)).then((snapshot) => {
       if (snapshot.exists()) {
+        console.log(snapshot.val());
         return snapshot.val();
       } else {
         console.log("No data available");
@@ -97,11 +92,6 @@ export class DataService {
       }
     );
   }
-  deleteBlogDB(id: string) {
-    const db = getDatabase();
-    const PostRef = ref(db, 'blog/' + id);
-    remove(PostRef).then(r => console.log('success'));
-  }
 
   getBlogCategoryDB(blogID: string) {
     const dbRef = ref(getDatabase());
@@ -115,6 +105,24 @@ export class DataService {
         console.error(error);
       }
     );
+  }
+
+  updateBlogDB(id:string,Blog: Blog) {
+    const db = getDatabase();
+    const PostRef = ref(db, 'blog/' + id);
+    update(PostRef, Blog).then(r => console.log('success'));
+  }
+
+  deleteBlogDB(id: string) {
+    const db = getDatabase();
+    const PostRef = ref(db, 'blog/' + id);
+    remove(PostRef).then(r => console.log('success'));
+  }
+
+  deleteCategoryDB(title: string) {
+    const db = getDatabase();
+    const PostRef = ref(db, 'categories/' + title);
+    remove(PostRef).then(r => console.log('success'));
   }
 
   getAllCategoriesName() {
@@ -162,4 +170,28 @@ export class DataService {
       }
     );
   }
+
+  //get categories from key
+  getCategoriesFromKey(key: string) {
+const dbRef = ref(getDatabase());
+    let rel:string;
+    get(child(dbRef, `categories`)).then((snapshot) => {
+      if(snapshot.exists()){
+        snapshot.forEach((childSnapshot) => {
+          if (childSnapshot.val() != null){
+            rel = childSnapshot.val();
+          }
+        }
+        );
+      }
+      else{
+        console.log("No data available");
+      }
+      return rel;
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+    }
+
 }
