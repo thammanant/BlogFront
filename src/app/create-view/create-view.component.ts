@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { DataService } from '../services/data.service';
+import {Blog} from "../model/blog";
+import { Router } from '@angular/router';
+
 
 interface Month {
   name: string;
@@ -13,21 +16,18 @@ interface Month {
   styleUrls: ['./create-view.component.scss']
 })
 export class CreateViewComponent implements OnInit {
-  text: string = '';
+  description: string = '';
   title: string = '';
   day: string = '';
   year: string = '';
   hour: string = '';
   minute: string = '';
-  isDraft: string = 'false';
   months: Month[] = [];
   selectedMonth: Month | undefined;
-
   selectedCategories: any[] = [];
-  categoryCount: number = 0;
   categories: any[] = [];
 
-  constructor(private categoryService: CategoryService, private DataService: DataService) {
+  constructor(private categoryService: CategoryService, private DataService: DataService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -52,8 +52,32 @@ export class CreateViewComponent implements OnInit {
 
     this.categoryService.fetchCategoriesFromDatabase();
   }
-  getCategoryNameByKey(categoryKey: string) {
-    return this.DataService.getBlogCategoryDB(categoryKey);
+
+  createDraftBlog() {          //change the title in the database to the id
+    const id = this.title.replace(/\s+/g, ' ').trim()+ '-' + this.day + '/' + this.selectedMonth?.code + '/' + this.year + '-' + this.hour + ':' + this.minute;
+    const blog : Blog = {
+      id: id,
+      title: this.title.replace(/\s+/g, ' ').trim(),
+      date: this.day + '-' + this.selectedMonth?.code + '-' + this.year,
+      time: this.hour + ':' + this.minute,
+      status: "Draft",
+      description: this.description,
+      categories: this.selectedCategories
+    };
+    this.DataService.createBlogDB(blog);
   }
 
+  createPublishBlog() {          //change the title in the database to the id
+    const id = this.title.replace(/\s+/g, ' ').trim()+ '-' + this.day + '/' + this.selectedMonth?.code + '/' + this.year + '-' + this.hour + ':' + this.minute;
+    const blog: Blog = {
+      id: id,
+      title: this.title.replace(/\s+/g, ' ').trim(),
+      date: this.day + '-' + this.selectedMonth?.code + '-' + this.year,
+      time: this.hour + ':' + this.minute,
+      status: "Publish",
+      description: this.description,
+      categories: this.selectedCategories
+    };
+    this.DataService.createBlogDB(blog);
+  }
 }

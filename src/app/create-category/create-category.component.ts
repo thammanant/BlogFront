@@ -1,8 +1,8 @@
 import { CategoryService } from '../services/category.service';
-// @ts-ignore
 import {DataService} from "../services/data.service";
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-category',
@@ -23,12 +23,9 @@ export class CreateCategoryComponent implements OnInit{
   selectedAction2: any[] = [];
 
   searchCat: string = "";
-  name: string = "";
   selectedCategories: any[] = [];
-  categories: any[] = [
-    { title: ' Uncategorized', key: 'Un' },
-  ];
-  constructor(private categoryService: CategoryService, private DataService:DataService) {}
+  categories: any[] = []
+  constructor(private categoryService: CategoryService, private DataService:DataService, private router: Router) {}
 
   applySearch(): void {
     this.categoryService.fetchCategoriesFromDatabase();
@@ -36,11 +33,11 @@ export class CreateCategoryComponent implements OnInit{
       this.categories = categories;});
 
     // Perform the search based on the searchCat value
-    const searchQuery = this.searchCat.toLowerCase().trim();
+    const searchQuery = this.searchCat.replace(/\s+/g, ' ').trim().toLowerCase();
 
     // Filter the categories based on the search query
     const filteredCategories = this.categories.filter(category =>
-      category.title.toLowerCase().includes(searchQuery)
+      category.title.replace(/\s+/g, ' ').toLowerCase().trim().includes(searchQuery)
     );
 
     // Update the categories array with the filtered results
@@ -53,13 +50,13 @@ export class CreateCategoryComponent implements OnInit{
 
   createCategory(): void {
     const newCategory = {
-      title: this.title,
-      key: this.title.toLowerCase().replace(/\s/g, '-')
+      title: this.title.replace(/\s+/g, ' ').trim(),
+      key: this.title.replace(/\s+/g, ' ').toLowerCase().trim()
     };
 
     // Check if the category already exists
     const existingCategory = this.categories.find(category =>
-      category.key !== 'Un' && category.title && category.key.localeCompare(newCategory.key) === 0
+      category.title.toLowerCase() !== 'uncategorized' && category.title.toLowerCase() === newCategory.key
     );
 
     if (existingCategory) {
@@ -79,7 +76,7 @@ export class CreateCategoryComponent implements OnInit{
 
     // Find the index to insert the new category
     const insertIndex = this.categories.findIndex(category =>
-      category.key !== 'Un' &&  category.title && category.title.localeCompare(newCategory.title) === 1
+      category.title.toLowerCase() !== 'uncategorized' && category.title.localeCompare(newCategory.title) === 1
     );
 
     // If no suitable index found, insert at the end
@@ -113,7 +110,7 @@ export class CreateCategoryComponent implements OnInit{
   }
 
   createUncategorizedCategory(): void {
-    const existingUncategorized = this.categories.find(category => category.key === 'Un');
+    const existingUncategorized = this.categories.find(category => category.title.toLowerCase() === 'uncategorized');
     if (!existingUncategorized) {
       const uncategorized = { title: 'Uncategorized'};
       this.DataService.createCategoryDB(uncategorized.title);
@@ -121,5 +118,7 @@ export class CreateCategoryComponent implements OnInit{
     }
     this.title = ''; // Reset the title property
   }
-
+  goToRecentView():void {
+    this.router.navigate(['/recent-view']);
+  }
 }

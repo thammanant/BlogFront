@@ -3,7 +3,7 @@ info:
   title: Get Items in Custom Carousel
   version: 1.0.0
 servers:
-  - url: /api
+- url: /api
 paths:
   /blogs:
     get:
@@ -19,14 +19,14 @@ paths:
   /blogs/{id}:
     delete:
       parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the blog
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           description: Blog deleted successfully
@@ -36,14 +36,14 @@ paths:
       x-accepts: application/json
     get:
       parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the blog
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -57,14 +57,14 @@ paths:
       x-accepts: application/json
     put:
       parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the blog
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -79,6 +79,7 @@ paths:
       summary: Update a specific blog by its ID
       x-content-type: application/json
       x-accepts: application/json
+      x-contentType: application/json
   /categories:
     get:
       responses:
@@ -109,17 +110,18 @@ paths:
       summary: Create a new category
       x-content-type: application/json
       x-accepts: application/json
+      x-contentType: application/json
   /categories/{key}:
     delete:
       parameters:
-        - description: key of the category
-          explode: false
-          in: path
-          name: key
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: key of the category
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           description: Category deleted successfully
@@ -129,14 +131,14 @@ paths:
       x-accepts: application/json
     get:
       parameters:
-        - description: key of the category
-          explode: false
-          in: path
-          name: key
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: key of the category
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -150,14 +152,14 @@ paths:
       x-accepts: application/json
     put:
       parameters:
-        - description: key of the category
-          explode: false
-          in: path
-          name: key
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: key of the category
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -172,6 +174,7 @@ paths:
       summary: Update a specific category by its ID
       x-content-type: application/json
       x-accepts: application/json
+      x-contentType: application/json
   /create-view:
     get:
       responses:
@@ -184,14 +187,14 @@ paths:
   /edit-view/{id}:
     get:
       parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the blog
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -203,14 +206,14 @@ paths:
       x-accepts: application/json
     put:
       parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the blog
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -225,6 +228,7 @@ paths:
       summary: Update the edit view data
       x-content-type: application/json
       x-accepts: application/json
+      x-contentType: application/json
   /recent-view:
     get:
       responses:
@@ -239,14 +243,14 @@ paths:
   /recent-view/{id}:
     delete:
       parameters:
-        - description: ID of the recent view data
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the recent view data
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -261,16 +265,17 @@ paths:
       summary: Delete a specific blog by its ID
       x-content-type: application/json
       x-accepts: application/json
+      x-contentType: application/json
     get:
       parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the blog
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -282,14 +287,14 @@ paths:
       x-accepts: application/json
     put:
       parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
+      - description: ID of the blog
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -304,6 +309,7 @@ paths:
       summary: Update data of the specific blog
       x-content-type: application/json
       x-accepts: application/json
+      x-contentType: application/json
 components:
   schemas:
     Blog:
@@ -389,29 +395,29 @@ components:
     EditViewData:
       example:
         months:
-          - code: code
-            name: name
-          - code: code
-            name: name
+        - code: code
+          name: name
+        - code: code
+          name: name
         hour: hour
         selectedMonth:
           code: code
           name: name
         year: year
         selectedCategories:
-          - selectedCategories
-          - selectedCategories
+        - selectedCategories
+        - selectedCategories
         isDraft: isDraft
         id: id
         categories:
-          - categories
-          - categories
+        - categories
+        - categories
         title: title
         day: day
         minute: minute
       properties:
         id:
-          description: "The title,date and time of the blog"
+          description: The title,date and time of the blog
           type: string
         title:
           description: The title of the edit view
@@ -448,48 +454,48 @@ components:
     RecentViewData:
       example:
         selectedAction:
-          - name: name
-            key: key
-          - name: name
-            key: key
+        - name: name
+          key: key
+        - name: name
+          key: key
         allCategories:
-          - name: name
-            key: key
-          - name: name
-            key: key
+        - name: name
+          key: key
+        - name: name
+          key: key
         blogs:
-          - date: date
-            author: author
-            isDraft: isDraft
-            id: id
-            categories: categories
-            title: title
-          - date: date
-            author: author
-            isDraft: isDraft
-            id: id
-            categories: categories
-            title: title
+        - date: date
+          author: author
+          isDraft: isDraft
+          id: id
+          categories: categories
+          title: title
+        - date: date
+          author: author
+          isDraft: isDraft
+          id: id
+          categories: categories
+          title: title
         bulkAction:
-          - name: name
-            key: key
-          - name: name
-            key: key
+        - name: name
+          key: key
+        - name: name
+          key: key
         selectedDate:
-          - name: name
-            key: key
-          - name: name
-            key: key
+        - name: name
+          key: key
+        - name: name
+          key: key
         allDates:
-          - name: name
-            key: key
-          - name: name
-            key: key
+        - name: name
+          key: key
+        - name: name
+          key: key
         selectedCat:
-          - name: name
-            key: key
-          - name: name
-            key: key
+        - name: name
+          key: key
+        - name: name
+          key: key
       properties:
         bulkAction:
           items:
@@ -552,3 +558,4 @@ components:
         isDraft:
           type: string
       type: object
+

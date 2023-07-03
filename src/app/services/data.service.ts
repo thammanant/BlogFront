@@ -11,42 +11,31 @@ export class DataService {
   constructor() {
   }
 
-  createBlogDB(Blog: Blog) {
+  createBlogDB(blog: Blog) {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `blog/${Blog.id}`)).then((snapshot) => {
+    get(child(dbRef, `blog/${blog.id}`)).then((snapshot) => {
       if (snapshot.exists()) {
         const db = getDatabase();
-        const PostRef = ref(db, 'blog/' + Blog.id);
-        set(PostRef, Blog).then(r => console.log('success'));
+        const postRef = ref(db, 'blog/' + blog.id);
+        set(postRef, blog).then(() => {
+          console.log('Success');
+        }).catch((error) => {
+          console.error('Error: ', error);
+        });
       } else {
-        console.log("No data available");
+        console.log('No data available');
       }
     }).catch((error) => {
-        console.error(error);
-      }
-    );
+      console.error('Error: ', error);
+    });
   }
 
   createCategoryDB(title: string) {
     const db = getDatabase();
-    const categoryRef = ref(db, 'categories/' + title);
+    const categoryRef = ref(db, 'categories/' + title.replace(/\s+/g, ' ').toLowerCase().trim());
     set(categoryRef, {
-      key: title.toLowerCase()
+      title: title.replace(/\s+/g, ' ').trim()
     }).then(r => console.log('success'));
-  }
-
-  getBlogDB(id: string) {
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `blog/${id}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        return snapshot.val();
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-        console.error(error);
-      }
-    );
   }
 
   getAllBlogsDB() {
@@ -170,28 +159,5 @@ export class DataService {
       }
     );
   }
-
-  //get categories from key
-  getCategoriesFromKey(key: string) {
-const dbRef = ref(getDatabase());
-    let rel:string;
-    get(child(dbRef, `categories`)).then((snapshot) => {
-      if(snapshot.exists()){
-        snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.val() != null){
-            rel = childSnapshot.val();
-          }
-        }
-        );
-      }
-      else{
-        console.log("No data available");
-      }
-      return rel;
-    }).catch((error) => {
-        console.error(error);
-      }
-    );
-    }
 
 }

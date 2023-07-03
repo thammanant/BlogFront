@@ -10,6 +10,7 @@ import {CarouselModule} from "primeng/carousel";
 import {TagModule} from "primeng/tag";
 import {ButtonModule} from "primeng/button";
 
+
 import { CustomCarouselModule } from './custom-carousel/custom-carousel.module';
 import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";

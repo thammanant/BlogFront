@@ -32,7 +32,7 @@
         </div>
         <!--Editor-->
         <div class="row">
-          <p-editor [(ngModel)]="text" [style]="{height:'50vh'}"></p-editor>
+          <p-editor [(ngModel)]="description" [style]="{height:'50vh'}"></p-editor>
         </div>
       </div>
     </div>
@@ -47,8 +47,8 @@
           <div class="card flex justify-content-center Rcorners">
             <div class="flex flex-column gap-2">
               <div *ngFor="let category of categories" class="field-checkbox">
-                <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-                <label [for]="category.key">{{ category.title }}</label>
+                <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.title.toLowerCase()"></p-checkbox>
+                <label [for]="category.title.toLowerCase()">{{ category.title }}</label>
               </div>
             </div>
           </div>
@@ -60,6 +60,7 @@
 
 <!--Update and Cancel buttons-->
 <footer class="container" style="margin-top: 2%;">
-  <p-button label="Save draft"></p-button>
-  <p-button label="Publish" styleClass="p-button-outlined" [style]="{margin: '0 0 0 2%'}"></p-button>
+  <p-button label="Save draft" (onClick)="createDraftBlog()"></p-button>
+  <p-button label="Publish" styleClass="p-button-outlined" [style]="{margin: '0 0 0 2%'}" (onClick)="createPublishBlog()"></p-button>
 </footer>
+

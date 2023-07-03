@@ -7,8 +7,6 @@ import {ButtonModule} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {CheckboxModule} from "primeng/checkbox";
 
-
-
 @NgModule({
     declarations: [
         CreateCategoryComponent
