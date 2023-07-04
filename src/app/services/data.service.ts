@@ -107,7 +107,7 @@ export class DataService {
     );
   }
 
-  updateBlogDB(id:string,Blog: Blog) {
+  updateBlogDB(id: string, Blog: Blog) {
     const db = getDatabase();
     const PostRef = ref(db, 'blog/' + id);
     update(PostRef, Blog).then(r => console.log('success'));
@@ -126,18 +126,17 @@ export class DataService {
   }
 
   getAllCategoriesName() {
-    let listName:string[] = [];
+    let listName: string[] = [];
     const dbRef = ref(getDatabase());
     get(child(dbRef, `categories`)).then((snapshot) => {
-      if(snapshot.exists()){
+      if (snapshot.exists()) {
         snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.key != null){
-            listName.push(childSnapshot.key);
+            if (childSnapshot.key != null) {
+              listName.push(childSnapshot.key);
+            }
           }
-        }
         );
-      }
-      else{
+      } else {
         console.log("No data available");
       }
       console.log(listName)
@@ -149,18 +148,17 @@ export class DataService {
   }
 
   getAllNameBlog() {
-    let listName:string[] = [];
+    let listName: string[] = [];
     const dbRef = ref(getDatabase());
     get(child(dbRef, `blog`)).then((snapshot) => {
-      if(snapshot.exists()){
+      if (snapshot.exists()) {
         snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.key != null){
-            listName.push(childSnapshot.key);
+            if (childSnapshot.key != null) {
+              listName.push(childSnapshot.key);
+            }
           }
-        }
         );
-      }
-      else{
+      } else {
         console.log("No data available");
       }
       console.log(listName)
@@ -173,28 +171,19 @@ export class DataService {
 
   //get categories from key
   getCategoriesFromKey(key: string) {
-const dbRef = ref(getDatabase());
-    let rel:string;
-    get(child(dbRef, `categories`)).then((snapshot) => {
-      if(snapshot.exists()){
-        snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.val() != null){
-            rel = childSnapshot.val();
-          }
-        }
-        );
-      }
-      else{
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `categories/${key}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
         console.log("No data available");
       }
-      return rel;
     }).catch((error) => {
         console.error(error);
       }
     );
-    }
-
   }
+}
 
 
 
