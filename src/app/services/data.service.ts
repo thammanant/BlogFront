@@ -110,7 +110,7 @@ export class DataService {
 
   deleteCategoryDB(title: string) {
     const db = getDatabase();
-    const PostRef = ref(db, 'categories/' + title);
+    const PostRef = ref(db, 'categories/' + title.replace(/\s+/g, ' ').toLowerCase().trim());
     remove(PostRef).then(r => console.log('success'));
   }
 

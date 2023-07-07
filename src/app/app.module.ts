@@ -31,6 +31,8 @@ const firebaseConfig = {
   measurementId: "G-XV786L6SPC"
 }
 import {RecentViewModule} from "./recent-view/recent-view.module";
+import transformJavaScript
+  from "@angular-devkit/build-angular/src/builders/browser-esbuild/javascript-transformer-worker";
 
 // Initialize Firebase
 const app = initializeApp(environment.firebaseConfig);
@@ -61,3 +63,4 @@ const database = getDatabase(app);
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

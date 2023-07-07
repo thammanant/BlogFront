@@ -1,7 +1,7 @@
 import { CategoryService } from '../services/category.service';
 import {DataService} from "../services/data.service";
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder,FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,16 +17,14 @@ export class CreateCategoryComponent implements OnInit{
     { name: 'Delete', key: 'delete' },
   ];
   selectedAction: any[] = [];
-  bulkAction2: any[] = [
-    { name: 'Delete', key: 'delete' },
-  ];
-  selectedAction2: any[] = [];
+  selectedCategories: any[] = [];
 
   searchCat: string = "";
-  selectedCategories: any[] = [];
   categories: any[] = []
-  constructor(private categoryService: CategoryService, private DataService:DataService, private router: Router) {}
+  status_check: boolean = false;        //for the name checkbox
 
+  constructor(private categoryService: CategoryService, private DataService:DataService, private router: Router, private formBuilder: FormBuilder) {
+  }
   applySearch(): void {
     this.categoryService.fetchCategoriesFromDatabase();
     this.categoryService.categories$.subscribe((categories: any[]) => {
@@ -89,8 +87,88 @@ export class CreateCategoryComponent implements OnInit{
     console.log('New category created:', newCategory);
     this.title = ''; // Reset the title property
   }
+  goToRecentView():void {         //not work yet
+    this.router.navigate(['/recent-view']).then(r => console.log(r));
+    // window.history.back();
+  }
+
+  // deleteCategory(): void {        //not work yet
+  //   console.log('Selected cat:', this.selectedCategories);
+  //   console.log('Selected Action:', this.selectedAction);
+  //   console.log('Selected Action Key:', this.selectedAction[0]?.key);
+  //   if (this.selectedAction[0]?.key === 'delete') {
+  //     // Filter out the unchecked categories
+  //     const selectedCategories = this.categories.filter(category => category.checked);
+  //     console.log('Selected Categories:', selectedCategories)
+  //
+  //     // Check if the user has selected any category
+  //     if (selectedCategories.length === 0) {
+  //       console.log('Please select at least one category to delete.');
+  //       return;
+  //     }
+  //
+  //     //cannot delete uncategorized category
+  //     const hasUncategorized = selectedCategories.find(category => category.title.toLowerCase() === 'uncategorized');
+  //     if (hasUncategorized) {
+  //       console.log('Cannot delete Uncategorized category.');
+  //       return;
+  //     }
+  //
+  //     //if the user has selected the nameCheckbox category, it will delete all checkbox except uncategorized in categories
+  //     if (this.nameCheckboxValue) {
+  //       // Check if the user has selected the Uncategorized category
+  //       const hasUncategorized = selectedCategories.find(category => category.title.toLowerCase() === 'uncategorized');
+  //       if (hasUncategorized) {
+  //         console.log('Cannot delete Uncategorized category.');
+  //         return;
+  //       }
+  //     }
+  //
+  //     // Delete the selected categories
+  //     selectedCategories.forEach(category => {
+  //       this.categories.splice(this.categories.indexOf(category), 1);
+  //       this.DataService.deleteCategoryDB(category.title);
+  //       console.log('Category deleted:', category);
+  //     });
+  //   }
+  // }
+  deleteCategory(): void {
+    console.log('Selected cat:', this.selectedCategories);
+    console.log('Selected Action:', this.selectedAction);
+    console.log('Selected Action Key:', (this.selectedAction[0]?.key));
+
+    if (this.selectedAction[0]?.key === 'delete') {
+      // Filter out the unchecked categories
+      const selectedCategories = this.selectedCategories.filter(category => category.checked);
+      console.log('Selected Categories:', selectedCategories);
+
+      // Check if the user has selected any category
+      if (selectedCategories.length === 0) {
+        console.log('Please select at least one category to delete.');
+        return;
+      }
+
+      // Check if the user has selected the "Uncategorized" category
+      const hasUncategorized = selectedCategories.find(category => category.title.toLowerCase() === 'uncategorized');
+      if (hasUncategorized) {
+        console.log('Cannot delete Uncategorized category.');
+        return;
+      }
+
+      // Delete the selected categories
+      selectedCategories.forEach(category => {
+        const index = this.categories.indexOf(category);
+        if (index !== -1) {
+          this.categories.splice(index, 1);
+        }
+        this.DataService.deleteCategoryDB(category.title);
+        console.log('Category deleted:', category);
+      });
+    }
+  }
 
   formGroup!: FormGroup;
+
   ngOnInit() {
     this.formGroup = new FormGroup({
       checkbox1: new FormControl<string | null>(null)
@@ -107,6 +185,44 @@ export class CreateCategoryComponent implements OnInit{
         console.log('Categories Length:', this.categories.length)
         console.log('Categories:', this.categories)
       }
+
+    this.formGroup = this.formBuilder.group({
+      nameCheckbox: new FormControl(false),
+      anotherCheckbox: new FormControl(false)
+    });
+
+    const nameCheckbox = this.formGroup.get('nameCheckbox');
+    const anotherCheckbox = this.formGroup.get('anotherCheckbox');
+
+    if (nameCheckbox && anotherCheckbox) {
+      nameCheckbox.valueChanges.subscribe(nameValue => {
+        if (!this.status_check) {
+          if (nameValue) {
+            anotherCheckbox.setValue(true);
+            this.status_check = true;
+          }
+        } else {
+          if (!nameValue || !anotherCheckbox.value) {
+            anotherCheckbox.setValue(false);
+            this.status_check = false;
+          }
+        }
+      });
+
+      anotherCheckbox.valueChanges.subscribe(anotherValue => {
+        if (!this.status_check) {
+          if (anotherValue) {
+            nameCheckbox.setValue(true);
+            this.status_check = true;
+          }
+        } else {
+          if (!anotherValue || !nameCheckbox.value) {
+            nameCheckbox.setValue(false);
+            this.status_check = false;
+          }
+        }
+      });
+    }
   }
 
   createUncategorizedCategory(): void {
@@ -117,8 +233,5 @@ export class CreateCategoryComponent implements OnInit{
       console.log('New category created:', uncategorized);
     }
     this.title = ''; // Reset the title property
-  }
-  goToRecentView():void {
-    this.router.navigate(['/recent-view']);
   }
 }

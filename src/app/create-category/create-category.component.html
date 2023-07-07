@@ -9,7 +9,7 @@
   <!--Search Categories-->
   <div class="d-flex flex-row-reverse" style="margin-bottom: 3%">
     <div>
-      <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" (click)="applySearch()"></p-button>
+      <p-button label="Search Categories" styleClass="p-button-outlined p-button-info" (onClick)="applySearch()"></p-button>
     </div>
     <div class="align-self-center col-4" style="margin-right: 2%;">
       <input pInputText type="text" class="p-inputtext-sm" placeholder="" [(ngModel)]="searchCat" style="width: 100%">
@@ -28,7 +28,7 @@
         <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
       </div>
       <div class="align-self-center">
-        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info" (click)="deleteCategory()"></p-button>
       </div>
     </div>
     <div class="col-6"></div>
@@ -37,8 +37,8 @@
       <div class="row" style="border: 1px solid black; margin-top: 5%">
         <div class="col-3">
           <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-            <p-checkbox id="check1" ></p-checkbox>
-            <label for="check1">Name</label>
+            <p-checkbox [binary]="true" id="category1" [formControlName]="'nameCheckbox'"></p-checkbox>
+            <label for="category1">Name</label>
           </form>
         </div>
         <div class="col-6"></div>
@@ -62,8 +62,8 @@
       <div class="row" style="border: 1px solid black; margin-bottom: 5%">
         <div class="col-3">
           <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-            <p-checkbox id="check2" ></p-checkbox>
-            <label for="check2">Name</label>
+            <p-checkbox [binary]="true" id="category2" [formControlName]="'anotherCheckbox'"></p-checkbox>
+            <label for="category2">Name</label>
           </form>
         </div>
         <div class="col-6"></div>
@@ -76,10 +76,10 @@
     <!--dropdown menu and button-->
     <div class="col-6 d-flex flex-row" style="margin-bottom: 3%">
       <div class="col-4">
-        <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="bulkAction" [(ngModel)]="selectedAction" placeholder="Bulk Actions" optionLabel="name"></p-dropdown>
       </div>
       <div class="align-self-center">
-        <p-button label="Apply" styleClass="p-button-outlined p-button-info"></p-button>
+        <p-button label="Apply" styleClass="p-button-outlined p-button-info" (click)="deleteCategory()"></p-button>
       </div>
     </div>
   </div>
@@ -88,7 +88,8 @@
       <p-button class="btn btn-primary" (onClick)="createCategory()">Add new category</p-button>
     </div>
     <div class="align-self-center" style="padding-left: 3%">
-      <p-button label="Back" styleClass="p-button-outlined p-button-info" (onClick) = "goToRecentView()"></p-button>
+      <p-button label="Back" styleClass="p-button-outlined p-button-info" (click) = "goToRecentView()"></p-button>
     </div>
   </div>
 </div>
+

@@ -16,13 +16,13 @@ paths:
           description: A list of blogs
       summary: Return a list of blogs for the carousel(all)
       x-accepts: application/json
-  /blogs/{id}:
+  /blogs/{title}:
     delete:
       parameters:
-        - description: ID of the blog
+        - description: title of the blog
           explode: false
           in: path
-          name: id
+          name: title
           required: true
           schema:
             type: string
@@ -36,10 +36,10 @@ paths:
       x-accepts: application/json
     get:
       parameters:
-        - description: ID of the blog
+        - description: title of the blog
           explode: false
           in: path
-          name: id
+          name: title
           required: true
           schema:
             type: string
@@ -57,10 +57,10 @@ paths:
       x-accepts: application/json
     put:
       parameters:
-        - description: ID of the blog
+        - description: title of the blog
           explode: false
           in: path
-          name: id
+          name: title
           required: true
           schema:
             type: string
@@ -88,51 +88,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryList'
           description: A list of categories
-      summary: Retrieve all categories
+      summary: Return all categories
       x-accepts: application/json
-    post:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Category'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Category'
-          description: Category created successfully
-        "400":
-          description: Invalid request payload
-      summary: Create a new category
-      x-content-type: application/json
-      x-accepts: application/json
-  /categories/{key}:
-    delete:
-      parameters:
-        - description: key of the category
-          explode: false
-          in: path
-          name: key
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          description: Category deleted successfully
-        "400":
-          description: Invalid request
-      summary: Delete a specific category by its ID
-      x-accepts: application/json
+  /categories/{title}:
     get:
       parameters:
-        - description: key of the category
+        - description: title of the category
           explode: false
           in: path
-          name: key
+          name: title
           required: true
           schema:
             type: string
@@ -146,30 +110,46 @@ paths:
           description: Category retrieved successfully
         "404":
           description: Category not found
-      summary: Retrieve a specific category (Search by key)
+      summary: Retrieve a specific category (Search by key of title)
       x-accepts: application/json
-    put:
+    delete:
       parameters:
-        - description: key of the category
+        - description: title of the category
           explode: false
           in: path
-          name: key
+          name: title
           required: true
           schema:
             type: string
           style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Category'
-        required: true
       responses:
         "200":
-          description: Category updated successfully
+          description: Category deleted successfully
         "400":
+          description: Invalid request
+      summary: Delete a specific category by its title
+      x-accepts: application/json
+
+    post:
+      parameters:
+        - description: title of the category
+          explode: false
+          in: path
+          name: title
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: Category created successfully
+        '400':
           description: Invalid request payload
-      summary: Update a specific category by its ID
+      summary: Create a new category with a custom key
       x-content-type: application/json
       x-accepts: application/json
   /create-view:
@@ -308,8 +288,8 @@ components:
   schemas:
     Blog:
       example:
-        image: http://example.com/aeiou
-        link: http://example.com/aeiou
+        image: https://example.com/aeiou
+        link: https://example.com/aeiou
         title: title
       properties:
         title:
@@ -493,34 +473,34 @@ components:
       properties:
         bulkAction:
           items:
-            $ref: '#/components/schemas/RecentViewData_bulkAction_inner'
+            $ref: '#/components/schemas/RecentViewData'
           type: array
         selectedAction:
           items:
-            $ref: '#/components/schemas/RecentViewData_bulkAction_inner'
+            $ref: '#/components/schemas/RecentViewData'
           type: array
         allDates:
           items:
-            $ref: '#/components/schemas/RecentViewData_bulkAction_inner'
+            $ref: '#/components/schemas/RecentViewData'
           type: array
         selectedDate:
           items:
-            $ref: '#/components/schemas/RecentViewData_bulkAction_inner'
+            $ref: '#/components/schemas/RecentViewData'
           type: array
         allCategories:
           items:
-            $ref: '#/components/schemas/RecentViewData_bulkAction_inner'
+            $ref: '#/components/schemas/RecentViewData'
           type: array
         selectedCat:
           items:
-            $ref: '#/components/schemas/RecentViewData_bulkAction_inner'
+            $ref: '#/components/schemas/RecentViewData'
           type: array
         blogs:
           items:
-            $ref: '#/components/schemas/RecentViewData_blogs_inner'
+            $ref: '#/components/schemas/RecentViewData_blogs'
           type: array
       type: object
-    RecentViewData_bulkAction_inner:
+    RecentViewData_bulkAction:
       example:
         name: name
         key: key
@@ -530,7 +510,7 @@ components:
         key:
           type: string
       type: object
-    RecentViewData_blogs_inner:
+    RecentViewData_blogs:
       example:
         date: date
         author: author

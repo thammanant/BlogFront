@@ -1,4 +1,13 @@
 {
   "_interfaceOnly": true,
-  "delegatePattern": true
+  "delegatePattern": true,
+  "generatorName": "python",
+  "outputDir": "~/Desktop/testing",
+  "inputSpec": "openapi.yaml",
+  "configOptions": {
+    "supportsES6": true,
+    "withCredentials": true,
+    "packageName": "BlogApi",
+    "packageVersion": "1.0.0"
+  }
 }

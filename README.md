@@ -36,3 +36,5 @@ npx openapi-generator-cli generate -i ./openapi.yaml -g spring -c config.json -o
 
 lsof -i :8080
 kill {{number}}
+
+kill $(lsof -t -i:8080)
