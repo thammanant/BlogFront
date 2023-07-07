@@ -26,6 +26,8 @@ export class CreateViewComponent implements OnInit {
   selectedMonth: Month | undefined;
   selectedCategories: any[] = [];
   categories: any[] = [];
+  isFormValid: boolean = false;
+
 
   constructor(private categoryService: CategoryService, private DataService: DataService, private router: Router) {
   }
@@ -53,31 +55,55 @@ export class CreateViewComponent implements OnInit {
     this.categoryService.fetchCategoriesFromDatabase();
   }
 
-  createDraftBlog() {          //change the title in the database to the id
-    const id = this.title.replace(/\s+/g, ' ').trim()+ '-' + this.day + '/' + this.selectedMonth?.code + '/' + this.year + '-' + this.hour + ':' + this.minute;
-    const blog : Blog = {
-      id: id,
-      title: this.title.replace(/\s+/g, ' ').trim(),
-      date: this.day + '-' + this.selectedMonth?.code + '-' + this.year,
-      time: this.hour + ':' + this.minute,
-      status: "Draft",
-      description: this.description,
-      categories: this.selectedCategories
-    };
-    this.DataService.createBlogDB(blog);
+  validateForm(): void {
+    // Check if all required fields are filled
+    this.isFormValid = this.title.trim() !== '' &&
+      this.day.trim() !== '' &&
+      this.selectedMonth !== undefined &&
+      this.year.trim() !== '' &&
+      this.hour.trim() !== '' &&
+      this.minute.trim() !== '' &&
+      this.description.trim() !== '' &&
+      this.selectedCategories.length > 0;
   }
 
-  createPublishBlog() {          //change the title in the database to the id
-    const id = this.title.replace(/\s+/g, ' ').trim()+ '-' + this.day + '/' + this.selectedMonth?.code + '/' + this.year + '-' + this.hour + ':' + this.minute;
-    const blog: Blog = {
-      id: id,
-      title: this.title.replace(/\s+/g, ' ').trim(),
-      date: this.day + '-' + this.selectedMonth?.code + '-' + this.year,
-      time: this.hour + ':' + this.minute,
-      status: "Publish",
-      description: this.description,
-      categories: this.selectedCategories
-    };
-    this.DataService.createBlogDB(blog);
+  createDraftBlog() {
+    this.validateForm();
+
+    if (this.isFormValid) {
+      const id = this.title.replace(/\s+/g, ' ').trim() + '-' + this.day + '/' + this.selectedMonth?.code + '/' + this.year + '-' + this.hour + ':' + this.minute;
+      const blog: Blog = {
+        id: id,
+        title: this.title.replace(/\s+/g, ' ').trim(),
+        date: this.day + '-' + this.selectedMonth?.code + '-' + this.year,
+        time: this.hour + ':' + this.minute,
+        status: "Draft",
+        description: this.description,
+        categories: this.selectedCategories
+      };
+      this.DataService.createBlogDB(blog);
+    } else {
+      console.log("PLEASE FILL ALL FIELDS");
+    }
+  }
+
+  createPublishBlog() {
+    this.validateForm();
+
+    if (this.isFormValid) {
+      const id = this.title.replace(/\s+/g, ' ').trim() + '-' + this.day + '/' + this.selectedMonth?.code + '/' + this.year + '-' + this.hour + ':' + this.minute;
+      const blog: Blog = {
+        id: id,
+        title: this.title.replace(/\s+/g, ' ').trim(),
+        date: this.day + '-' + this.selectedMonth?.code + '-' + this.year,
+        time: this.hour + ':' + this.minute,
+        status: "Publish",
+        description: this.description,
+        categories: this.selectedCategories
+      };
+      this.DataService.createBlogDB(blog);
+    } else {
+      console.log("PLEASE FILL ALL FIELDS");
+    }
   }
 }

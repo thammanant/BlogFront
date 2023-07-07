@@ -153,13 +153,62 @@ paths:
       x-content-type: application/json
       x-accepts: application/json
   /create-view:
-    get:
+    post:
+      parameters:
+        - in: query
+          name: title
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: day
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: selectedMonth
+          required: true
+          schema:
+            $ref: '#/components/schemas/Month'
+        - in: query
+          name: year
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: hour
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: minute
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: description
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: selectedCategories
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: status
+          required: true
+          schema:
+            type: string
       responses:
-        "200":
-          description: Data retrieved successfully
-        "400":
-          description: Invalid request
-      summary: Return Create View Data
+        '200':
+          description: Blog created successfully
+        '400':
+          description: Invalid request payload
+      summary: Create a new blog
+      x-content-type: application/json
       x-accepts: application/json
   /edit-view/{id}:
     get:
@@ -335,8 +384,27 @@ components:
           type: string
       type: object
     CreateViewData:
+      example:
+        id: id
+        title: title
+        description: description
+        day: day
+        selectedMonth:
+          code: code
+          name: name
+        year: year
+        hour: hour
+        minute: minute
+        selectedCategories:
+          - selectedCategories
+        status: status
       properties:
+        id:
+          description: "The title,date and time of the blog"
+          type: string
         title:
+          type: string
+        description:
           type: string
         day:
           type: string
@@ -346,25 +414,14 @@ components:
           type: string
         minute:
           type: string
-        months:
-          items:
-            $ref: '#/components/schemas/Month'
-          type: array
         selectedMonth:
           $ref: '#/components/schemas/Month'
         selectedCategories:
-          description: keep the checked category
           items:
             type: string
           type: array
-        categories:
-          items:
+        status:
             type: string
-          type: array
-        categoryCount:
-          type: integer
-        isDraft:
-          type: string
       type: object
     EditViewData:
       example:
@@ -529,6 +586,6 @@ components:
           type: string
         date:
           type: string
-        isDraft:
+        status:
           type: string
       type: object

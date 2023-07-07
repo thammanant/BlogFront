@@ -12,22 +12,16 @@ export class DataService {
   }
 
   createBlogDB(blog: Blog) {
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `blog/${blog.id}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        const db = getDatabase();
-        const postRef = ref(db, 'blog/' + blog.id);
-        set(postRef, blog).then(() => {
-          console.log('Success');
-        }).catch((error) => {
-          console.error('Error: ', error);
-        });
-      } else {
-        console.log('No data available');
-      }
-    }).catch((error) => {
-      console.error('Error: ', error);
-    });
+    const db = getDatabase();
+    const postRef = ref(db, 'blog/' + blog.id);
+
+    set(postRef, blog)
+      .then(() => {
+        console.log('Blog created successfully');
+      })
+      .catch((error) => {
+        console.error('Error : ', error);
+      });
   }
 
   createCategoryDB(title: string) {
