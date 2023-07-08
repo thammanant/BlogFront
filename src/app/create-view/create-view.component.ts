@@ -58,13 +58,18 @@ export class CreateViewComponent implements OnInit {
   validateForm(): void {
     // Check if all required fields are filled
     this.isFormValid = this.title.trim() !== '' &&
-      this.day.trim() !== '' &&
+      (this.day.trim() !== '') &&
       this.selectedMonth !== undefined &&
       this.year.trim() !== '' &&
       this.hour.trim() !== '' &&
       this.minute.trim() !== '' &&
-      this.description.trim() !== '' &&
-      this.selectedCategories.length > 0;
+      this.description.trim() !== ''
+
+    this.isFormValid = this.isFormValid &&
+      Number(this.day) >= 1 && Number(this.day) <= 31 &&   // Validate day (1-31)
+      Number(this.hour) >= 0 && Number(this.hour) <= 23 && // Validate hour (0-23)
+      Number(this.minute) >= 0 && Number(this.minute) <= 59 && // Validate minute (0-59)
+      Number(this.year) >= 1900 && Number(this.year) <= 2100;
   }
 
   createDraftBlog() {
@@ -83,7 +88,7 @@ export class CreateViewComponent implements OnInit {
       };
       this.DataService.createBlogDB(blog);
     } else {
-      console.log("PLEASE FILL ALL FIELDS");
+      console.log("PLEASE FILL ALL FIELDS OR CHECK IF DATE AND TIME ARE VALID ");
     }
   }
 
@@ -103,7 +108,7 @@ export class CreateViewComponent implements OnInit {
       };
       this.DataService.createBlogDB(blog);
     } else {
-      console.log("PLEASE FILL ALL FIELDS");
+      console.log("PLEASE FILL ALL FIELDS OR CHECK IF DATE AND TIME ARE VALID ");
     }
   }
 }

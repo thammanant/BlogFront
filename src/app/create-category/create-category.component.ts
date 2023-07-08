@@ -4,6 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
+interface Action {
+  name: string;
+  key: string;
+}
+
 @Component({
   selector: 'app-create-category',
   templateUrl: './create-category.component.html',
@@ -13,10 +18,10 @@ import { Router } from '@angular/router';
 export class CreateCategoryComponent implements OnInit{
   title: string = "";
 
-  bulkAction: any[] = [
+  bulkAction: Action[] = [
     { name: 'Delete', key: 'delete' },
   ];
-  selectedAction: any[] = [];
+  selectedAction: Action[] = [];
   selectedCategories: any[] = [];
 
   searchCat: string = "";
@@ -54,7 +59,7 @@ export class CreateCategoryComponent implements OnInit{
 
     // Check if the category already exists
     const existingCategory = this.categories.find(category =>
-      category.title.toLowerCase() !== 'uncategorized' && category.title.toLowerCase() === newCategory.key
+      category.title.toLowerCase() === newCategory.key
     );
 
     if (existingCategory) {
@@ -135,28 +140,25 @@ export class CreateCategoryComponent implements OnInit{
   deleteCategory(): void {
     console.log('Selected cat:', this.selectedCategories);
     console.log('Selected Action:', this.selectedAction);
-    console.log('Selected Action Key:', (this.selectedAction[0]?.key));
+    console.log('Selected Action Key:', this.selectedAction[0]?.key);
 
     if (this.selectedAction[0]?.key === 'delete') {
-      // Filter out the unchecked categories
-      const selectedCategories = this.selectedCategories.filter(category => category.checked);
-      console.log('Selected Categories:', selectedCategories);
 
       // Check if the user has selected any category
-      if (selectedCategories.length === 0) {
+      if (this.selectedCategories.length === 0) {
         console.log('Please select at least one category to delete.');
         return;
       }
 
       // Check if the user has selected the "Uncategorized" category
-      const hasUncategorized = selectedCategories.find(category => category.title.toLowerCase() === 'uncategorized');
+      const hasUncategorized = this.selectedCategories.find(category => category.title.toLowerCase() === 'uncategorized');
       if (hasUncategorized) {
         console.log('Cannot delete Uncategorized category.');
         return;
       }
 
       // Delete the selected categories
-      selectedCategories.forEach(category => {
+      this.selectedCategories.forEach(category => {
         const index = this.categories.indexOf(category);
         if (index !== -1) {
           this.categories.splice(index, 1);

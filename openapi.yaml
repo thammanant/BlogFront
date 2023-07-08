@@ -198,7 +198,7 @@ paths:
             items:
               type: string
         - in: query
-          name: status
+          name: selectedStatus
           required: true
           schema:
             type: string
@@ -389,15 +389,14 @@ components:
         title: title
         description: description
         day: day
-        selectedMonth:
-          code: code
-          name: name
+        selectedMonth: selectedMonth
         year: year
         hour: hour
         minute: minute
         selectedCategories:
           - selectedCategories
-        status: status
+          - selectedCategories
+        selectedStatus: selectedStatus
       properties:
         id:
           description: "The title,date and time of the blog"
@@ -415,12 +414,12 @@ components:
         minute:
           type: string
         selectedMonth:
-          $ref: '#/components/schemas/Month'
+          type: string
         selectedCategories:
           items:
             type: string
           type: array
-        status:
+        selectedStatus:
             type: string
       type: object
     EditViewData:
