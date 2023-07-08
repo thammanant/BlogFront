@@ -84,7 +84,7 @@ export class CreateViewComponent implements OnInit {
         time: this.hour + ':' + this.minute,
         status: "Draft",
         description: this.description,
-        categories: this.selectedCategories
+        categories: this.selectedCategories.length === 0 ? ["Uncategorized"] : this.selectedCategories
       };
       this.DataService.createBlogDB(blog);
     } else {
@@ -104,7 +104,7 @@ export class CreateViewComponent implements OnInit {
         time: this.hour + ':' + this.minute,
         status: "Publish",
         description: this.description,
-        categories: this.selectedCategories
+        categories: this.selectedCategories.length === 0 ? ["Uncategorized"] : this.selectedCategories
       };
       this.DataService.createBlogDB(blog);
     } else {

@@ -107,7 +107,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Category'
-          description: Category retrieved successfully
+          description: Category return successfully
         "404":
           description: Category not found
       summary: Retrieve a specific category (Search by key of title)
@@ -211,6 +211,7 @@ paths:
       x-content-type: application/json
       x-accepts: application/json
   /edit-view/{id}:
+#    update the blog
     get:
       parameters:
         - description: ID of the blog
@@ -226,10 +227,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EditViewData'
+                $ref: '#/components/schemas/CreateViewData'
           description: Edit view data retrieved successfully
-      summary: Get the edit view data
+      summary: Get the edit view data by by ID
       x-accepts: application/json
+
     put:
       parameters:
         - description: ID of the blog
@@ -244,7 +246,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EditViewData'
+              $ref: '#/components/schemas/CreateViewData'
         required: true
       responses:
         "200":
@@ -255,17 +257,38 @@ paths:
       x-content-type: application/json
       x-accepts: application/json
   /recent-view:
+  #  get all recent blogs for a user
     get:
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RecentViewData'
-          description: Recent view data retrieved successfully
-      summary: Get the recent view data
+                $ref: '#/components/schemas/CreateViewData'
+          description: A list of recent view data
+      summary: Return all recent view data
       x-accepts: application/json
-  /recent-view/{id}:
+  /recent-view{id}:
+    get:
+      parameters:
+        - description: id of the blog
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateViewData'
+          description: Recent view data retrieved successfully
+      summary: search the specific blog by its ID
+      x-accepts: application/json
+
     delete:
       parameters:
         - description: ID of the recent view data
@@ -280,7 +303,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RecentViewData'
+              $ref: '#/components/schemas/CreateViewData'
         required: true
       responses:
         "200":
@@ -290,49 +313,32 @@ paths:
       summary: Delete a specific blog by its ID
       x-content-type: application/json
       x-accepts: application/json
-    get:
-      parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RecentViewData'
-          description: Recent view data retrieved successfully
-      summary: Search specific data by ID
-      x-accepts: application/json
-    put:
-      parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RecentViewData'
-        required: true
-      responses:
-        "200":
-          description: Recent view data updated successfully
-        "400":
-          description: Invalid request payload
-      summary: Update data of the specific blog
-      x-content-type: application/json
-      x-accepts: application/json
+  /recent-view{categories}:
+#    get count of blogs for a user
+
+
+    #    get:
+#      parameters:
+#        - description: title of the category
+#          explode: false
+#          in: path
+#          name: title
+#          required: true
+#          schema:
+#            type: string
+#          style: simple
+#      responses:
+#        "200":
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/Category'
+#          description: Category return successfully
+#        "404":
+#          description: Category not found
+#      summary: Retrieve a specific category (Search by key of title)
+#      x-accepts: application/json
+
 components:
   schemas:
     Blog:
@@ -421,170 +427,4 @@ components:
           type: array
         selectedStatus:
             type: string
-      type: object
-    EditViewData:
-      example:
-        months:
-          - code: code
-            name: name
-          - code: code
-            name: name
-        hour: hour
-        selectedMonth:
-          code: code
-          name: name
-        year: year
-        selectedCategories:
-          - selectedCategories
-          - selectedCategories
-        isDraft: isDraft
-        id: id
-        categories:
-          - categories
-          - categories
-        title: title
-        day: day
-        minute: minute
-      properties:
-        id:
-          description: "The title,date and time of the blog"
-          type: string
-        title:
-          description: The title of the edit view
-          type: string
-        day:
-          description: The day value
-          type: string
-        year:
-          description: The year value
-          type: string
-        hour:
-          description: The hour value
-          type: string
-        minute:
-          description: The minute value
-          type: string
-        months:
-          items:
-            $ref: '#/components/schemas/Month'
-          type: array
-        selectedMonth:
-          $ref: '#/components/schemas/Month'
-        selectedCategories:
-          items:
-            type: string
-          type: array
-        categories:
-          items:
-            type: string
-          type: array
-        isDraft:
-          type: string
-      type: object
-    RecentViewData:
-      example:
-        selectedAction:
-          - name: name
-            key: key
-          - name: name
-            key: key
-        allCategories:
-          - name: name
-            key: key
-          - name: name
-            key: key
-        blogs:
-          - date: date
-            author: author
-            isDraft: isDraft
-            id: id
-            categories: categories
-            title: title
-          - date: date
-            author: author
-            isDraft: isDraft
-            id: id
-            categories: categories
-            title: title
-        bulkAction:
-          - name: name
-            key: key
-          - name: name
-            key: key
-        selectedDate:
-          - name: name
-            key: key
-          - name: name
-            key: key
-        allDates:
-          - name: name
-            key: key
-          - name: name
-            key: key
-        selectedCat:
-          - name: name
-            key: key
-          - name: name
-            key: key
-      properties:
-        bulkAction:
-          items:
-            $ref: '#/components/schemas/RecentViewData'
-          type: array
-        selectedAction:
-          items:
-            $ref: '#/components/schemas/RecentViewData'
-          type: array
-        allDates:
-          items:
-            $ref: '#/components/schemas/RecentViewData'
-          type: array
-        selectedDate:
-          items:
-            $ref: '#/components/schemas/RecentViewData'
-          type: array
-        allCategories:
-          items:
-            $ref: '#/components/schemas/RecentViewData'
-          type: array
-        selectedCat:
-          items:
-            $ref: '#/components/schemas/RecentViewData'
-          type: array
-        blogs:
-          items:
-            $ref: '#/components/schemas/RecentViewData_blogs'
-          type: array
-      type: object
-    RecentViewData_bulkAction:
-      example:
-        name: name
-        key: key
-      properties:
-        name:
-          type: string
-        key:
-          type: string
-      type: object
-    RecentViewData_blogs:
-      example:
-        date: date
-        author: author
-        isDraft: isDraft
-        id: id
-        categories: categories
-        title: title
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        author:
-          type: string
-        categories:
-          type: string
-        date:
-          type: string
-        status:
-          type: string
       type: object
