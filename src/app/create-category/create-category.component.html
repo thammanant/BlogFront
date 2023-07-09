@@ -53,7 +53,7 @@
             <div *ngFor="let category of categories" class="field-checkbox">
               <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.title.toLowerCase()"></p-checkbox>
               <label [for]="category.title.toLowerCase()">{{ category.title }}</label>
-              <span id="count" style="float: right;">0</span>
+              <span id="count" style="float: right;">{{ 0 }}</span>
             </div>
           </div>
         </div>

@@ -11,6 +11,19 @@ export class DataService {
   constructor() {
   }
 
+  // I want to get the specific blog from the database
+  getBlogDB(id: string) {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `blog/${id}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      }
+    }).catch((error) => {
+        console.error(error);
+      }
+    );
+  }
+
   createBlogDB(blog: Blog) {
     const db = getDatabase();
     const postRef = ref(db, 'blog/' + blog.id);
@@ -47,20 +60,48 @@ export class DataService {
     );
   }
 
-  getAllCategoriesDB() {
+  // getAllCategoriesDB() {
+  //   const dbRef = ref(getDatabase());
+  //   get(child(dbRef, `categories`)).then((snapshot) => {
+  //     if (snapshot.exists()) {
+  //       console.log(snapshot.val());
+  //       return snapshot.val();
+  //     } else {
+  //       console.log("No data available");
+  //     }
+  //   }).catch((error) => {
+  //       console.error(error);
+  //     }
+  //   );
+  // }
+
+  //get all categories of each blog by category key
+  getAllCategoriesOfBlogDB(categoryKey: string): Promise<number> {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `categories`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-        return snapshot.val();
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
+    return new Promise<number>((resolve, reject) => {
+      get(child(dbRef, 'blog')).then((snapshot) => {
+        if (snapshot.exists()) {
+          const blogs = snapshot.val();
+          const count = Object.values(blogs).reduce((accumulator: number, blog: any) => {
+            if (blog.category && blog.category.key === categoryKey) {
+              return accumulator + 1;
+            }
+            return accumulator;
+          }, 0);
+
+          console.log(count);
+          resolve(count);
+        } else {
+          console.log('No data available');
+          resolve(0);
+        }
+      }).catch((error) => {
         console.error(error);
-      }
-    );
+        reject(error);
+      });
+    });
   }
+
 
   getBlogFromID(id: string) {
     const dbRef = ref(getDatabase());

@@ -3,6 +3,8 @@ import {DataService} from "../services/data.service";
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 
 interface Action {
   name: string;
@@ -27,25 +29,41 @@ export class CreateCategoryComponent implements OnInit{
   searchCat: string = "";
   categories: any[] = []
   status_check: boolean = false;        //for the name checkbox
+  private categoriesSubscription: Subscription | undefined;
+
 
   constructor(private categoryService: CategoryService, private DataService:DataService, private router: Router, private formBuilder: FormBuilder) {
   }
-  applySearch(): void {
-    this.categoryService.fetchCategoriesFromDatabase();
-    this.categoryService.categories$.subscribe((categories: any[]) => {
-      this.categories = categories;});
+  async applySearch(): Promise<void> {
+    await this.categoryService.fetchCategoriesFromDatabase();
+    if (this.categoriesSubscription) {
+      this.categoriesSubscription.unsubscribe(); // Unsubscribe to prevent further updates
+    }
+    this.categoriesSubscription = this.categoryService.categories$.subscribe((categories: any[]) => {
+      this.categories = categories;
 
-    // Perform the search based on the searchCat value
-    const searchQuery = this.searchCat.replace(/\s+/g, ' ').trim().toLowerCase();
+      // Perform the search based on the searchCat value
+      const searchQuery = this.searchCat.replace(/\s+/g, ' ').trim().toLowerCase();
 
-    // Filter the categories based on the search query
-    const filteredCategories = this.categories.filter(category =>
-      category.title.replace(/\s+/g, ' ').toLowerCase().trim().includes(searchQuery)
-    );
+      // Filter the categories based on the search query
+      const filteredCategories = this.categories.filter(category =>
+        category.title.replace(/\s+/g, ' ').toLowerCase().trim().includes(searchQuery)
+      );
 
-    // Update the categories array with the filtered results
-    this.updateCategories(filteredCategories);
+      // Update the categories array with the filtered results
+      this.updateCategories(filteredCategories);
+    });
   }
+
+  // async checkCategoryCount(categoryKey: string): Promise<number> {
+  //   try {
+  //     const count = await this.DataService.getAllCategoriesOfBlogDB(categoryKey);
+  //     return count;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return 0;
+  //   }
+  // }
 
   updateCategories(categories: any[]): void {
     this.categories = categories;
@@ -97,46 +115,6 @@ export class CreateCategoryComponent implements OnInit{
     // window.history.back();
   }
 
-  // deleteCategory(): void {        //not work yet
-  //   console.log('Selected cat:', this.selectedCategories);
-  //   console.log('Selected Action:', this.selectedAction);
-  //   console.log('Selected Action Key:', this.selectedAction[0]?.key);
-  //   if (this.selectedAction[0]?.key === 'delete') {
-  //     // Filter out the unchecked categories
-  //     const selectedCategories = this.categories.filter(category => category.checked);
-  //     console.log('Selected Categories:', selectedCategories)
-  //
-  //     // Check if the user has selected any category
-  //     if (selectedCategories.length === 0) {
-  //       console.log('Please select at least one category to delete.');
-  //       return;
-  //     }
-  //
-  //     //cannot delete uncategorized category
-  //     const hasUncategorized = selectedCategories.find(category => category.title.toLowerCase() === 'uncategorized');
-  //     if (hasUncategorized) {
-  //       console.log('Cannot delete Uncategorized category.');
-  //       return;
-  //     }
-  //
-  //     //if the user has selected the nameCheckbox category, it will delete all checkbox except uncategorized in categories
-  //     if (this.nameCheckboxValue) {
-  //       // Check if the user has selected the Uncategorized category
-  //       const hasUncategorized = selectedCategories.find(category => category.title.toLowerCase() === 'uncategorized');
-  //       if (hasUncategorized) {
-  //         console.log('Cannot delete Uncategorized category.');
-  //         return;
-  //       }
-  //     }
-  //
-  //     // Delete the selected categories
-  //     selectedCategories.forEach(category => {
-  //       this.categories.splice(this.categories.indexOf(category), 1);
-  //       this.DataService.deleteCategoryDB(category.title);
-  //       console.log('Category deleted:', category);
-  //     });
-  //   }
-  // }
   deleteCategory(): void {
     console.log('Selected cat:', this.selectedCategories);
     console.log('Selected Action:', this.selectedAction);

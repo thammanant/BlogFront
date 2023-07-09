@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
 
 interface Month {
   name: string;
@@ -15,7 +16,7 @@ interface Status {
   styleUrls: ['./edit-view.component.scss']
 })
 export class EditViewComponent implements OnInit{
-  // title = 'edit-view';
+  blog : any;
   text: string = '';
   title: string = '';
   day: string = '';
@@ -33,10 +34,10 @@ export class EditViewComponent implements OnInit{
 
   selectedCategories: any[] = [];
 
-  categories: any[] = [
-    { name: ' Uncategorized', key: 'Un' },
-  ];
+  categories: any[] = [];
 
+  constructor(private DataService: DataService) {
+  }
   ngOnInit() {
       this.months = [
       { name: '01-Jan', code: 'Jan' },
@@ -56,8 +57,40 @@ export class EditViewComponent implements OnInit{
         {status: 'Published', code: 'Pub'},
         {status: 'Draft', code: 'Draft'},
       ]
+
+    //left delete and remove for now
+
+
+
+    // const blogId = 'your-blog-id';
+    // this.blog = this.DataService.getBlogDB(blogId);
+
+
+    //this is hard ceded for testing
+    this.blog = {
+      id: 'Test-10/Jan/2023-12:30',
+      title: 'Test',
+      selectedMonth: this.months[0],
+      day: '10',
+      year: '2023',
+      hour: '12',
+      minute: '30',
+      selectedStatus: "Published",
+      selectedCategories: [{title:"fantasy",key:"Fantasy"}]
+    };
+
+    this.title = this.blog.title;
+    this.selectedMonth = this.blog.selectedMonth;
+    this.day = this.blog.day;
+    this.year = this.blog.year;
+    this.hour = this.blog.hour;
+    this.minute = this.blog.minute;
+    this.selectedStatus = this.blog.selectedStatus;
+    this.categories = this.blog.selectedCategories;
   }
-  //Dropdown functions
+
+
+  // Dropdown functions
   func1() {
     //TODO
   }
@@ -82,5 +115,6 @@ export class EditViewComponent implements OnInit{
   func7() {
     //TODO
   }
+
 }
 

@@ -14,27 +14,27 @@
         <div class="row">
           <div class="col-9 col-sm-9 col-md-9 col-lg-8 p-fluid" style="padding-bottom: 2%; padding-top: 2%">
             Title
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="Title" [(ngModel)]="title" style="width: 89%; height: auto">
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="Title" [(ngModel)]="blog.title" style="width: 89%; height: auto">
           </div>
         </div>
         <div class="row">
           <div class="col-12" style="padding-bottom: 2%">
             Date
-            <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="Month" optionLabel="name" (onChange)="func1()"></p-dropdown>
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="DD" [(ngModel)]="day" style="width: 8%; height: auto; margin-left: 2%"/>
+            <p-dropdown [options]="months" [(ngModel)]="blog.selectedMonth" placeholder="Month" optionLabel="name" (onChange)="func1()"></p-dropdown>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="DD" [(ngModel)]="blog.day" style="width: 8%; height: auto; margin-left: 2%"/>
             ,
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="YYYY" [(ngModel)]="year" style="width: 9%; height: auto; margin-left: 2%"/>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="YYYY" [(ngModel)]="blog.year" style="width: 9%; height: auto; margin-left: 2%"/>
             at
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="HH" [(ngModel)]="hour" style="width: 8%; height: auto"/>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="HH" [(ngModel)]="blog.hour" style="width: 8%; height: auto"/>
             :
-            <input pInputText type="text" class="p-inputtext-sm" placeholder="MM" [(ngModel)]="minute" style="width: 8%; height: auto"/>
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="MM" [(ngModel)]="blog.minute" style="width: 8%; height: auto"/>
             Status
-            <p-dropdown id="status" [options]="status" [(ngModel)]="selectedStatus"  optionLabel="status" (onChange)="func2()"></p-dropdown>
+            <p-dropdown id="status" [options]="status" [(ngModel)]="blog.selectedStatus"  optionLabel="status" (onChange)="func2()"></p-dropdown>
           </div>
         </div>
         <!--Editor-->
         <div class="row">
-          <p-editor [(ngModel)]="text" [style]="{height:'50vh'}" (onTextChange)="func3()"></p-editor>
+          <p-editor [(ngModel)]="blog.text" [style]="{height:'50vh'}" (onTextChange)="func3()"></p-editor>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
             <div class="card flex justify-content-center Rcorners">
               <div class="flex flex-column gap-2">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                  <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key" (onChange)="func4()"></p-checkbox>
+                  <p-checkbox name="group" [value]="category" [(ngModel)]="blog.selectedCategories" [inputId]="category.key" (onChange)="func4()"></p-checkbox>
                   <label [for]="category.key">{{ category.name }}</label>
                 </div>
               </div>

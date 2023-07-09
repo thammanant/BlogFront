@@ -164,7 +164,7 @@ paths:
           name: day
           required: true
           schema:
-            type: string
+            type: integer
         - in: query
           name: selectedMonth
           required: true
@@ -172,19 +172,19 @@ paths:
             $ref: '#/components/schemas/Month'
         - in: query
           name: year
-          required: true
+          required: integer
           schema:
             type: string
         - in: query
           name: hour
-          required: true
+          required: integer
           schema:
             type: string
         - in: query
           name: minute
           required: true
           schema:
-            type: string
+            type: integer
         - in: query
           name: description
           required: true
@@ -227,11 +227,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateViewData'
+                $ref: '#/components/schemas/ViewData'
           description: Edit view data retrieved successfully
       summary: Get the edit view data by by ID
       x-accepts: application/json
-
+      x-content-type: application/json
     put:
       parameters:
         - description: ID of the blog
@@ -246,7 +246,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateViewData'
+              $ref: '#/components/schemas/ViewData'
         required: true
       responses:
         "200":
@@ -264,7 +264,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateViewData'
+                $ref: '#/components/schemas/ViewData'
           description: A list of recent view data
       summary: Return all recent view data
       x-accepts: application/json
@@ -284,11 +284,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateViewData'
+                $ref: '#/components/schemas/ViewData'
           description: Recent view data retrieved successfully
       summary: search the specific blog by its ID
       x-accepts: application/json
-
+      x-content-type: application/json
     delete:
       parameters:
         - description: ID of the recent view data
@@ -303,7 +303,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateViewData'
+              $ref: '#/components/schemas/ViewData'
         required: true
       responses:
         "200":
@@ -313,31 +313,6 @@ paths:
       summary: Delete a specific blog by its ID
       x-content-type: application/json
       x-accepts: application/json
-  /recent-view{categories}:
-#    get count of blogs for a user
-
-
-    #    get:
-#      parameters:
-#        - description: title of the category
-#          explode: false
-#          in: path
-#          name: title
-#          required: true
-#          schema:
-#            type: string
-#          style: simple
-#      responses:
-#        "200":
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/Category'
-#          description: Category return successfully
-#        "404":
-#          description: Category not found
-#      summary: Retrieve a specific category (Search by key of title)
-#      x-accepts: application/json
 
 components:
   schemas:
@@ -389,7 +364,7 @@ components:
         code:
           type: string
       type: object
-    CreateViewData:
+    ViewData:
       example:
         id: id
         title: title
