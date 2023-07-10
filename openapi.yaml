@@ -172,14 +172,14 @@ paths:
             $ref: '#/components/schemas/Month'
         - in: query
           name: year
-          required: integer
+          required: true
           schema:
-            type: string
+            type: integer
         - in: query
           name: hour
-          required: integer
+          required: true
           schema:
-            type: string
+            type: integer
         - in: query
           name: minute
           required: true
@@ -210,28 +210,18 @@ paths:
       summary: Create a new blog
       x-content-type: application/json
       x-accepts: application/json
-  /edit-view/{id}:
-#    update the blog
+  /edit-view:
     get:
-      parameters:
-        - description: ID of the blog
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ViewData'
-          description: Edit view data retrieved successfully
-      summary: Get the edit view data by by ID
+          description: A list of edit view data
+      summary: Return all edit view data
       x-accepts: application/json
-      x-content-type: application/json
+  /edit-view/{id}:
     put:
       parameters:
         - description: ID of the blog

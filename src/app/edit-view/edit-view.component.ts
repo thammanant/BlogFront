@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { Blog } from "../model/blog";
 
 interface Month {
   name: string;
   code: string;
 }
+
 interface Status {
   status: string;
   code: string;
@@ -15,31 +17,28 @@ interface Status {
   templateUrl: './edit-view.component.html',
   styleUrls: ['./edit-view.component.scss']
 })
-export class EditViewComponent implements OnInit{
-  blog : any;
-  text: string = '';
+export class EditViewComponent implements OnInit {
+  blog: any;
   title: string = '';
-  day: string = '';
-  year: string = '';
-  hour: string = '';
-  minute: string = '';
+  id: string = '';
+  sameId: string = '';
   // @ts-ignore
   months: Month[];
   // @ts-ignore
-  selectedMonth:Month;
+  selectedMonth: Month;
   // @ts-ignore
   status: Status[];
-  // @ts-ignore
-  selectedStatus:Status
 
   selectedCategories: any[] = [];
 
   categories: any[] = [];
 
-  constructor(private DataService: DataService) {
-  }
+  isFormValid: boolean = false;
+
+  constructor(private DataService: DataService) {}
+
   ngOnInit() {
-      this.months = [
+    this.months = [
       { name: '01-Jan', code: 'Jan' },
       { name: '02-Feb', code: 'Feb' },
       { name: '03-Mar', code: 'Mar' },
@@ -53,68 +52,104 @@ export class EditViewComponent implements OnInit{
       { name: '11-Nov', code: 'Nov' },
       { name: '12-Dec', code: 'Dec' }
     ];
-      this.status = [
-        {status: 'Published', code: 'Pub'},
-        {status: 'Draft', code: 'Draft'},
-      ]
+    this.status = [
+      { status: 'Published', code: 'Pub' },
+      { status: 'Draft', code: 'Draft' },
+    ];
 
-    //left delete and remove for now
-
-
-
-    // const blogId = 'your-blog-id';
-    // this.blog = this.DataService.getBlogDB(blogId);
-
-
-    //this is hard ceded for testing
+    // this.blog = this.DataService.getBlogFromID(id);
+    // This is hardcoded for testing
     this.blog = {
       id: 'Test-10/Jan/2023-12:30',
       title: 'Test',
+      description: 'Test',
       selectedMonth: this.months[0],
       day: '10',
       year: '2023',
       hour: '12',
       minute: '30',
-      selectedStatus: "Published",
-      selectedCategories: [{title:"fantasy",key:"Fantasy"}]
+      selectedStatus: 'Published',
+      categories: [{ title: 'Fantasy', key: 'fantasy' }]
     };
 
-    this.title = this.blog.title;
-    this.selectedMonth = this.blog.selectedMonth;
-    this.day = this.blog.day;
-    this.year = this.blog.year;
-    this.hour = this.blog.hour;
-    this.minute = this.blog.minute;
-    this.selectedStatus = this.blog.selectedStatus;
-    this.categories = this.blog.selectedCategories;
+    this.sameId = this.blog.id;
+
+    this.blog.selectedCategories = [];
   }
 
+  validateForm(): void {
+    // Check if all required fields are filled
+    this.isFormValid =
+      this.blog.title.trim() !== '' &&
+      this.blog.day.trim() !== '' &&
+      this.blog.selectedMonth !== undefined &&
+      this.blog.year.trim() !== '' &&
+      this.blog.hour.trim() !== '' &&
+      this.blog.minute.trim() !== '' &&
+      this.blog.description.trim() !== '';
 
-  // Dropdown functions
-  func1() {
-    //TODO
+    this.isFormValid =
+      this.isFormValid &&
+      Number(this.blog.day) >= 1 && Number(this.blog.day) <= 31 && // Validate day (1-31)
+      Number(this.blog.hour) >= 0 && Number(this.blog.hour) <= 23 && // Validate hour (0-23)
+      Number(this.blog.minute) >= 0 && Number(this.blog.minute) <= 59 && // Validate minute (0-59)
+      Number(this.blog.year) >= 1900 && Number(this.blog.year) <= 2100;
   }
-  func2() {
-    //TODO
+
+  updatePublishBlog() {
+    this.validateForm();
+
+    if (this.isFormValid) {
+      const id =
+        this.blog.title.replace(/\s+/g, ' ').trim() +
+        '-' +
+        this.blog.day +
+        '/' +
+        this.blog.selectedMonth?.code +
+        '/' +
+        this.blog.year +
+        '-' +
+        this.blog.hour +
+        ':' +
+        this.blog.minute;
+      const blog: Blog = {
+        id: id,
+        title: this.blog.title.replace(/\s+/g, ' ').trim(),
+        date: this.blog.day + '-' + this.blog.selectedMonth?.code + '-' + this.blog.year,
+        time: this.blog.hour + ':' + this.blog.minute,
+        status: 'Publish',
+        description: this.blog.description,
+        categories:
+          this.blog.categories.length === 0 ? ['Uncategorized'] : this.blog.categories
+      };
+
+      console.log('id: ' + id);
+      console.log(blog);
+      console.log('BLOG UPDATED');
+    } else {
+      console.log('PLEASE FILL ALL FIELDS OR CHECK IF DATE AND TIME ARE VALID');
+    }
   }
-  //Editor functions
+
+  removeCategory(category: any) {
+    console.log('Categories:', this.blog.categories);
+    console.log('Selected Categories:', this.blog.selectedCategories);
+    console.log('Category to Remove:', category);
+
+    const categoryKey = category.key;
+
+    this.blog.categories = this.blog.categories.filter(
+      (cat: any) => cat.key !== categoryKey
+    );
+
+    console.log('Updated Categories:', this.blog.categories);
+  }
+
   func3() {
-    //TODO
+    // TODO
   }
-  //Checkbox functions
-  func4() {
-    //TODO
-  }
-  //Button functions
-  func5() {
-    //TODO
-  }
-  func6() {
-    //TODO
-  }
+
   func7() {
-    //TODO
+    // TODO
   }
-
 }
-
