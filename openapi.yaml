@@ -153,6 +153,16 @@ paths:
       x-content-type: application/json
       x-accepts: application/json
   /create-view:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewData'
+          description: A list of create view data
+      summary: Return all create view data
+      x-accepts: application/json
     post:
       parameters:
         - in: query
@@ -258,27 +268,35 @@ paths:
           description: A list of recent view data
       summary: Return all recent view data
       x-accepts: application/json
-  /recent-view{id}:
+  /recent-view/{id}/{categories}/{date}:
     get:
       parameters:
         - description: id of the blog
-          explode: false
           in: path
           name: id
           required: true
           schema:
             type: string
-          style: simple
+        - description: categories of the blog
+          in: path
+          name: categories
+          required: true
+          schema:
+            type: string
+        - description: date of the blog
+          in: path
+          name: date
+          required: true
+          schema:
+            type: string
       responses:
         "200":
+          description: Recent view data retrieved successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ViewData'
-          description: Recent view data retrieved successfully
-      summary: search the specific blog by its ID
-      x-accepts: application/json
-      x-content-type: application/json
+  /recent-view{id}:
     delete:
       parameters:
         - description: ID of the recent view data
@@ -289,12 +307,6 @@ paths:
           schema:
             type: string
           style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewData'
-        required: true
       responses:
         "200":
           description: Recent view data deleted successfully
