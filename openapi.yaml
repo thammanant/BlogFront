@@ -152,7 +152,7 @@ paths:
       summary: Create a new category with a custom key
       x-content-type: application/json
       x-accepts: application/json
-  /create-view:
+  /view:
     get:
       responses:
         "200":
@@ -163,6 +163,16 @@ paths:
           description: A list of create view data
       summary: Return all create view data
       x-accepts: application/json
+  /view/{viewdata}:
+    parameters:
+      - description: viewdata of the blog
+        explode: false
+        in: path
+        name: viewdata
+        required: true
+        schema:
+          type: string
+        style: simple
     post:
       parameters:
         - in: query
@@ -220,18 +230,8 @@ paths:
       summary: Create a new blog
       x-content-type: application/json
       x-accepts: application/json
-  /edit-view:
-    get:
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ViewData'
-          description: A list of edit view data
-      summary: Return all edit view data
-      x-accepts: application/json
-  /edit-view/{id}:
+
+  /view/{id}:
     put:
       parameters:
         - description: ID of the blog
@@ -256,19 +256,25 @@ paths:
       summary: Update the edit view data
       x-content-type: application/json
       x-accepts: application/json
-  /recent-view:
-  #  get all recent blogs for a user
-    get:
+    delete:
+      parameters:
+        - description: ID of the recent view data
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          style: simple
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ViewData'
-          description: A list of recent view data
-      summary: Return all recent view data
+          description: Recent view data deleted successfully
+        "400":
+          description: Invalid request payload
+      summary: Delete a specific blog by its ID
+      x-content-type: application/json
       x-accepts: application/json
-  /recent-view/{id}/{categories}/{date}:
+  /view/{id}/{categories}/{date}:
     get:
       parameters:
         - description: id of the blog
@@ -296,25 +302,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ViewData'
-  /recent-view{id}:
-    delete:
-      parameters:
-        - description: ID of the recent view data
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "200":
-          description: Recent view data deleted successfully
-        "400":
-          description: Invalid request payload
-      summary: Delete a specific blog by its ID
-      x-content-type: application/json
-      x-accepts: application/json
 
 components:
   schemas:

@@ -23,7 +23,7 @@ export class CreateCategoryComponent implements OnInit{
   bulkAction: Action[] = [
     { name: 'Delete', key: 'delete' },
   ];
-  selectedAction: Action[] = [];
+  selectedAction: Action = { name: '', key: 'none' };
   selectedCategories: any[] = [];
 
   searchCat: string = "";
@@ -54,16 +54,6 @@ export class CreateCategoryComponent implements OnInit{
       this.updateCategories(filteredCategories);
     });
   }
-
-  // async checkCategoryCount(categoryKey: string): Promise<number> {
-  //   try {
-  //     const count = await this.DataService.getAllCategoriesOfBlogDB(categoryKey);
-  //     return count;
-  //   } catch (error) {
-  //     console.error(error);
-  //     return 0;
-  //   }
-  // }
 
   updateCategories(categories: any[]): void {
     this.categories = categories;
@@ -118,10 +108,8 @@ export class CreateCategoryComponent implements OnInit{
   deleteCategory(): void {
     console.log('Selected cat:', this.selectedCategories);
     console.log('Selected Action:', this.selectedAction);
-    console.log('Selected Action Key:', this.selectedAction[0]?.key);
 
-    if (this.selectedAction[0]?.key === 'delete') {
-
+    if (this.selectedAction.key === 'delete') {
       // Check if the user has selected any category
       if (this.selectedCategories.length === 0) {
         console.log('Please select at least one category to delete.');

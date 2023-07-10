@@ -69,7 +69,7 @@ export class EditViewComponent implements OnInit {
       hour: '12',
       minute: '30',
       selectedStatus: 'Published',
-      categories: [{ title: 'Fantasy', key: 'fantasy' }]
+      categories: [{ title: 'Fantasy', key: 'fantasy' }, { title: 'Sci-Fi', key: 'scifi' }, { title: 'Horror', key: 'horror' }]
     };
 
     this.sameId = this.blog.id;
@@ -136,11 +136,12 @@ export class EditViewComponent implements OnInit {
     console.log('Selected Categories:', this.blog.selectedCategories);
     console.log('Category to Remove:', category);
 
-    const categoryKey = category.key;
+    const remove = this.blog.selectedCategories
 
-    this.blog.categories = this.blog.categories.filter(
-      (cat: any) => cat.key !== categoryKey
-    );
+    this.blog.categories = this.blog.categories.filter((item: any) => {
+      return !remove.includes(item);
+    });
+
 
     console.log('Updated Categories:', this.blog.categories);
   }

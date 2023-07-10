@@ -41,7 +41,8 @@ export class DataService {
     const db = getDatabase();
     const categoryRef = ref(db, 'categories/' + title.replace(/\s+/g, ' ').toLowerCase().trim());
     set(categoryRef, {
-      title: title.replace(/\s+/g, ' ').trim()
+      title: title.replace(/\s+/g, ' ').trim(),
+      count:0
     }).then(r => console.log('success'));
   }
 

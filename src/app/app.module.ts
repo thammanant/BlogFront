@@ -18,6 +18,8 @@ import {CreateViewModule} from "./create-view/create-view.module";
 import { CheckboxModule } from 'primeng/checkbox';
 import {environment} from "src/environments/environment";
 import { initializeApp } from "@firebase/app";
+import { AngularFireModule } from '@angular/fire/compat';
+import { provideFirebaseApp } from '@angular/fire/app';
 import { getDatabase } from "@firebase/database";
 
 const firebaseConfig = {
@@ -31,13 +33,10 @@ const firebaseConfig = {
   measurementId: "G-XV786L6SPC"
 }
 import {RecentViewModule} from "./recent-view/recent-view.module";
-import transformJavaScript
-  from "@angular-devkit/build-angular/src/builders/browser-esbuild/javascript-transformer-worker";
 
 // Initialize Firebase
 const app = initializeApp(environment.firebaseConfig);
-// Initialize Realtime Database and get a reference to the service
-const database = getDatabase(app);
+
 
 // @ts-ignore
 @NgModule({
@@ -58,6 +57,8 @@ const database = getDatabase(app);
     CreateViewModule,
     RecentViewModule,
     CheckboxModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), // Update this line
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]

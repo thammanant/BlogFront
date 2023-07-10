@@ -105,7 +105,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/firebase/firebase.js"
+            ]
           }
         },
         "deploy": {
