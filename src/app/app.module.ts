@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,8 +57,9 @@ const app = initializeApp(environment.firebaseConfig);
     CreateCategoryModule,
     CreateViewModule,
     RecentViewModule,
+    HttpClientModule,
     CheckboxModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), // Update this line
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],

@@ -69,7 +69,7 @@ export class EditViewComponent implements OnInit {
       hour: '12',
       minute: '30',
       selectedStatus: 'Published',
-      categories: [{ title: 'Fantasy', key: 'fantasy' }, { title: 'Sci-Fi', key: 'scifi' }, { title: 'Horror', key: 'horror' }]
+      categories: [{ title: 'Fantasy'}, { title: 'Sci-Fi'}, { title: 'Horror'}]
     };
 
     this.sameId = this.blog.id;
@@ -132,9 +132,9 @@ export class EditViewComponent implements OnInit {
   }
 
   removeCategory(category: any) {
-    console.log('Categories:', this.blog.categories);
-    console.log('Selected Categories:', this.blog.selectedCategories);
-    console.log('Category to Remove:', category);
+    // console.log('Categories:', this.blog.categories);
+    // console.log('Selected Categories:', this.blog.selectedCategories);
+    // console.log('Category to Remove:', category);
 
     const remove = this.blog.selectedCategories
 
@@ -142,8 +142,7 @@ export class EditViewComponent implements OnInit {
       return !remove.includes(item);
     });
 
-
-    console.log('Updated Categories:', this.blog.categories);
+    // console.log('Updated Categories:', this.blog.categories);
   }
 
   func3() {

@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { getDatabase, ref, child, get, set} from "firebase/database";
 import {Blog} from "../model/blog";
 import {remove, update} from "@angular/fire/database";
+import {from, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
-  constructor() {
-  }
 
   // I want to get the specific blog from the database
   getBlogDB(id: string) {
@@ -46,18 +44,17 @@ export class DataService {
     }).then(r => console.log('success'));
   }
 
-  getAllBlogsDB() {
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `blog`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-        return snapshot.val();
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-        console.error(error);
-      }
+  getAllBlogsDB(): Observable<any[]> {
+    return from(
+      get(child(ref(getDatabase()), 'blog')).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          return snapshot.val();
+        } else {
+          console.log('No data available');
+          return [];
+        }
+      })
     );
   }
 
@@ -194,6 +191,68 @@ export class DataService {
         console.error(error);
       }
     );
+  }
+
+  async updateCategoryCountForSelected(selectedCategories: any[], countToAdd: number) {
+    const db = getDatabase();
+    const validCategories = selectedCategories.filter((category) => category && category.title);
+
+    const updatePromises = validCategories.map(async (category) => {
+      const categoryRef = ref(db, 'categories/' + category.title.toLowerCase().trim());
+      try {
+        // Fetch the current category from the database
+        const snapshot = await get(categoryRef);
+        const currentCategory = snapshot.val();
+
+        if (currentCategory) {
+          // Update the count by adding countToAdd
+          const newCount = (currentCategory.count || 0) + countToAdd;
+
+          // Set the updated count back to the database
+          await set(categoryRef, {
+            ...currentCategory,
+            count: newCount,
+          });
+
+          console.log('Category count updated:', currentCategory.title, 'New Count:', newCount);
+        }
+      } catch (error) {
+        console.error('Error updating category count:', category.title, error);
+      }
+    });
+
+    try {
+      // Wait for all the update promises to complete
+      await Promise.all(updatePromises);
+    } catch (error) {
+      console.error('Error updating category counts:', error);
+    }
+  }
+
+  async checkIfBlogExists(title: string, date: string): Promise<boolean> {
+    const db = getDatabase();
+    const blogsRef = ref(db, 'blog'); // Use 'blog' instead of 'blogs' since that's the key for the blogs node
+
+    try {
+      const snapshot = await get(blogsRef);
+      const blogs = snapshot.val();
+
+      if (blogs) {
+        // Loop through each blog in the database
+        for (const blogId in blogs) {
+          const blog: Blog = blogs[blogId];
+
+          // Check if the blog has the same title and date as the one we are trying to create
+          if (blog['title'] === title && blog['date'] === date) {
+            return true; // Blog with the same title and date already exists
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error checking if blog exists:', error);
+    }
+
+    return false; // Blog with the same title and date does not exist
   }
 
 }

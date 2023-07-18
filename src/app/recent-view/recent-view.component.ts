@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: 'app-recent-view',
@@ -39,11 +40,23 @@ export class RecentViewComponent implements OnInit{
   ];
   selectedAction2: any[] = [];
 
+  constructor(private dataService: DataService) {}
+
+
   formGroup!: FormGroup;
   ngOnInit() {
     this.formGroup = new FormGroup({
       checkbox1: new FormControl<string | null>(null)
     });
+
+    // this.dataService.getAllBlogsDB().subscribe(
+    //   (data: any[]) => {
+    //     this.blogs = data;
+    //   },
+    //   (error: any) => {
+    //     console.error('Failed to fetch blog data:', error);
+    //   }
+    // );
   }
   //Button function
   func1() {

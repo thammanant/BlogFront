@@ -11,7 +11,6 @@ import {DropdownModule} from "primeng/dropdown";
 import {CheckboxModule} from "primeng/checkbox";
 
 
-
 @NgModule({
   declarations: [
     EditViewComponent
