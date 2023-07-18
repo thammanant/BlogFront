@@ -144,15 +144,8 @@ export class CreateCategoryComponent implements OnInit{
     this.categoryService.fetchCategoriesFromDatabase();
     this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
-    });
 
-      // Check if the categories array is empty or not after get the data from the database
-      if (this.categories.length === 0) {
-        this.createUncategorizedCategory();
-      } else {
-        console.log('Categories Length:', this.categories.length)
-        console.log('Categories:', this.categories)
-      }
+    });
 
     this.formGroup = this.formBuilder.group({
       nameCheckbox: new FormControl(false),
@@ -191,15 +184,5 @@ export class CreateCategoryComponent implements OnInit{
         }
       });
     }
-  }
-
-  createUncategorizedCategory(): void {
-    const existingUncategorized = this.categories.find(category => category.title.toLowerCase() === 'uncategorized');
-    if (!existingUncategorized) {
-      const uncategorized = { title: 'Uncategorized'};
-      this.DataService.createCategoryDB(uncategorized.title);
-      console.log('New category created:', uncategorized);
-    }
-    this.title = ''; // Reset the title property
   }
 }
