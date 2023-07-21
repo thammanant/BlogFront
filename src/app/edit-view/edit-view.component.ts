@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { Blog } from "../model/blog";
+import { Router } from '@angular/router';
+
 
 interface Month {
   name: string;
@@ -35,7 +37,7 @@ export class EditViewComponent implements OnInit {
 
   isFormValid: boolean = false;
 
-  constructor(private DataService: DataService) {}
+  constructor(private DataService: DataService, private router: Router) {}
 
   ngOnInit() {
     this.months = [
@@ -147,7 +149,7 @@ export class EditViewComponent implements OnInit {
     // TODO
   }
 
-  func7() {
-    // TODO
+  toRecentBlogs()  {
+    this.router.navigate(['/recent']);
   }
 }

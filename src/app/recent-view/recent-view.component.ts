@@ -4,6 +4,10 @@ import {DataService} from "../services/data.service";
 import {CategoryService} from "../services/category.service";
 import { Router } from '@angular/router';
 
+interface Action {
+  name: string;
+  key: string;
+}
 
 @Component({
   selector: 'app-recent-view',
@@ -13,11 +17,11 @@ import { Router } from '@angular/router';
 export class RecentViewComponent implements OnInit{
   Allcount: number = 0;
   Publishedcount: number = 0;
-  bulkAction: any[] = [
+  bulkAction: Action[] = [
     { name: 'Edit', key: 'edit' },
     { name: 'Move to Trash', key: 'trash' },
   ];
-  selectedAction: any[] = [];
+  selectedAction: Action = { name: '', key: 'none' };
 
   allDates: any[] = [
     { name: 'All Date', key: 'alldate' },
@@ -32,11 +36,11 @@ export class RecentViewComponent implements OnInit{
   selectedBlog: any[] = [];
   blogs: any[] = [];
   db_blogs: any[] = [];
-  bulkAction2: any[] = [
+  bulkAction2: Action[] = [
     { name: 'Edit', key: 'edit' },
     { name: 'Move to Trash', key: 'trash' },
   ];
-  selectedAction2: any[] = [];
+  selectedAction2: Action[] = [];
 
   constructor(private dataService: DataService, private categoryService: CategoryService,private router: Router) {
   }
@@ -127,10 +131,24 @@ export class RecentViewComponent implements OnInit{
     this.router.navigate(['/category']);
   }
 
-  //Checkbox function
-  func9() {
-    //TODO
+  toEditView() {
+      this.router.navigate(['/edit']);
   }
+
+  applyBulkAction() {
+    if (this.selectedAction.key === 'trash') {
+      this.selectedBlog.forEach((blog: any) => {
+        this.dataService.deleteBlogDB(blog.id);
+      });
+    }
+    else if (this.selectedBlog.length == 1 && this.selectedAction.key === 'edit') {
+      this.toEditView();
+    }
+    else {
+      console.log('Please select a valid action && Please select only one blog if you want to edit');
+    }
+  }
+
   func10() {
     //TODO
   }
