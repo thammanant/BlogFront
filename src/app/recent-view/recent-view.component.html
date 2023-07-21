@@ -23,11 +23,11 @@
       <span id="pub"> {{Publishedcount}} </span>
     </div>
     <div class="col-4">
-      <input pInputText type="text" class="p-inputtext-sm" placeholder="Search by ID" [(ngModel)]="searchQuery" (input)="applySearch()" style="width: 100%" />
+      <input pInputText type="text" class="p-inputtext-sm" placeholder="Search by ID" [(ngModel)]="searchQuery" style="width: 100%" />
     </div>
     <!--Search Posts Button-->
     <div class="col-2">
-      <p-button label="Search Posts" styleClass="p-button-outlined p-button-info" (onClick)="func4()"></p-button>
+      <p-button label="Search Posts" styleClass="p-button-outlined p-button-info" (onClick)="applySearch()"></p-button>
     </div>
   </div>
   <!--Dropdown and Button-->

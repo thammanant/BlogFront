@@ -28,6 +28,8 @@ export class RecentViewComponent implements OnInit{
   ];
   selectedDate: any[] = [];
 
+  originalAllCount: number = 0;
+
   allCategories: any[] = [
     { title: 'All Categories', key: 'allcategories' },
   ];
@@ -35,12 +37,6 @@ export class RecentViewComponent implements OnInit{
 
   selectedBlog: any[] = [];
   blogs: any[] = [];
-  db_blogs: any[] = [];
-  bulkAction2: Action[] = [
-    { name: 'Edit', key: 'edit' },
-    { name: 'Move to Trash', key: 'trash' },
-  ];
-  selectedAction2: Action[] = [];
 
   constructor(private dataService: DataService, private categoryService: CategoryService,private router: Router) {
   }
@@ -60,6 +56,15 @@ export class RecentViewComponent implements OnInit{
       }
     );
 
+    this.dataService.allDates$.subscribe(
+      (dates: any[]) => {
+        // Add the fetched dates to the allDates array
+        this.allDates = this.allDates.concat(dates);
+      }
+    );
+
+
+
     this.dataService.getAllBlogsDB().subscribe(
       (data: any) => {
         this.blogs = Object.values(data).map((blog: any) => {
@@ -73,12 +78,14 @@ export class RecentViewComponent implements OnInit{
             }
           }
 
-          this.Allcount += 1;
+          this.originalAllCount += 1;
 
-          if (blog.status === "Publish")
-            this.Publishedcount += 1;
           return blog;
         });
+
+        this.Allcount = this.originalAllCount;
+
+        this.Publishedcount = this.blogs.filter((blog: any) => blog.status === 'Publish').length;
       },
       (error: any) => {
         console.error('Failed to fetch blog data:', error);
@@ -88,9 +95,30 @@ export class RecentViewComponent implements OnInit{
 
   searchQuery: string = '';
 
+
   applySearch() {
     if (this.searchQuery.trim() === '') {
-      this.blogs = this.blogs; // This line is not necessary, you can remove it
+      this.dataService.getAllBlogsDB().subscribe(
+        (data: any) => {
+          this.blogs = Object.values(data).map((blog: any) => {
+            if (Array.isArray(blog.categories)) {
+              if (blog.categories.length <= 2) {
+                blog.categories = blog.categories.map((category: any) => category.title).join(', ');
+              } else {
+                // If there are more than two categories, display the first two followed by ", ... so html won't break"
+                const categoryTitles = blog.categories.slice(0, 2).map((category: any) => category.title);
+                blog.categories = categoryTitles.join(', ') + ', ...';
+              }
+            }
+            return blog;
+          });
+          this.Allcount = this.originalAllCount;
+
+          this.Publishedcount = this.blogs.filter((blog: any) => blog.status === 'Publish').length;
+        },
+      );
+
+
     } else {
       const searchQueryLowerCase = this.searchQuery.trim().toLowerCase();
       this.blogs = this.blogs.filter((blog: any) => blog.id.toLowerCase().includes(searchQueryLowerCase));
@@ -107,15 +135,8 @@ export class RecentViewComponent implements OnInit{
   func3() {
     //TODO
   }
-  func4() {
-    //TODO
-  }
-  func6() {
-    //TODO
-  }
-  func13() {
-    //TODO
-  }
+
+
   //Dropdown function
   func5() {
     //TODO
@@ -124,15 +145,15 @@ export class RecentViewComponent implements OnInit{
     //TODO
   }
   toCreateView() {
-    this.router.navigate(['/create']);
+    this.router.navigate(['/create']).then(r => console.log(r));
   }
 
   toCategoryView() {
-    this.router.navigate(['/category']);
+    this.router.navigate(['/category']).then(r => console.log(r));
   }
 
   toEditView() {
-      this.router.navigate(['/edit']);
+      this.router.navigate(['/edit']).then(r => console.log(r));
   }
 
   applyBulkAction() {

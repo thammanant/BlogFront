@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { getDatabase, ref, child, get, set} from "firebase/database";
 import {Blog} from "../model/blog";
 import {remove, update} from "@angular/fire/database";
-import {from, Observable, BehaviorSubject} from "rxjs";
+import {from, Observable, BehaviorSubject, Subject} from "rxjs";
 import {onValue} from "@firebase/database";
 
 
@@ -12,9 +12,12 @@ import {onValue} from "@firebase/database";
 export class DataService {
   private allCategoriesSubject = new BehaviorSubject<any[]>([]);
   public allCategories$: Observable<any[]> = this.allCategoriesSubject.asObservable();
+  private allDatesSource = new Subject<any[]>();
+  allDates$ = this.allDatesSource.asObservable();
 
   constructor() {
     this.fetchAllCategoriesFromDatabase();
+    this.fetchAllDatesFromDatabase();
   }
 
   private fetchAllCategoriesFromDatabase(): void {
@@ -40,7 +43,32 @@ export class DataService {
     });
   }
 
-  // I want to get the specific blog from the database
+  private fetchAllDatesFromDatabase(): void {
+    const db = getDatabase();
+    const blogsRef = ref(db, 'blog'); // Reference to the 'blog' node
+
+    onValue(blogsRef, (snapshot) => {
+      const dates: any[] = [];
+      if (snapshot.exists()) {
+        const blogs = snapshot.val();
+        for (const key in blogs) {
+          const blog = blogs[key];
+          const date = blog.date; // Assuming the date property exists in each blog
+          if (date && !dates.includes(date)) {
+            dates.push(date);
+          }
+        }
+      }
+
+      console.log('Dates:', dates);
+      // Emit the unique dates through the allDatesSource
+      this.allDatesSource.next(dates);
+    }, (error) => {
+      console.error('Failed to fetch dates:', error);
+      this.allDatesSource.next([]);
+    });
+  }
+
   getBlogDB(id: string) {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `blog/${id}`)).then((snapshot) => {
