@@ -23,9 +23,7 @@ export class RecentViewComponent implements OnInit{
   ];
   selectedAction: Action = { name: '', key: 'none' };
 
-  allDates: any[] = [
-    { name: 'All Date', key: 'alldate' },
-  ];
+  allDates: any[] = ['All Date'];
   selectedDate: any[] = [];
 
   originalAllCount: number = 0;

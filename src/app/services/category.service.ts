@@ -9,9 +9,12 @@ import { DataService } from './data.service';
 export class CategoryService {
   private categories: any[] = [];
   public categories$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private dates: any[] = [];
+  public dates$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   constructor(private DataService:DataService) {
     this.fetchCategoriesFromDatabase();
+    this.fetchDateFromDatabase();
   }
 
   fetchCategoriesFromDatabase(): void {
@@ -27,6 +30,20 @@ export class CategoryService {
 
     });
   }
+
+  //fetch date from database
+  fetchDateFromDatabase(): void {
+    const dbRef = ref(getDatabase(), 'blog');
+    onValue(dbRef, (snapshot: DataSnapshot) => {
+      const dates: any[] = [];
+      snapshot.forEach((childSnapshot: DataSnapshot) => {
+        const date = childSnapshot.val();
+        dates.push(date);
+      });
+      this.updateCategories(dates);   //update dates
+    });
+  }
+
   createUncategorizedCategory(): void {
     const existingUncategorized = this.categories.find(category => category.title.toLowerCase() === 'uncategorized');
     if (!existingUncategorized) {
@@ -37,7 +54,6 @@ export class CategoryService {
   }
 
   private performOnInitLogic(): void {
-    // Check if the categories array is empty or not after getting the data from the database
     if (this.categories.length === 0) {
       this.createUncategorizedCategory();
     }
@@ -47,4 +63,10 @@ export class CategoryService {
     this.categories = categories;
     this.categories$.next(this.categories);
   }
+
+  private updateDates(dates: any[]): void {
+    this.dates = dates;
+    this.dates$.next(this.dates);
+  }
+
 }

@@ -160,4 +160,7 @@ export class CreateViewComponent implements OnInit {
     }
   }
 
+  toRecentView(){
+    this.router.navigate(['/recent']);
+  }
 }
