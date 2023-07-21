@@ -17,11 +17,10 @@ import { EditViewModule } from "./edit-view/edit-view.module";
 import {CreateCategoryModule} from "./create-category/create-category.module";
 import {CreateViewModule} from "./create-view/create-view.module";
 import { CheckboxModule } from 'primeng/checkbox';
-import {environment} from "src/environments/environment";
+import { environment } from "src/environments/environment";
 import { initializeApp } from "@firebase/app";
 import { AngularFireModule } from '@angular/fire/compat';
-import { provideFirebaseApp } from '@angular/fire/app';
-import { getDatabase } from "@firebase/database";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4eLDyg7r6SdkSL5J4SewsmfS6FoLre7s",
@@ -34,12 +33,13 @@ const firebaseConfig = {
   measurementId: "G-XV786L6SPC"
 }
 import {RecentViewModule} from "./recent-view/recent-view.module";
+import {RecentViewComponent} from "./recent-view/recent-view.component";
+import {CreateCategoryComponent} from "./create-category/create-category.component";
+import {EditViewComponent} from "./edit-view/edit-view.component";
 
 // Initialize Firebase
 const app = initializeApp(environment.firebaseConfig);
 
-
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,9 +59,8 @@ const app = initializeApp(environment.firebaseConfig);
     RecentViewModule,
     HttpClientModule,
     CheckboxModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-  ],
+],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 
+
 interface Action {
   name: string;
   key: string;
@@ -28,7 +29,6 @@ export class CreateCategoryComponent implements OnInit{
 
   searchCat: string = "";
   categories: any[] = []
-  status_check: boolean = false;        //for the name checkbox
   private categoriesSubscription: Subscription | undefined;
 
 
@@ -42,15 +42,13 @@ export class CreateCategoryComponent implements OnInit{
     this.categoriesSubscription = this.categoryService.categories$.subscribe((categories: any[]) => {
       this.categories = categories;
 
-      // Perform the search based on the searchCat value
+      // search related to searchCat
       const searchQuery = this.searchCat.replace(/\s+/g, ' ').trim().toLowerCase();
 
-      // Filter the categories based on the search query
       const filteredCategories = this.categories.filter(category =>
         category.title.replace(/\s+/g, ' ').toLowerCase().trim().includes(searchQuery)
       );
 
-      // Update the categories array with the filtered results
       this.updateCategories(filteredCategories);
     });
   }
@@ -100,9 +98,8 @@ export class CreateCategoryComponent implements OnInit{
     console.log('New category created:', newCategory);
     this.title = ''; // Reset the title property
   }
-  goToRecentView():void {         //not work yet
-    this.router.navigate(['/recent-view']).then(r => console.log(r));
-    // window.history.back();
+  goToRecentView(): void {
+    this.router.navigate(['/recent']);
   }
 
   deleteCategory(): void {
@@ -136,6 +133,8 @@ export class CreateCategoryComponent implements OnInit{
   }
 
   formGroup!: FormGroup;
+  status_check: boolean = false;        //for the name checkbox
+
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -156,33 +155,28 @@ export class CreateCategoryComponent implements OnInit{
     const anotherCheckbox = this.formGroup.get('anotherCheckbox');
 
     if (nameCheckbox && anotherCheckbox) {
-      nameCheckbox.valueChanges.subscribe(nameValue => {
+      this.formGroup.valueChanges.subscribe(formValue => {
         if (!this.status_check) {
-          if (nameValue) {
+          if (formValue.nameCheckbox) {
+            this.status_check = true;
             anotherCheckbox.setValue(true);
+          } else if (formValue.anotherCheckbox) {
             this.status_check = true;
-          }
-        } else {
-          if (!nameValue || !anotherCheckbox.value) {
-            anotherCheckbox.setValue(false);
-            this.status_check = false;
-          }
-        }
-      });
-
-      anotherCheckbox.valueChanges.subscribe(anotherValue => {
-        if (!this.status_check) {
-          if (anotherValue) {
             nameCheckbox.setValue(true);
-            this.status_check = true;
           }
         } else {
-          if (!anotherValue || !nameCheckbox.value) {
-            nameCheckbox.setValue(false);
+          if (!formValue.nameCheckbox || !formValue.anotherCheckbox) {
             this.status_check = false;
+            nameCheckbox.setValue(false);
+            anotherCheckbox.setValue(false);
           }
         }
       });
     }
+
+    this.categoryService.fetchCategoriesFromDatabase();
+    this.categoriesSubscription = this.categoryService.categories$.subscribe((categories: any[]) => {
+      this.categories = categories;
+    });
   }
 }

@@ -40,9 +40,6 @@ export class CategoryService {
     // Check if the categories array is empty or not after getting the data from the database
     if (this.categories.length === 0) {
       this.createUncategorizedCategory();
-    } else {
-      console.log('Categories Length:', this.categories.length)
-      console.log('Categories:', this.categories)
     }
   }
 

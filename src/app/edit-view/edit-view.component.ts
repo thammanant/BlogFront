@@ -104,9 +104,7 @@ export class EditViewComponent implements OnInit {
         this.blog.title.replace(/\s+/g, ' ').trim() +
         '-' +
         this.blog.day +
-        '/' +
         this.blog.selectedMonth?.code +
-        '/' +
         this.blog.year +
         '-' +
         this.blog.hour +
@@ -120,7 +118,7 @@ export class EditViewComponent implements OnInit {
         status: 'Publish',
         description: this.blog.description,
         categories:
-          this.blog.categories.length === 0 ? ['Uncategorized'] : this.blog.categories
+          this.blog.categories.length === 0 ? [{title:"Uncategorized"}] : this.blog.categories
       };
 
       console.log('id: ' + id);

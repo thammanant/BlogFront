@@ -7,7 +7,7 @@
     </h3>
     <!--Add new Button-->
     <div class="col-2">
-      <p-button label="Add New" styleClass="p-button-outlined p-button-info" (onClick)="func1()"></p-button>
+      <p-button label="Add New" styleClass="p-button-outlined p-button-info" (onClick)="toCreateView()"></p-button>
     </div>
   </div>
   <!--All, Published label and Search posts Button-->
@@ -16,14 +16,14 @@
     <div class="col-6">
       <p-button label="All" styleClass="p-button-link" (onClick)="func2()"></p-button>
       <label style="padding-bottom: 2%">
-        <span id="all">0</span>
+        <span id="all"> {{Allcount}} </span>
         |
       </label>
       <p-button label="Published" styleClass="p-button-link" (onClick)="func3()"></p-button>
-      <span id="pub">0</span>
+      <span id="pub"> {{Publishedcount}} </span>
     </div>
     <div class="col-4">
-      <input pInputText pKeyFilter="int" placeholder="" style="width: 100%"/>
+      <input pInputText type="text" class="p-inputtext-sm" placeholder="Search by ID" [(ngModel)]="searchQuery" (input)="applySearch()" style="width: 100%" />
     </div>
     <!--Search Posts Button-->
     <div class="col-2">
@@ -46,11 +46,11 @@
     </div>
     <!--Dropdown 3-->
     <div class="col-2 align-self-center">
-      <p-dropdown [options]="allCategories" [(ngModel)]="selectedCat" optionLabel="name" (onChange)="func8()"></p-dropdown>
+      <p-dropdown [options]="allCategories" [(ngModel)]="selectedCat" optionLabel="title" [inputId]="'categoryDropdown'"></p-dropdown>
     </div>
     <!--Button 2-->
     <div class="col-2 align-self-center">
-      <p-button label="Add category" styleClass="p-button-outlined p-button-info" (onClick)="func14()"></p-button>
+      <p-button label="Add category" styleClass="p-button-outlined p-button-info" (onClick)="toCategoryView()"></p-button>
     </div>
   </div>
   <!--Normal checkbox-->
@@ -107,7 +107,7 @@
   <div class="row" style="margin-top: 3%">
     <!--Dropdown 1-->
     <div class="col-2 align-self-center">
-      <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name" (onChange)="func12()"></p-dropdown>
+      <p-dropdown [options]="bulkAction2" [(ngModel)]="selectedAction2" placeholder="Bulk Actions" optionLabel="name" ></p-dropdown>
     </div>
     <!--Button 1-->
     <div class="col-1 align-self-center">

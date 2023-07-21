@@ -2,12 +2,43 @@ import { Injectable } from '@angular/core';
 import { getDatabase, ref, child, get, set} from "firebase/database";
 import {Blog} from "../model/blog";
 import {remove, update} from "@angular/fire/database";
-import {from, Observable} from "rxjs";
+import {from, Observable, BehaviorSubject} from "rxjs";
+import {onValue} from "@firebase/database";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  private allCategoriesSubject = new BehaviorSubject<any[]>([]);
+  public allCategories$: Observable<any[]> = this.allCategoriesSubject.asObservable();
+
+  constructor() {
+    this.fetchAllCategoriesFromDatabase();
+  }
+
+  private fetchAllCategoriesFromDatabase(): void {
+    const db = getDatabase();
+    const categoriesRef = ref(db, 'categories');
+
+    onValue(categoriesRef, snapshot => {
+      const categories: any[] = [];
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        for (const key in data) {
+          categories.push(data[key]);
+        }
+      }
+
+      // Add the "All Categories" option to the beginning of the categories array
+      const categoriesWithAllOption = [...categories];
+
+      this.allCategoriesSubject.next(categoriesWithAllOption);
+    }, error => {
+      console.error('Failed to fetch categories:', error);
+      this.allCategoriesSubject.next([]);
+    });
+  }
 
   // I want to get the specific blog from the database
   getBlogDB(id: string) {
@@ -48,7 +79,6 @@ export class DataService {
     return from(
       get(child(ref(getDatabase()), 'blog')).then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
           return snapshot.val();
         } else {
           console.log('No data available');
@@ -56,48 +86,6 @@ export class DataService {
         }
       })
     );
-  }
-
-  // getAllCategoriesDB() {
-  //   const dbRef = ref(getDatabase());
-  //   get(child(dbRef, `categories`)).then((snapshot) => {
-  //     if (snapshot.exists()) {
-  //       console.log(snapshot.val());
-  //       return snapshot.val();
-  //     } else {
-  //       console.log("No data available");
-  //     }
-  //   }).catch((error) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
-
-  //get all categories of each blog by category key
-  getAllCategoriesOfBlogDB(categoryKey: string): Promise<number> {
-    const dbRef = ref(getDatabase());
-    return new Promise<number>((resolve, reject) => {
-      get(child(dbRef, 'blog')).then((snapshot) => {
-        if (snapshot.exists()) {
-          const blogs = snapshot.val();
-          const count = Object.values(blogs).reduce((accumulator: number, blog: any) => {
-            if (blog.category && blog.category.key === categoryKey) {
-              return accumulator + 1;
-            }
-            return accumulator;
-          }, 0);
-
-          console.log(count);
-          resolve(count);
-        } else {
-          console.log('No data available');
-          resolve(0);
-        }
-      }).catch((error) => {
-        console.error(error);
-        reject(error);
-      });
-    });
   }
 
 

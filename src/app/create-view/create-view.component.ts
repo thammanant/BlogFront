@@ -76,12 +76,16 @@ export class CreateViewComponent implements OnInit {
     this.validateForm();
 
     if (this.isFormValid) {
-      const id = this.title.replace(/\s+/g, ' ').trim() + '-' + this.day + this.selectedMonth?.code + this.year + '-' + this.hour + ':' + this.minute;
+      const dayFormatted = Number(this.day) < 10 ? '0' + this.day : this.day.toString();
+      const hourFormatted = Number(this.hour) < 10 ? '0' + this.hour : this.hour.toString();
+      const minuteFormatted = Number(this.minute) < 10 ? '0' + this.minute : this.minute.toString();
+
+      const id = this.title.replace(/\s+/g, ' ').trim() + '-' + dayFormatted + this.selectedMonth?.code + this.year + '-' + hourFormatted + ':' + minuteFormatted;
       const blog: Blog = {
         id: id,
         title: this.title.replace(/\s+/g, ' ').trim(),
-        date: this.day + this.selectedMonth?.code + this.year,
-        time: this.hour + ':' + this.minute,
+        date: dayFormatted + this.selectedMonth?.code + this.year,
+        time: hourFormatted + ':' + minuteFormatted,
         status: "Draft",
         description: this.description,
         categories: this.selectedCategories.length === 0 ? [{ title: 'Uncategorized'}] : this.selectedCategories
@@ -116,17 +120,41 @@ export class CreateViewComponent implements OnInit {
     this.validateForm();
 
     if (this.isFormValid) {
-      const id = this.title.replace(/\s+/g, ' ').trim() + '-' + this.day + this.selectedMonth?.code + this.year + '-' + this.hour + ':' + this.minute;
+      const dayFormatted = Number(this.day) < 10 ? '0' + this.day : this.day.toString();
+      const hourFormatted = Number(this.hour) < 10 ? '0' + this.hour : this.hour.toString();
+      const minuteFormatted = Number(this.minute) < 10 ? '0' + this.minute : this.minute.toString();
+
+      const id = this.title.replace(/\s+/g, ' ').trim() + '-' + dayFormatted + this.selectedMonth?.code + this.year + '-' + hourFormatted + ':' + minuteFormatted;
       const blog: Blog = {
         id: id,
         title: this.title.replace(/\s+/g, ' ').trim(),
-        date: this.day + this.selectedMonth?.code + this.year,
-        time: this.hour + ':' + this.minute,
+        date: dayFormatted + this.selectedMonth?.code + this.year,
+        time: hourFormatted + ':' + minuteFormatted,
         status: "Publish",
         description: this.description,
-        categories: this.selectedCategories.length === 0 ? ["Uncategorized"] : this.selectedCategories
+        categories: this.selectedCategories.length === 0 ? [{ title: "Uncategorized" }] : this.selectedCategories
       };
-      this.DataService.createBlogDB(blog);
+      this.DataService.checkIfBlogExists(blog.title, blog.date).then((exists: boolean) => {
+        if (exists) {
+          console.log("Blog with the same title and date already exists. Not creating a new blog.");
+        } else {
+          // Create a new blog only if a blog with the same title and date does not exist
+          this.DataService.createBlogDB(blog);
+
+          const hasUncategorized = this.selectedCategories.some((cat) => cat.title === 'Uncategorized');
+
+          // If "Uncategorized" is not in the selectedCategories array, update uncategorized by 1
+          if (this.selectedCategories.length === 0 || (this.selectedCategories.length === 1 && hasUncategorized)){
+            this.DataService.updateCategoryCountForSelected([{ title: "Uncategorized" }], 1);
+          }
+
+          // Update the count for each selected category (excluding "Uncategorized") by 1
+          const selectedCategoriesWithoutUncategorized = this.selectedCategories.filter((category) => category.title !== "Uncategorized");
+          this.DataService.updateCategoryCountForSelected(selectedCategoriesWithoutUncategorized, 1);
+
+          this.selectedCategories = [];
+        }
+      });
     } else {
       console.log("PLEASE FILL ALL FIELDS OR CHECK IF DATE AND TIME ARE VALID ");
     }
